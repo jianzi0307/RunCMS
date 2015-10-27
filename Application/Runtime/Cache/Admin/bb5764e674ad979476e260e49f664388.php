@@ -176,8 +176,6 @@
                 
     <!-- BEGIN DASHBOARD STATS -->
     <div class="row-fluid">
-        <div style=" width:100%;height:600px;background:url('/assets/<?php echo (C("DEFAULT_THEME")); ?>/image/bg/system_index_background.png') 50% 0% no-repeat">
-        </div>
     </div>
     <!-- END DASHBOARD STATS -->
     <div class="clearfix"></div>
@@ -231,38 +229,9 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="/assets/<?php echo (C("DEFAULT_THEME")); ?>/js/app.js"></script>
-
-    <!--<script type="text/javascript" src="/assets/<?php echo (C("DEFAULT_THEME")); ?>/js/highcharts.js"></script>-->
-    <!--<script type="text/javascript" src="/assets/<?php echo (C("DEFAULT_THEME")); ?>/js/exporting.js"></script>-->
-    <!--<script src="/assets/<?php echo (C("DEFAULT_THEME")); ?>/js/common/graphics.js"></script>-->
-
     <script>
         jQuery(document).ready(function() {
             App.init();
-
-            /*App.initChartLineTheme();
-             Graphics.draw('captcha-pic','demo',{
-             'PST':false,//初沉池
-             'ExC':true,//外加碳源
-             'Digester':true,//厌氧消化
-             'Dewatering':true //侧流处理
-             },{
-             x:20,
-             y:0,
-             ExC:0, //外加碳源
-             Raw:10, //原污水进水流量
-             CONVT:10,//生物池反应损失部分
-             Eff:10,//二沉池出水
-             WAS:22,//剩余污泥
-             PS:10,//初沉污泥
-             TWAS:10,//浓缩污泥
-             TWASRecy:20,//浓缩滤液
-             AnDS:20,//厌氧消化出泥
-             Biogas:20,//沼气
-             DWRecy:20,//污泥脱水上清液
-             DWRecyA:10,//
-             Biosolids:7//泥饼
-             });*/
         });
     </script>
     <!-- END JAVASCRIPTS -->
