@@ -1,0 +1,55 @@
+<extend name="default:base:baselogin" />
+<block name="loginform">
+    <!--<div class="text-center" style="margin-top:20px;">-->
+    <!--<img src="/assets/{$Think.config.DEFAULT_THEME}/image/logo.png" height="292" width="364" alt="" />-->
+    <!--</div>-->
+
+    <form class="form-vertical login-form" action="{:U('authUser')}">
+        <h3 class="form-title">登录</h3>
+
+        <div class="alert_error_area">
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">用户名</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-user"></i>
+                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" id="username" name="username"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-lock"></i>
+                    <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" id="password" name="password"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">验证码：</label>
+            <div class="controls">
+                <div class="input-icon" style="float:left;">
+                    <input class="m-wrap small" type="text" placeholder="验证码" id="captcha" name="captcha"/>
+                </div>
+                <div class="captcha-box">
+                    <img id="captcha-pic" src="/assets/{$Think.config.DEFAULT_THEME}/image/blank.gif" />
+                    <div class="captcha-layer text-center hide">
+                        <img src="/assets/{$Think.config.DEFAULT_THEME}/image/loading.gif"/>
+                    </div>
+                </div>
+                <!--<a id="change-captcha" href="javascript:void(0);"><i class="icon-refresh big" style="cursor: hand;"></i> </a>-->
+                <a id="change-captcha" href="javascript:void(0);">换一下 </a>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn green btn-block">登录 <i class="m-icon-swapright m-icon-white"></i></button>
+        </div>
+    </form>
+            <a href="{:U('regedit')}" id="register-btn">注册账号</a>
+    <!-- END LOGIN FORM -->
+</block>

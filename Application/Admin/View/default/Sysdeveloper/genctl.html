@@ -1,0 +1,156 @@
+<extend name="default:base:base" />
+<block name="page_head">
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>Metronic | Form Stuff - Form Components</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-metro.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-fileupload.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/jquery.gritter.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/chosen.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/select2_metro.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/jquery.tagsinput.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/clockface.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-wysihtml5.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/datepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/timepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/colorpicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-toggle-buttons.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/datetimepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/{$Think.config.DEFAULT_THEME}/css/multi-select-metro.css" />
+	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL STYLES -->
+	<link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.ico" />
+</head>
+</block>
+<block name="page_container_header">
+	<!-- BEGIN PAGE HEADER-->
+	<div class="row-fluid">
+		<div class="span12">
+			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+			<ul class="breadcrumb">
+				<li>
+					<i class="icon-sitemap"></i>
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">控制器和接口</a></li>
+			</ul>
+			<!-- END PAGE TITLE & BREADCRUMB-->
+		</div>
+	</div>
+	<!-- END PAGE HEADER-->
+</block>
+<block name="page_container_dashboard">
+	<div class="portlet box light-grey">
+		<div class="portlet-title">
+			<div class="caption"><i class="icon-sitemap"></i>生成控制器</div>
+			<div class="tools">
+				<a href="javascript:;" class="collapse"></a>
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form action="#" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label">选择模块</label>
+					<div class="controls">
+						<select class="span6 chosen" data-placeholder="选择模块" tabindex="1">
+							<option value=""></option>
+							<foreach name='modules' item='module'>
+								<option value="{$module}">{$module}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">控制器名</label>
+					<div class="controls">
+						<input type="text" class="span3" />
+						<span class="help-inline">驼峰命名法，首字母大写，例：UserCenter</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">添加接口</label>
+					<div class="controls">
+						<input id="tags_1" type="text" class="m-wra tags" value="index" />
+						<span class="help-inline">即控制器方法，驼峰命名法，首字母小写，例如：userInfo</span>
+					</div>
+				</div>
+				<label class="control-label">生成对应视图</label>
+				<div class="controls">
+					<div class="basic-toggle-button">
+						<input type="checkbox" class="toggle"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">引用模型</label>
+					<div class="controls">
+						<select data-placeholder="选择模型" class="chosen span6" multiple="multiple" tabindex="6">
+							<option value=""></option>
+							<optgroup label="数据表">
+								<foreach name='tables' item='table'>
+									<option value='{$table}'>{$table}</option>
+								</foreach>
+							</optgroup>
+						</select>
+					</div>
+				</div>
+				<div class="form-actions">
+					<button class="btn green">生成代码</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="page-level-js">
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/ckeditor.js"></script>  
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-fileupload.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/chosen.jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/wysihtml5-0.3.0.js"></script> 
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-wysihtml5.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.tagsinput.min.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.toggle.buttons.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/clockface.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/date.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/daterangepicker.js"></script> 
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-colorpicker.js"></script>  
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-timepicker.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.inputmask.bundle.min.js"></script>   
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.input-ip-address-control-1.0.min.js"></script>
+	<script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>   
+	<script src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-modal.js" type="text/javascript" ></script>
+	<script src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap-modalmanager.js" type="text/javascript" ></script> 
+	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+	<script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>     
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<script>
+		jQuery(document).ready(function() {       
+		   // initiate layout and plugins
+		   App.init();
+		   FormComponents.init();
+		});
+	</script>
+</block>

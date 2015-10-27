@@ -1,0 +1,100 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+
+    <!--<div class="portlet box grey">-->
+    <!--<div class="portlet-title">
+        <div class="caption"><i class="icon-group"></i>{$pageTitle}</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>-->
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet-body form">
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="title">组名称</label>
+                                    <div class="controls">
+                                        <input id="title" type="text" class="m-wrap span12" placeholder="组名称" value="{$group.title|default=''}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="description">组描述</label>
+                                    <div class="controls">
+                                        <input id="description" type="text" class="m-wrap span12" placeholder="组描述" value="{$group.description|default=''}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="status">是否启用</label>
+                                    <div class="controls">
+                                        <select id="status" class="m-wrap span6">
+                                            <if condition="$group.status eq 1 ">
+                                                <option value="1" selected>启用</option>
+                                                <option value="0">禁用</option>
+                                                <else/>
+                                                <option value="1">启用</option>
+                                                <option value="0" selected>禁用</option>
+                                            </if>
+
+                                        </select>
+                                        <!--<div class="success-toggle-button">-->
+                                            <!--<input id="status" type="checkbox" class="toggle" checked="checked" />-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="form-actions">
+                            <button type="submit" id="btn_add_ok" class="btn green"><i class="icon-ok"></i> 确定</button>
+                            <button type="button" id="btn_add_cancel" class="btn"><i class="icon-remove"></i> 取消</button>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+    <!--</div>-->
+</block>
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/usergroupedit.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            UserGroupEdit.init(postUrl);
+            FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

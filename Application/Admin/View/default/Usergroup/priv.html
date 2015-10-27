@@ -1,0 +1,118 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">［{$this_group.title}］{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <form action="{:U('writeGroup')}" id="form1" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
+                        <volist name="node_list" id="node" >
+                            <!-- BEGIN ACCORDION PORTLET-->
+                            <div class="portlet">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <input class="auth_rules rules_all" type="checkbox" name="rules[]" value="<?php echo $main_rules[$node['url']] ?>">
+                                        <b>{$node.title}</b>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse"></a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <present name="node['child']">
+                                        <volist name="node['child']" id="child" >
+                                            <ul style="margin:5px;list-style: none;">
+                                                <label class="checkbox" style="padding:5px;"><!--<notempty name="child['tip']">title='{$child.tip}'</notempty>-->
+                                                    <input type="checkbox" class="auth_rules rules_row" name="rules[]" value="<?php echo $auth_rules[$child['url']] ?>"/>
+                                                    <b>{$child.title}</b>
+                                                </label>
+                                                <notempty name="child['operator']">
+                                                    <div class="clearfix" style="background-color:#f0fef0;margin-left:30px;margin-right:10px;">
+                                                        <volist name="child['operator']" id="op">
+                                                            <li class="block" style="float:left;list-style: none;margin-left:10px;">
+                                                                <label class="checkbox" <notempty name="op['tip']">title='{$op.tip}'</notempty>>
+                                                                <input class="auth_rules" type="checkbox" name="rules[]"
+                                                                       value="<?php echo $auth_rules[$op['url']] ?>"/>{$op.title}
+                                                                </label>
+                                                            </li>
+                                                        </volist>
+                                                    </div>
+                                                </notempty>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </volist>
+                                    </present>
+                                </div>
+                            </div>
+                            <!-- END ACCORDION PORTLET-->
+                        </volist>
+                        <input type="hidden" name="id" value="{$this_group.id}" />
+                        <div class="form-actions">
+                            <!--<button type="submit" class="btn green" target-form="form{$list.groupId}"><i class="icon-ok"></i> 确定</button>-->
+                            <button type="submit" class="btn green submit-btn ajax-post" target-form="form1"><i class="icon-ok"></i> 确定</button>
+                            <button type="button" onclick="javascript:history.back(-1);" class="btn"><i class="icon-remove"></i> 返回</button>
+                        </div>
+                        <!--<button type="submit" class="btn submit-btn ajax-post" target-form="auth-form">确 定</button>-->
+                        <!--<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>-->
+                    </form>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+    <!--</div>-->
+</block>
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <!--<script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/usergroupedit.js"></script>-->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            //UserGroupEdit.init(postUrl);
+            FormComponents.init();
+        });
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        +function($){
+            var rules = [{$this_group.rules}];
+            $('.auth_rules').each(function(){
+                if( $.inArray( parseInt(this.value,10),rules )>-1 ){
+                    $(this).prop('checked',true);
+                }
+                if(this.value==''){
+                    $(this).closest('span').remove();
+                }
+            });
+        //全选节点
+        //        $('.auth_rules').on('change',function(){
+        //            var re = $(this).closest('dl').find('dd').find('input[type=checkbox]');
+        //            console.log(re);
+        //            $(this).closest('dl').find('dd').find('input[type=checkbox]').prop('checked',this.checked);
+        //        });
+
+        $('.rules_row').on('change',function(){
+            $(this).closest('.rule_check').find('.child_row').find('input').prop('checked',this.checked);
+        });
+
+        $('select[name=group]').change(function(){
+            location.href = this.value;
+        });
+        }(jQuery);
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

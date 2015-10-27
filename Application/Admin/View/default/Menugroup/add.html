@@ -1,0 +1,120 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div id="showAlert"></div>
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="group">分组名</label>
+                                    <div class="controls">
+                                        <input type="text" id="group" class="m-wrap span8" placeholder="" value="{$group.group|default=''}">
+                                        <span class="help-block">（菜单分组显示名）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold">上级菜单</label>
+                                    <div class="controls">
+                                        <select id="menuid" class="m-wrap span8">
+                                            <option value="{$menuId}">{$menuTitle|default='-'}</option>
+                                        </select>
+                                        <span class="help-block">（所属菜单）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="sort">排序</label>
+                                    <div class="controls">
+                                        <input type="text" id="sort" class="m-wrap span8" placeholder="" value="{$group.sort|default=0}">
+                                        <span class="help-block">（用于分组显示的顺序）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="hide">隐藏</label>
+                                    <div class="controls">
+                                        <select id="hide" class="m-wrap span8">
+                                            <if condition="$group.hide eq 1">
+                                                <option value="1" selected>是</option>
+                                                <option value="0">否</option>
+                                                <else/>
+                                                <option value="1">是</option>
+                                                <option value="0" selected>否</option>
+                                            </if>
+                                        </select>
+                                        <span class="help-block">（是否隐藏）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="icon">菜单图标</label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                        <input type="text" id="icon" class="m-wrap span12" value="{$group.icon|default=''}" />
+                                        <span class="add-on"><notempty name="group.icon"><i class="{$group.icon}"></i><else/>?</notempty></span>
+                                        </div>
+                                        <span class="help-block">（菜单图标）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="btn_add_ok" class="btn green"><i class="icon-ok"></i> 确定</button>
+                            <button type="button" id="btn_add_cancel" class="btn"><i class="icon-remove"></i> 取消</button>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+</block>
+
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/media/js/select2.min.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/media/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/media/js/app.js"></script>
+    <script src="/media/js/select2.min.js"></script>
+    <script src="/media/js/sysmanage/menugroupedit.js"></script>
+    <script src="/media/js/jquery.multi-select.js"></script>
+    <script src="/media/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            MenuGroupEdit.init(postUrl);
+            FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

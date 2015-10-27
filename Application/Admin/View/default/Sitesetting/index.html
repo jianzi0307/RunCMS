@@ -1,0 +1,84 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <volist name="listTabData" id="list">
+                    <eq name="list.groupId" value="1">
+                        <li class="active">
+                            <else />
+                        <li>
+                    </eq>
+                    <a href="#tab_1_{$list.groupId}" data-toggle="tab">{$list.groupNamePix}</a></li>
+                </volist>
+            </ul>
+            <div class="tab-content">
+                <volist name="listTabData" id="list">
+                    <div <eq name="list.groupId" value="1">class="tab-pane active"<else />class="tab-pane"</eq> id="tab_1_{$list.groupId}">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="{$postAction}" method="post" id="form{$list.groupId}">
+                            <volist name="list['config']" id="config">
+                                <div class="row-fluid">
+                                    <div class="span7">
+                                        <div class="control-group">
+                                            <label class="control-label bold">{$config.title}</label>
+                                            <div class="controls">
+                                                <switch name="config.type">
+                                                    <case value="0">
+                                                        <!--0:数字-->
+                                                        <input type="text" class="m-wrap span8" name="config[{$config.name}]" value="{$config.value}">
+                                                    </case>
+                                                    <case value="1">
+                                                        <!--1:字符-->
+                                                        <input type="text" class="m-wrap span8" name="config[{$config.name}]" value="{$config.value}">
+                                                    </case>
+                                                    <case value="2">
+                                                        <!--2:文本-->
+                                                        <textarea name="config[{$config.name}]" class="m-wrap span12" rows="6">{$config.value}</textarea>
+                                                    </case>
+                                                    <case value="3">
+                                                        <!--3:数组-->
+                                                        <textarea name="config[{$config.name}]" class="m-wrap span12" rows="6">{$config.value}</textarea>
+                                                    </case>
+                                                    <case value="4">
+                                                        <!--4:枚举-->
+                                                        <select name="config[{$config.name}]" class="m-wrap span4">
+                                                            <volist name=":parse_config_attr($config['extra'])" id="vo">
+                                                                <option value="{$key}" <eq name="config.value" value="$key">selected</eq>>{$vo}</option>
+                                                            </volist>
+                                                        </select>
+                                                    </case>
+                                                </switch>
+                                                <span class="help-block">（{$config.remark}）</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                            </volist>
+                            <div class="form-actions">
+                                <button type="submit" class="btn green submit-btn ajax-post" target-form="form{$list.groupId}"><i class="icon-ok"></i> 保存</button>
+                                <button type="button" onclick="javascript:location.href='{$backAction}';" class="btn"><i class="icon-remove"></i> 取消</button>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+            </div>
+            </volist>
+        </div>
+    </div>
+    <!--END TABS-->
+    </div>
+</block>
+<block name="page-level-js">
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/sitesetting.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            SiteSetting.init();
+        });
+    </script>
+</block>

@@ -1,0 +1,33 @@
+<extend name="default:base:base" />
+<block name="page_container_header">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row-fluid">
+        <div class="span12">
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-cogs"></i>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">模块</a></li>
+            </ul>
+            <!-- END PAGE TITLE & BREADCRUMB-->
+        </div>
+    </div>
+    <!-- END PAGE HEADER-->
+</block>
+<block name="page_container_dashboard">
+    <div id="showAlert"></div>
+    <div class="portlet box light-grey">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-cogs"></i>生成模块</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <input id="moduleName" type="text" value="" placeholder="模块名" class="m-wrap medium">
+            <button type="button" id="submitBtn" class="btn green">生成</button>
+        </div>
+    </div>
+</block>

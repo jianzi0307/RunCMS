@@ -1,0 +1,160 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div id="showAlert"></div>
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="title">配置标题</label>
+                                    <div class="controls">
+                                        <input type="text" id="title" class="m-wrap span12" placeholder="" value="{$info.title|default=''}">
+                                        <span class="help-block">（用于后台显示的配置标题）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="flag">配置标识</label>
+                                    <div class="controls">
+                                        <input type="text" id="flag" class="m-wrap span12" placeholder="" value="{$info.name|default=''}">
+                                        <span class="help-block">（用于C函数调用，只能使用英文且不能重复）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="sort">排序</label>
+                                    <div class="controls">
+                                        <input type="text" id="sort" class="m-wrap span12" placeholder="" value="{$info.sort|default=0}">
+                                        <span class="help-block">（用于分组显示的顺序）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="conftype">配置类型</label>
+                                    <div class="controls">
+                                        <select name="conftype" id="conftype" class="m-wrap span12">
+                                            <volist name="Think.config.CONFIG_TYPE_LIST" id="type">
+                                                <if condition="$key eq $info.type ">
+                                                    <option value="{$key}" selected>{$type}</option>
+                                                    <else/>
+                                                    <option value="{$key}">{$type}</option>
+                                                </if>
+                                            </volist>
+                                        </select>
+                                        <span class="help-block">（系统会根据不同类型解析配置值）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="confgroup">配置分组</label>
+                                    <div class="controls">
+                                        <select name="confgroup" class="m-wrap span12" id="confgroup">
+                                            <option value="0">不分组</option>
+                                            <volist name="Think.config.CONFIG_GROUP_LIST" id="group">
+                                                <if condition="$key eq $info.group ">
+                                                    <option value="{$key}" selected>{$group}</option>
+                                                    <else />
+                                                    <option value="{$key}">{$group}</option>
+                                                </if>
+                                            </volist>
+                                        </select>
+                                        <span class="help-block">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="confvalue">配置值</label>
+                                    <div class="controls">
+                                        <textarea id="confvalue" class="m-wrap span12" rows="6">{$info.value|default=''}</textarea>
+                                        <span class="help-block">（配置值）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="confitem">配置项</label>
+                                    <div class="controls">
+                                        <textarea id="confitem" class="m-wrap span12" rows="6">{$info.extra|default=''}</textarea>
+                                        <span class="help-block">（如果是枚举型 需要配置该项）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="confdesc">说明</label>
+                                    <div class="controls">
+                                        <textarea id="confdesc" class="m-wrap span12" rows="6">{$info.remark|default=''}</textarea>
+                                        <span class="help-block">（配置详细说明）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="btn_configsetting_add_ok" class="btn green"><i class="icon-ok"></i> 确定</button>
+                            <button type="button" id="btn_configsetting_add_cancel" class="btn"><i class="icon-remove"></i> 取消</button>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+</block>
+
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/confsettingedit.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            ConfSettingEdit.init(postUrl);
+            FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

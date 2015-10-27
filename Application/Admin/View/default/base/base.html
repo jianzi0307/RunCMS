@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <block name="page-head">
+        <meta charset="utf-8" />
+        <title>{$Think.config.APP_NAME}</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+    </block>
+    <block name="global-level-styles">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <if condition=" $Think.config.PAGE_COLOR_STYLE eq 0">
+            <link href="/assets/{$Think.config.DEFAULT_THEME}/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+            <else/>
+            <link href="/assets/{$Think.config.DEFAULT_THEME}/css/light.css" rel="stylesheet" type="text/css" id="style_color"/>
+        </if>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-toggle-buttons.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/glyphicons.css" rel="stylesheet" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+    </block>
+    <block name="page-level-styles">
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/daterangepicker.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/fullcalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/jqvmap.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/jquery.tagsinput.css" type="text/css" rel="stylesheet"  />
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/multi-select-metro.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/DT_bootstrap.css" rel="stylesheet" />
+        <!-- END PAGE LEVEL STYLES -->
+    </block>
+    <link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+<block name="page_header">
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <!-- BEGIN LOGO -->
+                <a class="brand" href="{:U('/Admin/Index/index')}">
+                    <img src="/assets/{$Think.config.DEFAULT_THEME}/image/rdlogo.png" alt="logo"/>
+                    <!--{$Think.config.APP_NAME}-->
+                </a>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                    <img src="/assets/{$Think.config.DEFAULT_THEME}/image/menu-toggler.png" alt="" />
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <ul class="nav pull-right">
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="" class="img-circle" src="/assets/{$Think.config.DEFAULT_THEME}/image/avatar1_small.jpg" />
+                            当前用户：<span class="username">{$uname}</span>
+                            <i class="icon-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('/Admin/Profile/pwd')}"><i class="icon-key"></i> 修改密码</a></li>
+                            <li><a href="{:U('/Admin/Logout/index')}"><i class="icon-signout"></i> 注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
+    </div>
+</block>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar nav-collapse collapse">
+        <block name="page_side_bar">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu" id="page-sidebar-menu">
+                <li>
+                    <div class="sidebar-toggler hidden-phone"></div>
+                </li>
+                <li></li>
+                <!--<notempty name="_extra_menu">-->
+                <!--{// 动态扩展菜单 //}-->
+                <!--{:extra_menu($_extra_menu,$__MENU__)}-->
+                <!--</notempty>-->
+                <li class="start">
+                    <a href="{:U('/Admin/Index/index')}">
+                        <i class="icon-home"></i>
+                        <span class="title">系统首页</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <volist name="__MENU__.child" id="sub_menu">
+                    <!-- 子导航 -->
+                    <li class="p_menu">
+                        <notempty name="sub_menu">
+                            <notempty name="sub_menu.group">
+                                <a href="javascript:;">
+                                    <notempty name="sub_menu.group.icon">
+                                        <i class="{$sub_menu.group.icon}"></i>
+                                    </notempty>
+                                    <span class="title">{$sub_menu.group.group}</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow "></span>
+                                </a>
+                            </notempty>
+                            <ul class="sub-menu">
+                                <volist name="sub_menu.subMenu" id="menu">
+                                    <li class="">
+                                        <a href="{$menu.url|U}">
+                                            <empty name="menu.icon">
+                                                <i class="icon-file"></i>
+                                                <else/>
+                                                <i class="{$menu.icon}"></i>
+                                            </empty>
+                                            {$menu.title}
+                                        </a>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </notempty>
+                    </li>
+                    <!-- /子导航 -->
+                </volist>
+                <!--//////////////////////////////-->
+                <!-- 数据模型 -->
+                <!--<eq name="showDataModelMenu" value="1">
+                    <li class="p_menu">
+                        <a href="{:U('Datamodel/index')}">
+                            <i class="icon-cogs"></i>
+                            <span class="title">数据模型</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                </eq>-->
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </block>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+
+            <!--面包屑导航-->
+            <block name="page_container_header">
+                <!-- BEGIN PAGE HEADER-->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="page-title">
+                            <if condition="count($nav) eq 1">
+                                仪表盘
+                                <else/>
+                                {$nav[count($nav)-1].title}
+                            </if>
+                            <!--<small>({$subTitle})</small>-->
+                        </div>
+                        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                        <ul class="breadcrumb">
+                            <volist name="nav" id="n">
+                                <li>
+                                    <if condition="$key eq 0">
+                                        <i class="icon-home"></i>
+                                        <a href="{$n.url}">{$n.title}</a>
+                                        <else/>
+                                        <if condition="$key eq 1">
+                                            <a href="javascript:void(0)">{$n.title}</a>
+                                            <else/>
+                                            <if condition="$key eq count($nav)-1">
+                                                <a href="javascript:void(0)">{$n.title}</a>
+                                                <else/>
+                                                <a href="{$n.url}">{$n.title}</a>
+                                            </if>
+                                        </if>
+                                    </if>
+                                    <if condition="$key eq count($nav)-1">
+                                        <else/>
+                                        <i class="icon-angle-right"></i>
+                                    </if>
+                                </li>
+                            </volist>
+                        </ul>
+                        <!-- END PAGE TITLE & BREADCRUMB-->
+                    </div>
+                </div>
+                <!-- END PAGE HEADER-->
+            </block>
+
+            <div id="dashboard">
+                <block name="page_container_dashboard">
+                    <!-- BEGIN DASHBOARD STATS -->
+                    <div class="row-fluid">
+                        <div class="span12">开发中...</div>
+                    </div>
+                    <!-- END DASHBOARD STATS -->
+                    <div class="clearfix"></div>
+                    <div class="row-fluid">
+                        <div class="span12">
+                        </div>
+                    </div>
+                </block>
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<block name="page_footer">
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+        <div class="footer-inner">
+            &copy;{$Think.config.APP_COPYRIGHT}
+        </div>
+        <div class="footer-tools">
+				<span class="go-top">
+				<i class="icon-angle-up"></i>
+				</span>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+</block>
+<block name="core-level-js">
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/bootstrap.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/excanvas.min.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.cookie.min.js" type="text/javascript"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.uniform.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.toggle.buttons.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/common/validate.js"></script>
+    <!-- END CORE PLUGINS -->
+</block>
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/table-managed.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/generator.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            GenModule.init();
+            TableManaged.init();
+            //FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>
+<script type="text/javascript">
+    +function(){
+        var $window = $(window), subnav = $("#page-sidebar-menu"), url;
+        /* 左边菜单高亮 */
+        url = window.location.pathname + window.location.search;
+        url = url.replace(/(\/(p)\/\d+)|(&p=\d+)|(\/(id)\/\d+)|(&id=\d+)|(\/(group)\/\d+)|(&group=\d+)/i, "");
+        var module = '{$Think.MODULE_NAME}';
+        var controller = '{$Think.CONTROLLER_NAME}';
+        var action = '{$Think.ACTION_NAME}';//'index';
+        var uri = '';
+        if (module) {
+            uri += '/' + module ;
+        }
+        if (controller) {
+            uri += '/' + controller;
+        }
+        var urii = uri;
+        urii += '/index';
+        if (action) {
+            uri += '/' + action;
+        }
+        var setActive = function( node ,isOpen ){
+            if (node) {
+                node.addClass("active");
+                var nodepp = node.parent();
+                if( nodepp.parent() ) {
+                    nodepp.parent().addClass('active');
+                    if (isOpen) {
+                        var arrow = $('.p_menu.active').find('.arrow');
+                        if (arrow) {
+                            arrow.addClass('open');
+                        }
+                    }
+                }
+            }
+        };
+        var nodep = subnav.find("a[href='" + uri + "']").parent();
+        var nodepi = subnav.find("a[href='" + urii + "']").parent();
+        if (nodep || nodepi) {
+            setActive(nodep,true);
+            setActive(nodepi,true);
+        }
+    }();
+
+    //
+    var isFluid = {$Think.config.PAGE_SCREEN_STYLE};
+    var headerIsFixed = {$Think.config.PAGE_HEADER_FIXED};
+    var footerIsFixed = {$Think.config.PAGE_FOOTER_FIXED};
+    App.layoutOptionSetScreen(isFluid == '1', footerIsFixed == '0');
+    App.headerFixed(headerIsFixed);
+    App.footerFixed(footerIsFixed);
+</script>
+</body>
+<!-- END BODY -->
+</html>

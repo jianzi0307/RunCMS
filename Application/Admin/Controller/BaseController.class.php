@@ -1,0 +1,42 @@
+<?php
+namespace Admin\Controller;
+
+use Think\Controller;
+
+class BaseController extends Controller
+{
+    public function _initialize()
+    {
+        //从数据库读取配置
+        $configModel = D('Config');
+        $config = $configModel->cacheConfig();
+        C($config);
+    }
+
+    /**
+     * 设置页标题
+     * @param $title
+     */
+    public function pageTitle($title)
+    {
+        $this->assign('pageTitle', $title);
+    }
+
+    /**
+     * 设置面包屑导行
+     * @param $nav
+     */
+    public function nav($nav)
+    {
+        $this->assign('nav', $nav);
+    }
+
+    /**
+     * 每个页面可以设置一个子标题
+     * @param $title
+     */
+    public function subTitle($title)
+    {
+        $this->assign('subTitle', $title);
+    }
+}

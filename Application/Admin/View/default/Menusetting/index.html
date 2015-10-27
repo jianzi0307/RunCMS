@@ -1,0 +1,100 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">菜单管理</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div class="portlet-body">
+                            <div class="clearfix">
+                                <p>
+                                    <a href="{:U('add',array('pid'=>I('get.pid',0)))}" class="btn green"><i class="icon-plus"></i> 增加</a>
+                                </p>
+                            </div>
+                            <table class="table table-striped table-out-bordered table-condensed table-hover" id="menusetting_table">
+                                <thead class="thead-bgcolor">
+                                <tr>
+                                    <th class="hidden-320 th30">#</th>
+                                    <th class="hidden-480 th30">图标</th>
+                                    <th class="hidden-320">名称</th>
+                                    <th class="hidden-480">上级菜单</th>
+                                    <th class="hidden-480">分组</th>
+                                    <th class="hidden-480 th160">URL</th>
+                                    <th class="hidden-480 th20">排序</th>
+                                    <th class="hidden-480 th30">开发显示</th>
+                                    <th class="hidden-480 th20">隐藏</th>
+                                    <th class="hidden-320 th200">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <notempty name="list">
+                                    <volist name="list" id="menu">
+                                        <tr class="odd gradeX">
+                                            <td class="hidden-320">{$menu.id}</td>
+                                            <td class="hidden-480" style="text-align: center">
+                                                <notempty name="menu.icon">
+                                                    <i class="{$menu.icon}"></i>
+                                                    <else/>
+                                                    无
+                                                </notempty>
+                                            </td>
+                                            <td class="hidden-320"><a href="{:U('index?pid='.$menu['id'])}">{$menu.title}</a></td>
+                                            <td class="hidden-480">{$menu.up_title|default='无'}</td>
+                                            <td class="hidden-480">{$menu.group|default='无'}</td>
+                                            <td class="hidden-480">{$menu.url}</a></td>
+                                            <td class="hidden-480">{$menu.sort}</td>
+                                            <td class="center hidden-480">{$menu.is_dev_text}</td>
+                                            <td class="center hidden-480"><i class="{$menu.hide_icon}"></i></td>
+                                            <td class="center hidden-320">
+                                                <a class="mini" href="{:U('/Admin/Menugroup/index?id='.$menu['id'])}" >
+                                                    <i class="icon-sitemap"></i> 分组
+                                                </a>
+                                                <a href="{:U('edit?id='.$menu['id'])}" class="mini"><i class="icon-pencil"></i> 修改</a>
+                                                <!--<button type="button" class="btn red">删除</button>-->
+                                                <a class="confirm ajax-get mini" data-target="#menusetting_table" url="{:U('del?id='.$menu['id'])}" >
+                                                    <i class="icon-trash"></i> 删除
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                    <else/>
+                                    <!--没有数据-->
+                                </notempty>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+</block>
+
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/menusetting.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            MenuSetting.init();
+            FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

@@ -1,0 +1,162 @@
+<extend name="default:base:baselogin" />
+<block name="loginform">
+    <!--<div class="text-center" style="margin-top:20px;">-->
+    <!--<img src="/assets/{$Think.config.DEFAULT_THEME}/image/logo.png" height="292" width="364" alt="" />-->
+    <!--</div>-->
+
+    <form style="display: block;" id="addJS" name="addJS" method="post">
+        <h3 class="">注册账户</h3>
+        <p>输入您的真实有效信息:</p>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">用户名</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-user"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="用户名" id="uname" name="uname" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-lock"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="密码" id="userpwd" name="userpwd" type="password">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">确认密码</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-ok"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="确认密码" id="userrepwd" name="userrepwd" type="password">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">厂名</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-hospital"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="厂名" id="factoryname" name="factoryname" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">厂址</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-map-marker"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="厂址" id="factoryaddress" name="factoryaddress" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">处理规模</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-inbox"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="处理规模" id="factoryscale" name="factoryscale" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">主要工艺</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-cogs"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="主要工艺" id="maintechnology" name="maintechnology" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">负责人姓名</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-user-md"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="负责人姓名" id="personliable" name="personliable" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">负责人职务</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-align-justify"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="负责人职务" id="dutyname" name="dutyname" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">负责人手机号</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-envelope"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="负责人手机号" id="personphone" name="personphone" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">注册人姓名</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-user-md"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="注册人姓名" id="regname" name="regname" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">注册人职务</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-align-justify"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="注册人职务" id="regdutyname" name="regdutyname" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">注册人手机号</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-envelope"></i>
+                    <input class="m-wrap placeholder-no-fix" placeholder="注册人手机号" id="regpersonphone" name="regpersonphone" type="text">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="register-back-btn" type="button" onClick="javascript :history.back(-1);" class="btn">
+                <i class="m-icon-swapleft"></i>返回登录
+            </button>
+            <button button type="submit" id="btn_add_ok" class="btn green pull-right">
+                提交注册 <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+</block>
+<block name="page-level-js">
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.validate.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/user.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            //FormFileUpload.init();
+            User.init(postUrl);
+            //Search.init();
+        });
+    </script>
+</block>

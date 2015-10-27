@@ -1,0 +1,194 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div id="showAlert"></div>
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="title">标题</label>
+                                    <div class="controls">
+                                        <input type="text" id="title" class="m-wrap span12" placeholder="" value="{$info.title|default=''}">
+                                        <span class="help-block">（用于后台显示的配置标题）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="sort">排序</label>
+                                    <div class="controls">
+                                        <input type="text" id="sort" class="m-wrap span12" placeholder="" value="{$info.sort|default=0}">
+                                        <span class="help-block">（用于分组显示的顺序）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="url">链接</label>
+                                    <div class="controls">
+                                        <input type="text" id="url" class="m-wrap span12" placeholder="" value="{$info.url|default=''}">
+                                        <span class="help-block">（U函数解析的URL或者外链）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="pid">上级菜单</label>
+                                    <div class="controls">
+                                        <select name="pid" id="pid" class="m-wrap span12">
+                                            <volist name="menus" id="menu">
+                                                <if condition=" $info.pid eq $menu.id ">
+                                                    <option value="{$menu.id}" selected>{$menu.title_show}</option>
+                                                    <else/>
+                                                    <option value="{$menu.id}">{$menu.title_show}</option>
+                                                </if>
+                                            </volist>
+                                        </select>
+                                        <span class="help-block">（所属的上级菜单）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="groupid">分组</label>
+                                    <div class="controls">
+                                        <empty name="groups">
+                                            <select class="m-wrap span6">
+                                                <option value="0">无分组</option>
+                                            </select>
+                                            <else/>
+                                            <select id="groupid" class="m-wrap span6">
+                                                <volist name="groups" id="g">
+                                                    <if condition=" $info.groupid eq $g.id ">
+                                                        <option value="{$g.id}" selected>{$g.group}</option>
+                                                        <else/>
+                                                        <option value="{$g.id}">{$g.group}</option>
+                                                    </if>
+                                                </volist>
+                                            </select>
+                                        </empty>
+                                        <span class="help-block">（用于左侧分组二级菜单）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="hide">是否隐藏</label>
+                                    <div class="controls">
+                                        <select name="hide" id="hide" class="m-wrap span6">
+                                            <if condition="$info.hide eq 0 ">
+                                                <option value="0" selected>否</option>
+                                                <option value="1">是</option>
+                                                <else/>
+                                                <option value="0" >否</option>
+                                                <option value="1" selected>是</option>
+                                            </if>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="is_dev">仅开发者模式可见</label>
+                                    <div class="controls">
+                                        <select name="is_dev" id="is_dev" class="m-wrap span6">
+                                            <if condition="$info.is_dev eq 0 ">
+                                                <option value="0" selected>否</option>
+                                                <option value="1">是</option>
+                                                <else/>
+                                                <option value="0" >否</option>
+                                                <option value="1" selected>是</option>
+                                            </if>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="tip">说明</label>
+                                    <div class="controls">
+                                        <textarea id="tip" class="m-wrap span12" rows="6">{$info.tip|default=''}</textarea>
+                                        <span class="help-block">（菜单详细说明）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row-fluid">
+                            <div class="span6 ">
+                                <div class="control-group">
+                                    <label class="control-label bold" for="icon">菜单图标</label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <input type="text" id="icon" class="m-wrap span12" value="{$info.icon|default=''}" />
+                                            <span class="add-on"><notempty name="info.icon"><i class="{$info.icon}"></i><else/>?</notempty></span>
+                                        </div>
+                                        <span class="help-block">（菜单图标）</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="btn_menusetting_add_ok" class="btn green"><i class="icon-ok"></i> 确定</button>
+                            <button type="button" id="btn_menusetting_add_cancel" class="btn"><i class="icon-remove"></i> 取消</button>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+</block>
+
+<block name="page-level-js">
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/assets/{$Think.config.DEFAULT_THEME}/js/DT_bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/select2.min.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/sysmanage/menusettingedit.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/jquery.multi-select.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/form-components.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var postUrl = '{$addAction}';
+            App.init();
+            MenuSettingEdit.init(postUrl);
+            FormComponents.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</block>

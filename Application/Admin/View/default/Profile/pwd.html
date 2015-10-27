@@ -1,0 +1,75 @@
+<extend name="default:base:base" />
+<block name="page_container_dashboard">
+    <div id="showAlert"></div>
+    <div class="portlet-body">
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">{$pageTitle}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form name="jsForm" id="jsForm" method="post">
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label class="control-label bold" for="oldpwd">原密码</label>
+                                        <div class="controls">
+                                            <input type="password" name="oldpwd" id="oldpwd" class="m-wrap span8" placeholder="" value="">
+                                            <span class="help-block">（输入旧密码）</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/row-->
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label class="control-label bold" for="pwd">新密码</label>
+                                        <div class="controls">
+                                            <input type="password" name="pwd" id="pwd" class="m-wrap span8" placeholder="" value="">
+                                            <span class="help-block">（输入新密码）</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/row-->
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label class="control-label bold" for="repwd">重复密码</label>
+                                        <div class="controls">
+                                            <input type="password" name="repwd" id="repwd" class="m-wrap span8" placeholder="" value="">
+                                            <span class="help-block">（重复输入新密码）</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" id="btn_add_ok" class="btn green"><i class="icon-ok"></i> 确定</button>
+                                <button type="button" id="btn_add_cancel" onclick="javascript:history.back(-1);" class="btn"><i class="icon-remove"></i> 取消</button>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TABS-->
+    </div>
+</block>
+
+<block name="page-level-js">
+    <!-- END PAGE LEVEL PLUGINS -->
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/app.js"></script>
+    <script src="/assets/{$Think.config.DEFAULT_THEME}/js/profile/profile.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            Validate.init();
+            Profile.init();
+        });
+    </script>
+</block>
