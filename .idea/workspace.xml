@@ -34,10 +34,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="base.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/Admin/View/default/base/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="61" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.5827703" vertical-offset="675" max-vertical-offset="5160">
+            <state line="68" column="61" selection-start="4445" selection-end="4445" vertical-scroll-proportion="-14.375" vertical-offset="675" max-vertical-offset="5160">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileController.class.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/ProfileController.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="82" column="0" selection-start="2103" selection-end="2103" vertical-scroll-proportion="2.033058" vertical-offset="0" max-vertical-offset="1860">
+              <folding>
+                <element signature="e#6#160#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/View/default/Users/add.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="0" selection-start="2813" selection-end="2813" vertical-scroll-proportion="15.0" vertical-offset="1155" max-vertical-offset="1845">
               <folding />
             </state>
           </provider>
@@ -62,8 +82,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Application/Common/Conf/tags.php" />
-        <option value="$PROJECT_DIR$/Application/Common/Lib/DateUtil.class.php" />
         <option value="$PROJECT_DIR$/Application/Common/Lib/ExcelUtil.class.php" />
         <option value="$PROJECT_DIR$/Application/Common/Lib/ExtAuth.class.php" />
         <option value="$PROJECT_DIR$/Application/Common/Lib/ExtMemcache.class.php" />
@@ -78,6 +96,8 @@
         <option value="$PROJECT_DIR$/Public/index.php" />
         <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
         <option value="$PROJECT_DIR$/Application/Admin/View/default/base/base.html" />
+        <option value="$PROJECT_DIR$/Application/Admin/Controller/ProfileController.class.php" />
+        <option value="$PROJECT_DIR$/Application/Admin/View/default/Users/add.html" />
       </list>
     </option>
   </component>
@@ -211,6 +231,10 @@
               <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -237,8 +261,22 @@
               <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
+              <option name="myItemId" value="rendawushui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RunCMS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -257,6 +295,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,24 +503,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Application/Common/Lib/RequestRegistry.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="3" selection-start="160" selection-end="160" vertical-scroll-proportion="0.2231405" vertical-offset="0" max-vertical-offset="825">
-          <folding>
-            <element signature="e#6#160#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Common/Lib/SingletonTrait.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.024793388" vertical-offset="0" max-vertical-offset="675">
-          <folding>
-            <element signature="e#6#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Common/Lib/UploadHandler.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="3" selection-start="160" selection-end="160" vertical-scroll-proportion="0.2231405" vertical-offset="0" max-vertical-offset="20970">
@@ -568,8 +592,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Admin/View/default/base/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="61" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.5827703" vertical-offset="675" max-vertical-offset="5160">
+        <state line="68" column="61" selection-start="4445" selection-end="4445" vertical-scroll-proportion="-14.375" vertical-offset="675" max-vertical-offset="5160">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/View/default/Users/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="0" selection-start="2813" selection-end="2813" vertical-scroll-proportion="15.0" vertical-offset="1155" max-vertical-offset="1845">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/ProfileController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="0" selection-start="2103" selection-end="2103" vertical-scroll-proportion="2.033058" vertical-offset="0" max-vertical-offset="1860">
+          <folding>
+            <element signature="e#6#160#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
