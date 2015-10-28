@@ -12,8 +12,13 @@
         }
     ],
     "repositories": [
-      {"type": "composer", "url": "http://packagist.phpcomposer.com"},
-      {"packagist": false}
+      {
+        "type": "composer",
+        "url": "https://toran.reimu.io/repo/packagist/"
+      },
+      {
+        "packagist": false
+      }
     ],
     "require": {
         "php": ">=5.3.0",
