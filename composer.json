@@ -14,7 +14,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://toran.reimu.io/repo/packagist/"
+      "url": "http://composer-proxy.jp/proxy/packagist"
     },
     {
       "packagist": false

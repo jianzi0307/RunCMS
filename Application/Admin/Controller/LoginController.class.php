@@ -40,12 +40,14 @@ class LoginController extends BaseController
     const __UNKOWN__ = -1;
 
     private $captcha;
+    private $logs;
 
     public function _initialize()
     {
         parent::_initialize();
 
         $this->captcha = new Captcha();//Captcha::getInstance();
+        $this->logs = D('Logs');
     }
 
     /**
@@ -90,11 +92,13 @@ class LoginController extends BaseController
             $uname = Util::getSafeText($uname);
             $upasswd = Util::getSafeText($upasswd);
 
-            $user = D('Useradmin');
-            $authRes = $user->userLogin($uname, $upasswd);
+            $userModel = D('Useradmin');
+            $authRes = $userModel->userLogin($uname, $upasswd);
             if ($authRes > 0) {
+                $this->logs->action('login')->called(__METHOD__)->query($userModel->_sql())->ok();
                 exit(Util::response(self::__OK__));
             }
+            $this->logs->action('login')->called(__METHOD__)->query($userModel->_sql())->fail();
             if ($authRes == -1) {
                 exit(Util::response(self::__ERROR__1, "账号不存在"));
             }
@@ -153,7 +157,7 @@ class LoginController extends BaseController
                 'expirtime' => time() + 100 * 12 * 30 * 24 * 3600
             );
             $userModel = D('Useradmin');
-            if($userModel->where(array('uname'=>$uname))->find()){
+            if ($userModel->where(array('uname'=>$uname))->find()) {
                 exit(Util::response(self::__ERROR__2, "用户名已存在!"));
             }
             $res = $userModel->addRow($data);

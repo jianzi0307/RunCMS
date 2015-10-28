@@ -94,6 +94,7 @@ class UseradminModel extends BaseModel
                 //$this->changeUser($user['id'],array('ltime'=>date('Y-m-d H:i:s'),'loginip'=>$loginip,));
                 $_user = array();
                 $_user['uid'] = $user['id'];
+                $_user['uname'] = $user['uname'];
                 $_user['nickname'] = $user['nickname'];
                 $_user['email'] = $user['email'];
                 $u = base64_encode(json_encode($_user));
@@ -111,7 +112,7 @@ class UseradminModel extends BaseModel
     }
 
     /**
-     * 根据用户名获取用户ID
+     * 根据用户名获取用户信息
      *
      * @param string $uname 用户名
      * @return array|bool|mixed
@@ -152,7 +153,7 @@ class UseradminModel extends BaseModel
 
     /**
      * 更新memcached
-     * @return bool
+     * @param $id
      */
     public function updateUserInfo($id)
     {
@@ -210,6 +211,20 @@ class UseradminModel extends BaseModel
             return $v;
         }
         return array();
+    }
+
+    /**
+     * 获取用户名
+     * @return null
+     */
+    public function getUnameFromCookie()
+    {
+        $user = $this->getUserInfoFromCookie();
+        if ($user) {
+            return $user['uname'];
+        } else {
+            return null;
+        }
     }
 
     /**

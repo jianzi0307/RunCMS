@@ -22,7 +22,8 @@ class LogsController extends AdminController
 
     public function index()
     {
-        $logs = $this->db->table('app_logs')->select();
+        $logsModel = D('Logs');
+        $logs = $logsModel->order('createtime desc')->select();
         $this->assign('logs', $logs);
         $this->display();
     }
