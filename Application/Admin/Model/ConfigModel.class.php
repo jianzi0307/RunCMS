@@ -90,10 +90,8 @@ class ConfigModel extends BaseModel
     public function saveConfigValue($c)
     {
         if ($c && is_array($c)) {
-            foreach ($c as $name => $value) {
-                $map = array('name' => $name);
-                $this->where($map)->setField('value', $value);
-            }
+            $name = $c['name'];
+            $this->where(array('name' => $name))->setField($c);
         } else {
             return false;
         }
@@ -135,6 +133,18 @@ class ConfigModel extends BaseModel
         }
         return $config;
     }
+
+    /**
+     * 根据配置名获取配置信息
+     * @param $name
+     * @return array
+     */
+    public function getConfigByName($name)
+    {
+        $data = $this->where(array('name'=>$name))->find();
+        return $data;
+    }
+
 
     /**
      * 获取配置列表
