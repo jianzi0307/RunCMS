@@ -1,4 +1,5 @@
 *.lock
 
-Application/Runtime
+Application/Runtime/
 vendor/
+.idea/
