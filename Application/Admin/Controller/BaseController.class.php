@@ -1,8 +1,21 @@
 <?php
+/**
+ * ----------------------
+ * BaseController.php
+ *
+ * User: jian0307@icloud.com
+ * Date: 2015/5/27
+ * Time: 10:12
+ * ----------------------
+ */
 namespace Admin\Controller;
 
 use Think\Controller;
 
+/**
+ * Class BaseController
+ * @package Admin\Controller
+ */
 class BaseController extends Controller
 {
     public function _initialize()

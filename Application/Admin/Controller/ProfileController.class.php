@@ -1,5 +1,15 @@
 <?php
+/**
+ * ----------------------
+ * ConfsettingController.php
+ *
+ * User: jian0307@icloud.com
+ * Date: 2015/5/27
+ * Time: 14:01
+ * ----------------------
+ */
 namespace Admin\Controller;
+
 use Lib\Util;
 
 /**
@@ -70,30 +80,9 @@ class ProfileController extends AdminController
         $userModel = D('Useradmin');
         if (IS_POST) {
             $uname = Util::getSafeText(trim(I('post.uname')));
-            $factoryname = Util::getSafeText(I('post.factoryname'));
-            $factoryaddress = Util::getSafeText(I('post.factoryaddress'));
-            $factoryscale = Util::getSafeText(I('post.factoryscale'));
-            $maintechnology = Util::getSafeText(I('post.maintechnology'));
-            $personliable = Util::getSafeText(I('post.personliable'));
-            $personphone = Util::getSafeText(I('post.personphone'));
-            $dutyname = Util::getSafeText(I('post.dutyname'));
-            $regname = Util::getSafeText(I('post.regname'));
-            $regdutyname = Util::getSafeText(I('post.regdutyname'));
-            $regpersonphone = Util::getSafeText(I('post.regpersonphone'));
-
 
             $data = array(
                 'uname' => $uname,
-                'factoryname' => $factoryname,
-                'factoryaddress' => $factoryaddress,
-                'factoryscale' => $factoryscale,
-                'maintechnology' => $maintechnology,
-                'personliable' => $personliable,
-                'personphone' => $personphone,
-                'dutyname' => $dutyname,
-                'regname' => $regname,
-                'regdutyname' => $regdutyname,
-                'regpersonphone' => $regpersonphone,
                 'createtime' => time(),
                 'expirtime' => time() + 100 * 12 * 30 * 24 * 3600
             );

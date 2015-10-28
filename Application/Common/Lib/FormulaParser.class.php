@@ -1,5 +1,14 @@
 <?php
 /**
+ * ----------------------
+ * ConfsettingController.php
+ *
+ * User: jian0307@icloud.com
+ * Date: 2015/5/27
+ * Time: 14:01
+ * ----------------------
+ */
+/**
  * 数学公式解析器
  * 用法：
  * $formula = new FormulaParser('(8+(10*(3-5)^2))/4.8', 'en', 4);

@@ -1,7 +1,15 @@
 <?php
+/**
+ * ----------------------
+ * AdminController.php
+ *
+ * User: jian0307@icloud.com
+ * Date: 2015/5/26
+ * Time: 17:12
+ * ----------------------
+ */
 namespace Admin\Controller;
 
-use Lib\ExtAuth;
 use Think\Controller;
 use Think\Model;
 
