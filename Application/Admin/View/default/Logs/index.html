@@ -26,11 +26,11 @@
                                 </th>
                                 <th class="numeric th40">#</th>
                                 <th class="th50">管理员</th>
-                                <th class="th120">操作时间</th>
-                                <th>操作IP</th>
-                                <th>类::函数</th>
-                                <th>Action</th>
-                                <th>Query</th>
+                                <th class="th130">操作时间</th>
+                                <th class="th100">操作IP</th>
+                                <th class="th200">类::函数</th>
+                                <th class="th60">行为</th>
+                                <th class="th400">备注</th>
                                 <th class="th30">结果</th>
                             </tr>
                             </thead>
@@ -42,10 +42,24 @@
                                     <td style="font-size: 8px;">{$log.uname}</td>
                                     <td style="font-size: 8px;">{$log.createtime|date='Y-m-d H:i:s',###}</td>
                                     <td style="font-size: 8px;">{$log.ip}</td>
-                                    <td style="font-size: 8px;">{$log.class}</td>
+                                    <td style="font-size: 8px;">
+                                        <span style="display:block;width:200px; white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">
+                                            {$log.class}
+                                        </span>
+                                    </td>
                                     <td style="font-size: 8px;">{$log.action}</td>
-                                    <td style="font-size: 8px;">{$log.sql}</td>
-                                    <td style="font-size: 8px;">{$log.status}</td>
+                                    <td style="font-size: 8px;">
+                                        <span style="display:inline-block;width:400px; white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">
+                                        {$log.sql}
+                                    </span>
+                                    </td>
+                                    <td style="font-size: 8px;">
+                                        <if condition=" $log.status eq 0">
+                                            <span class="label label-inverse">失败</span>
+                                            <else/>
+                                            <span class="label label-success">成功</span>
+                                        </if>
+                                    </td>
                                 </tr>
                             </foreach>
                             </tbody>

@@ -12,6 +12,7 @@ namespace Admin\Controller;
 
 use Admin\Model\AuthGroupModel;
 use Admin\Model\AuthRuleModel;
+use Admin\Model\LogsModel;
 use Lib\Util;
 
 class UsergroupController extends AdminController
@@ -68,9 +69,17 @@ class UsergroupController extends AdminController
             );
             $authGroupModel = D('AuthGroup');
             $res = $authGroupModel->addRow($data);//$this->db->table('app_auth_group')->data($sysAuthGroup)->add();
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_ADD)
+                ->called(__METHOD__)
+                ->exec($authGroupModel->_sql());
+
             if ($res) {
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "添加组成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__1, "添加组失败!"));
             }
         } else {
@@ -104,9 +113,17 @@ class UsergroupController extends AdminController
                 'type' => AuthGroupModel::TYPE_ADMIN
             );
             $res = $authGroupModel->updateRows($data, intval($id));
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(__METHOD__)
+                ->exec($authGroupModel->_sql());
+
             if ($res) {
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "修改组成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__2, "修改组失败!"));
             }
         } else {
@@ -127,9 +144,17 @@ class UsergroupController extends AdminController
         $ids = array_unique((array) Util::getSafeText(I('id', 0)));
         $authGroupModel = D('AuthGroup');
         $res = $authGroupModel->delRowsInIds($ids);
+
+        $this->logWriter = $this->logWriter
+            ->action(LogsModel::ACT_DELETE)
+            ->called(__METHOD__)
+            ->exec($authGroupModel->_sql());
+
         if ($res) {
+            $this->logWriter->ok();
             exit(Util::response(self::__OK__, "删除组成功!"));
         } else {
+            $this->logWriter->fail();
             exit(Util::response(self::__ERROR__3, "删除组失败!"));
         }
     }
@@ -193,16 +218,25 @@ class UsergroupController extends AdminController
         $_POST['type'] =  AuthGroupModel::TYPE_ADMIN;
         $authGroupModel =  M('AuthGroup');
         $data = $authGroupModel->create();
+
         if ($data) {
             if (empty($data['id'])) {
                 $r = $authGroupModel->add();
             } else {
                 $r = $authGroupModel->save();
             }
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($authGroupModel->_sql());
+
             if ($r === false) {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__4, "操作失败!"));
                 //$this->error('操作失败'.$authGroupModel->getError());
             } else {
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "操作成功!"));
             }
         } else {

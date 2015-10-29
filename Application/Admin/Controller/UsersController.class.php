@@ -10,6 +10,7 @@
  */
 namespace Admin\Controller;
 
+use Admin\Model\LogsModel;
 use Lib\Util;
 
 class UsersController extends AdminController
@@ -52,16 +53,7 @@ class UsersController extends AdminController
             $uname = Util::getSafeText(trim(I('post.uname')));
             $userpwd = Util::getSafeText(I('post.passwd'));
             $userrepwd = Util::getSafeText(I('post.repwd'));
-            $factoryname = Util::getSafeText(I('post.factoryname'));
-            $factoryaddress = Util::getSafeText(I('post.factoryaddress'));
-            $factoryscale = Util::getSafeText(I('post.factoryscale'));
-            $maintechnology = Util::getSafeText(I('post.maintechnology'));
-            $personliable = Util::getSafeText(I('post.personliable'));
-            $personphone = Util::getSafeText(I('post.personphone'));
-            $dutyname = Util::getSafeText(I('post.dutyname'));
-            $regname = Util::getSafeText(I('post.regname'));
-            $regdutyname = Util::getSafeText(I('post.regdutyname'));
-            $regpersonphone = Util::getSafeText(I('post.regpersonphone'));
+            $avatar = Util::getSafeText(I('post.avatar'));
             $group = Util::getSafeText(I('post.group'));
             $blocked = Util::getSafeText(I('post.blocked')) ? Util::getSafeText(I('post.blocked')) : 1;
             //$expirtime = Util::getSafeText(trim(I('post.expirtime')));
@@ -73,16 +65,7 @@ class UsersController extends AdminController
             $data = array(
                 'uname' => $uname,
                 'passwd' => Util::genMd5Pwd($userpwd),
-                'factoryname' => $factoryname,
-                'factoryaddress' => $factoryaddress,
-                'factoryscale' => $factoryscale,
-                'maintechnology' => $maintechnology,
-                'personliable' => $personliable,
-                'personphone' => $personphone,
-                'dutyname' => $dutyname,
-                'regname' => $regname,
-                'regdutyname' => $regdutyname,
-                'regpersonphone' => $regpersonphone,
+                'avatar' => $avatar,
                 'blocked' => $blocked,
                 'createtime' => time(),
                 'expirtime' => time() + 100 * 12 * 30 * 24 * 3600
@@ -92,14 +75,22 @@ class UsersController extends AdminController
                 exit(Util::response(self::__ERROR__2, "用户名已存在!"));
             }
             $res = $userModel->addRow($data);
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_ADD)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($userModel->_sql());
+
             if ($res) {
                 $authGroupAccessModel = D('AuthGroupAccess');
                 $authGroupAccessModel->addRow(array(
                     'uid' => $res,
                     'group_id' => $group
                 ));
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "添加用户成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__1, "添加用户失败!"));
             }
         } else {
@@ -120,16 +111,7 @@ class UsersController extends AdminController
             $uname = Util::getSafeText(trim(I('post.uname')));
             $userpwd = Util::getSafeText(I('post.passwd'));
             $userrepwd = Util::getSafeText(I('post.repwd'));
-            $factoryname = Util::getSafeText(I('post.factoryname'));
-            $factoryaddress = Util::getSafeText(I('post.factoryaddress'));
-            $factoryscale = Util::getSafeText(I('post.factoryscale'));
-            $maintechnology = Util::getSafeText(I('post.maintechnology'));
-            $personliable = Util::getSafeText(I('post.personliable'));
-            $personphone = Util::getSafeText(I('post.personphone'));
-            $dutyname = Util::getSafeText(I('post.dutyname'));
-            $regname = Util::getSafeText(I('post.regname'));
-            $regdutyname = Util::getSafeText(I('post.regdutyname'));
-            $regpersonphone = Util::getSafeText(I('post.regpersonphone'));
+            $avatar = Util::getSafeText(I('post.avatar'));
             $group = Util::getSafeText(I('post.group')) ? Util::getSafeText(I('post.group')) : 0;
             $blocked = Util::getSafeText(I('post.blocked'));
             //$expirtime = Util::getSafeText(trim(I('post.expirtime')));
@@ -142,16 +124,7 @@ class UsersController extends AdminController
             $data = array(
                 'uname' => $uname,
                 'passwd' => Util::genMd5Pwd($userpwd),
-                'factoryname' => $factoryname,
-                'factoryaddress' => $factoryaddress,
-                'factoryscale' => $factoryscale,
-                'maintechnology' => $maintechnology,
-                'personliable' => $personliable,
-                'personphone' => $personphone,
-                'dutyname' => $dutyname,
-                'regname' => $regname,
-                'regdutyname' => $regdutyname,
-                'regpersonphone' => $regpersonphone,
+                'avatar' => $avatar,
                 'blocked' => $blocked,
                 'createtime' => time(),
                 'expirtime' => time() + 100 * 12 * 30 * 24 * 3600
@@ -160,6 +133,11 @@ class UsersController extends AdminController
                 unset($data['passwd']);
             }
             $res = $userModel->updateRows($data, intval($id));
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($userModel->_sql());
+
             $userAdminModel = D('Useradmin');
             if ($res) {
                 $authGroupAccessModel = D('AuthGroupAccess');
@@ -167,8 +145,10 @@ class UsersController extends AdminController
                     'group_id' => $group
                 ), array("uid" => intval($id)));
                 $userAdminModel->updateUserInfo($id);
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "修改用户成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__2, "修改用户失败!"));
             }
         } else {
@@ -199,10 +179,18 @@ class UsersController extends AdminController
         $ids = array_unique((array) Util::getSafeText(I('id', 0)));
         $userAdminModel = D('Useradmin');
         $res = $userAdminModel->delRowsInIds($ids);
+
+        $this->logWriter = $this->logWriter
+            ->action(LogsModel::ACT_DELETE)
+            ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+            ->exec($userAdminModel->_sql());
+
         if ($res) {
+            $this->logWriter->ok();
             //$this->success('删除用户成功!');
             exit(Util::response(self::__OK__, "删除用户成功!"));
         } else {
+            $this->logWriter->fail();
             exit(Util::response(self::__ERROR__3, "删除用户失败!"));
         }
     }

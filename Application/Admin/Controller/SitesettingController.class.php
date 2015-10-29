@@ -10,6 +10,7 @@
  */
 namespace Admin\Controller;
 
+use Admin\Model\LogsModel;
 use Lib\Util;
 use Think\Upload;
 
@@ -66,9 +67,17 @@ class SitesettingController extends AdminController
     {
         $configModel = D('Config');
         $res = $configModel->saveConfigValue($config);
+
+        $logs = D('Logs')
+            ->action(LogsModel::ACT_UPDATE)
+            ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+            ->exec($configModel->_sql());
+
         if ($res) {
+            $logs->ok();
             exit(Util::response(self::__OK__, "保存成功!"));
         } else {
+            $logs->fail();
             exit(Util::response(self::__ERROR__1, "保存失败!"));
         }
     }
@@ -88,8 +97,13 @@ class SitesettingController extends AdminController
             $upload->rootPath  =  './uploads/';
             $info = $upload->upload();
 
+            $logs = D('Logs')
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__);
+
             //上传错误提示错误信息
             if (!$info) {
+                $logs->exec(json_encode($info))->fail();
                 exit(Util::response(self::__ERROR__2, "上传失败!"));
             } else {
                 $filePath = ltrim($upload->rootPath, '.').$info[$configName]['savepath'].$info[$configName]['savename'];
@@ -97,10 +111,12 @@ class SitesettingController extends AdminController
                 $res = $configModel->getConfigByName($configName);
                 $res['value'] = $filePath;
                 if ($res) {
-                    $updateRes = $configModel->saveConfigValue($res);
+                    $updateRes = $configModel->saveConfig($res);
                     if ($updateRes) {
+                        $logs->exec($configModel->_sql())->ok();
                         exit(Util::response(self::__OK__, "上传成功!"));
                     } else {
+                        $logs->exec($configModel->_sql())->fail();
                         exit(Util::response(self::__ERROR__2, "上传失败!"));
                     }
                 }

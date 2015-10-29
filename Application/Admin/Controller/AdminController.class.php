@@ -25,12 +25,17 @@ class AdminController extends BaseController
     protected $userId = 0;
     protected $isAdmin = false;
 
+    protected $logWriter;
+
     /**
      * 登录验证和权限验证
      */
     public function _initialize()
     {
         parent::_initialize();
+
+        //日志记录
+        $this->logWriter = D('Logs');
 
         //检查用户是否登录
         $user = D('Useradmin');

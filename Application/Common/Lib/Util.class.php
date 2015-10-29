@@ -321,7 +321,7 @@ class Util
      * @param string $domain
      * @return string
      */
-    public static function getCookieMsg($domain = 'rndchina.com')
+    public static function getCookieMsg($domain = 'runchina.cn')
     {
         if (isset($_COOKIE['json'])) {
             $jAry = json_decode($_COOKIE['json'], true) ;
@@ -376,7 +376,7 @@ class Util
      * @param $msg
      * @param string $domain
      */
-    public static function setCookieMsg($msg, $domain = 'rndchina.com')
+    public static function setCookieMsg($msg, $domain = 'runchina.cn')
     {
         if (isset($_COOKIE['json'])) {
             $jAry = json_decode($_COOKIE['json'], true) ;
@@ -397,7 +397,7 @@ class Util
      * @param string $domain
      * @return bool 域
      */
-    public static function setRawCookie($name, $value, $life, $path = '/', $domain = 'rndchina.com')
+    public static function setRawCookie($name, $value, $life, $path = '/', $domain = 'runchina.cn')
     {
         if ($life == 0 || $life == '') {
             return setrawcookie($name, $value, time(), $path, '.' . $domain);
@@ -416,7 +416,7 @@ class Util
      * @param string $domain
      * @return bool
      */
-    public static function setCookie($name, $value, $life = 0, $path = '/', $domain = 'rndchina.com')
+    public static function setCookie($name, $value, $life = 0, $path = '/', $domain = 'runchina.cn')
     {
         if ($life == 0) {
             return setcookie($name, $value, 0, $path, '.' . $domain);

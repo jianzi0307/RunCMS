@@ -10,6 +10,7 @@
  */
 namespace Admin\Controller;
 
+use Admin\Model\LogsModel;
 use Lib\Util;
 
 /**
@@ -55,11 +56,19 @@ class ProfileController extends AdminController
                     exit(Util::response(self::__ERROR__2, '原密码校验错误'));
                 }
                 $res = $userAdminModel->updatePwd($pwd);
+
+                $this->logWriter = $this->logWriter
+                    ->action(LogsModel::ACT_UPDATE)
+                    ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                    ->exec($userAdminModel->_sql());
+
                 if ($res) {
+                    $this->logWriter->ok();
                     //注销
                     Util::setCookie('u', '', -1);
                     exit(Util::response(self::__OK__, '更新密码成功，请重新登录'));
                 } else {
+                    $this->logWriter->fail();
                     exit(Util::response(self::__ERROR__4, '更新密码失败'));
                 }
             } else {
@@ -87,12 +96,20 @@ class ProfileController extends AdminController
                 'expirtime' => time() + 100 * 12 * 30 * 24 * 3600
             );
             $res = $userModel->updateRows($data, intval($id));
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($userModel->_sql());
+
             if ($res) {
                 $authGroupAccessModel = D('AuthGroupAccess');
                 $authGroupAccessModel->updateRows(array(
                 ), array("uid" => intval($id)));
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "修改用户信息成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__2, "修改用户信息失败!"));
             }
         } else {

@@ -10,6 +10,7 @@
  */
 namespace Admin\Controller;
 
+use Admin\Model\LogsModel;
 use Lib\Util;
 use Lib\Captcha;
 use Think\Controller;
@@ -94,11 +95,16 @@ class LoginController extends BaseController
 
             $userModel = D('Useradmin');
             $authRes = $userModel->userLogin($uname, $upasswd);
+            $this->logs = $this->logs
+                ->setUser($uname)
+                ->action(LogsModel::ACT_LOGIN)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($userModel->_sql());
             if ($authRes > 0) {
-                $this->logs->action('login')->called(__METHOD__)->query($userModel->_sql())->ok();
+                $this->logs->ok();
                 exit(Util::response(self::__OK__));
             }
-            $this->logs->action('login')->called(__METHOD__)->query($userModel->_sql())->fail();
+            $this->logs->fail();
             if ($authRes == -1) {
                 exit(Util::response(self::__ERROR__1, "账号不存在"));
             }

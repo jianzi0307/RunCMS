@@ -21,6 +21,12 @@ class LogsModel extends BaseModel
 {
     private $sqlMap;
 
+    const ACT_ADD = 'add';
+    const ACT_UPDATE = 'update';
+    const ACT_DELETE = 'delete';
+    const ACT_LOGIN = 'login';
+    const ACT_LOGOUT = 'logout';
+
     public function _initialize()
     {
         parent::_initialize();
@@ -64,7 +70,7 @@ class LogsModel extends BaseModel
      * @param string $sql
      * @return $this|mixed
      */
-    public function query($sql)
+    public function exec($sql)
     {
         $this->mergeMap(array(
             'sql' => $sql
@@ -99,16 +105,29 @@ class LogsModel extends BaseModel
     }
 
     /**
+     * 设置用户
+     */
+    public function setUser($uname)
+    {
+        $this->mergeMap(array(
+            'uname' => $uname
+        ));
+        return $this;
+    }
+
+    /**
      * 当前登录用户
      */
     private function mergeUser()
     {
-        $userAdmin = D('Useradmin');
-        $uname = $userAdmin->getUnameFromCookie();
-        $uname = !empty($uname) ? $uname : '-1';
-        $this->mergeMap(array(
-            'uname' => $uname
-        ));
+        if (!array_key_exists('uname', $this->sqlMap)) {
+            $userAdmin = D('Useradmin');
+            $uname = $userAdmin->getUnameFromCookie();
+            $uname = $uname ? $uname : '-1';
+            $this->mergeMap(array(
+                'uname' => $uname
+            ));
+        }
         return $this;
     }
 

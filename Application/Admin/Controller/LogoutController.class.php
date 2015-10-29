@@ -10,8 +10,9 @@
  */
 namespace Admin\Controller;
 
-use Think\Controller;
+use Admin\Model\LogsModel;
 use Lib\Util;
+use Think\Controller;
 
 /**
  * Class LogoutController
@@ -26,6 +27,12 @@ class LogoutController extends BaseController
      */
     public function index()
     {
+        //记录日志
+        D('Logs')
+            ->action(LogsModel::ACT_LOGOUT)
+            ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+            ->ok();
+
         Util::setCookie('u', '', -1);
         $this->assign('waitSecond', 0);
         //exit($this->success('退出成功!', U('/Admin/Login')));

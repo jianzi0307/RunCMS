@@ -9,6 +9,7 @@
  * ----------------------
  */
 namespace Admin\Controller;
+use Admin\Model\LogsModel;
 use Lib\Util;
 
 /**
@@ -81,11 +82,19 @@ class ConfsettingController extends AdminController
             );
             $configModel = D('Config');
             $res = $configModel->newConfig($data);
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_ADD)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($configModel->_sql());
+
             if ($res) {
                 //$this->success('添加配置成功');
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "添加配置成功!"));
             } else {
                 //$this->error('添加配置失败');
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__1, "添加配置失败!"));
             }
         } else {
@@ -130,9 +139,17 @@ class ConfsettingController extends AdminController
                 'status'=>1
             );
             $res = $configModel->updateConfig($data, $id);
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($configModel->_sql());
+
             if ($res) {
+                $this->logWriter->ok();
                 exit(Util::response(self::__OK__, "更新配置成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__2, "更新配置失败!"));
             }
         } else {
@@ -157,9 +174,17 @@ class ConfsettingController extends AdminController
         $ids = array_unique((array) Util::getSafeText(I('id', 0)));
         $configModel = D('Config');
         $res = $configModel->delConfig($ids);
+
+        $this->logWriter = $this->logWriter
+            ->action(LogsModel::ACT_DELETE)
+            ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+            ->exec($configModel->_sql());
+
         if ($res) {
+            $this->logWriter->ok();
             exit(Util::response(self::__OK__, "删除成功!"));
         } else {
+            $this->logWriter->fail();
             exit(Util::response(self::__ERROR__3, "删除配置失败!"));
         }
     }

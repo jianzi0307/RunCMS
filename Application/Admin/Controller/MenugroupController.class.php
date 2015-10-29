@@ -9,6 +9,7 @@
  * ----------------------
  */
 namespace Admin\Controller;
+use Admin\Model\LogsModel;
 use Lib\Util;
 
 /**
@@ -73,10 +74,18 @@ class MenugroupController extends AdminController
                 'hide'=>$hide
             );
             $res = $menuGroupModel->addRow($data);
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_ADD)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($menuGroupModel->_sql());
+
             if ($res) {
+                $this->logWriter->ok();
                 //action_log('update_menu', 'Menu', $id, $this->userId);
                 exit(Util::response(self::__OK__, "添加菜单分组成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__1, "添加菜单分组失败!"));
             }
         } else {
@@ -125,10 +134,18 @@ class MenugroupController extends AdminController
                 'hide'=>$hide
             );
             $res = $menuGroupModel->updateRows($data, intval($id));
+
+            $this->logWriter = $this->logWriter
+                ->action(LogsModel::ACT_UPDATE)
+                ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+                ->exec($menuGroupModel->_sql());
+
             if ($res) {
+                $this->logWriter->ok();
                 //action_log('update_menu', 'Menu', $id, $this->userId);
                 exit(Util::response(self::__OK__, "更新菜单分组成功!"));
             } else {
+                $this->logWriter->fail();
                 exit(Util::response(self::__ERROR__2, "更新菜单分组失败!"));
             }
         } else {
@@ -163,9 +180,17 @@ class MenugroupController extends AdminController
         foreach ($ids as $id) {
         }
         $res = $menuGroupModel->delRowsInIds($ids);
+
+        $this->logWriter = $this->logWriter
+            ->action(LogsModel::ACT_DELETE)
+            ->called(ltrim(__CLASS__, __NAMESPACE__).'::'.__FUNCTION__)
+            ->exec($menuGroupModel->_sql());
+
         if ($res) {
+            $this->logWriter->ok();
             exit(Util::response(self::__OK__, "删除成功!"));
         } else {
+            $this->logWriter->fail();
             exit(Util::response(self::__ERROR__3, "删除菜单分组失败!"));
         }
     }

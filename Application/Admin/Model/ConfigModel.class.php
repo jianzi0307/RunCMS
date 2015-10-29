@@ -84,10 +84,49 @@ class ConfigModel extends BaseModel
 
     /**
      * 保存配置值
+     * Array
+     * (
+     *      'APP_NAME' => '测试',
+     *      'SITE_BACKEND_LOGO'=>'/uploads/2015-10-29/56319573ab69a.jpg'
+     * )
      * @param $c
      * @return bool
      */
     public function saveConfigValue($c)
+    {
+        if ($c && is_array($c)) {
+            foreach ($c as $name => $value) {
+                $map = array('name' => $name);
+                $this->where($map)->setField('value', $value);
+            }
+        } else {
+            return false;
+        }
+        $this->mc->delete($this->mcPrefix.'DB_CONFIG_DATA');
+        return true;
+    }
+
+    /**
+     * 保存配置对象
+     *  Array
+        (
+            [id] => 335
+            [name] => SITE_BACKEND_LOGO
+            [type] => 5
+            [title] => 后台LOGO
+            [group] => 1
+            [extra] =>
+            [remark] => 后台LOGO
+            [create_time] => 1445922919
+            [update_time] => 1445922919
+            [status] => 1
+            [value] => /uploads/2015-10-29/56319573ab69a.jpg
+            [sort] => 0
+        )
+     * @param $c
+     * @return bool
+     */
+    public function saveConfig($c)
     {
         if ($c && is_array($c)) {
             $name = $c['name'];

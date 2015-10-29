@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * 换行输出
+ * @param $content
+ * @param $isHtml
+ */
+function println($content, $isHtml = true)
+{
+    $ln = $isHtml ? '<br/>' : PHP_EOL;
+    echo $content . $ln;
+}
+
+/**
  * 把返回的数据集转换成Tree
  * @param $list 要转换的数据集
  * @param string $pk
