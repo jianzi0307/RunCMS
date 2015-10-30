@@ -26,10 +26,10 @@
                                 </th>
                                 <th class="numeric th40">#</th>
                                 <th class="th50">管理员</th>
+                                <th class="th60">行为</th>
                                 <th class="th130">操作时间</th>
                                 <th class="th100">操作IP</th>
                                 <th class="th200">类::函数</th>
-                                <th class="th60">行为</th>
                                 <th class="th400">备注</th>
                                 <th class="th30">结果</th>
                             </tr>
@@ -40,6 +40,7 @@
                                     <td class="hidden"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td style="font-size: 8px;">{$log.id}</td>
                                     <td style="font-size: 8px;">{$log.uname}</td>
+                                    <td style="font-size: 8px;">{$log.action}</td>
                                     <td style="font-size: 8px;">{$log.createtime|date='Y-m-d H:i:s',###}</td>
                                     <td style="font-size: 8px;">{$log.ip}</td>
                                     <td style="font-size: 8px;">
@@ -47,7 +48,6 @@
                                             {$log.class}
                                         </span>
                                     </td>
-                                    <td style="font-size: 8px;">{$log.action}</td>
                                     <td style="font-size: 8px;">
                                         <span style="display:inline-block;width:400px; white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">
                                         {$log.sql}
