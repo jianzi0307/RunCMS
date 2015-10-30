@@ -1,14 +1,15 @@
 {
-  "name": "topthink/thinkphp",
-  "description": "the ThinkPHP Framework",
+  "name": "jianzi/runcms",
+  "description": "RunCMS Framework, a PHP framework.",
   "type": "framework",
-  "keywords": ["framework","thinkphp","ORM"],
-  "homepage": "http://thinkphp.cn/",
+  "keywords": ["phpframework","rest","router"],
+  "homepage": "https://github.com/jianzi0307/RunCMS",
   "license": "Apache2",
   "authors": [
     {
-      "name": "liu21st",
-      "email": "liu21st@gmail.com"
+      "name": "jianzi0307",
+      "email": "jianzi0307@gmail.com",
+      "homepage": "http://jianzi0307.github.io/"
     }
   ],
   "repositories": [
