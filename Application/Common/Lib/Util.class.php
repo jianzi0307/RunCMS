@@ -9,12 +9,35 @@
  * ----------------------
  */
 namespace Lib;
+use Lib\EncryptLib\Aes;
 
 /**
  * 扩展功能函数类
  */
 class Util
 {
+    /**
+     * AES加密
+     * @param $str 待加密的串
+     * @return string
+     */
+    public static function aesEncode($str)
+    {
+        $aes = Aes::create(C('AES_KEY'));
+        return $aes->AESEncryptCtr($str);
+    }
+
+    /**
+     * AES解密
+     * @param $str 待解密的串
+     * @return string
+     */
+    public static function aesDecode($str)
+    {
+        $aes = Aes::create(C('AES_KEY'));
+        return $aes->AESDecryptCtr($str);
+    }
+
     /**
      * 服务器响应
      *
