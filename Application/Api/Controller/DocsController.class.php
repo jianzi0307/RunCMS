@@ -10,7 +10,7 @@
  */
 namespace Api\Controller;
 
-use Lib\Anodoc;
+use Anodoc;
 use Think\Controller;
 
 /**
