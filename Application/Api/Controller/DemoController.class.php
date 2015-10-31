@@ -11,6 +11,8 @@
  */
 namespace Api\Controller;
 
+use Think\Controller;
+
 /**
  * 主题活动
  * 主题活动。。。。。。。。。。
@@ -18,7 +20,7 @@ namespace Api\Controller;
  * @author jian0307@icloud.com
  * @date 2015/4/15
  */
-class ActivityController
+class DemoController extends Controller
 {
     /**
      * 获取数据接口
