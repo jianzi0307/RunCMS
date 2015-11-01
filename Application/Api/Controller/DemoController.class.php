@@ -30,7 +30,7 @@ class DemoController extends Controller
      * asdfsadflsakj
      * asdfsadfBBB
      * ------------------------
-     *
+     * @httpmethod get
      * @param   string    $token 验证票据
      * @param   int $typeid  参数签名，详见下说明。<br/>
      * <b>1、签名规则：</b>将以下“签名参数”按照key进行字典升序后，以“key1=value1&key2=value2…”的形式拼接起来，依次进行HMAC-SHA1和BASE64两步加密后得出的密文；<br/>

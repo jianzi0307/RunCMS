@@ -58,7 +58,9 @@ class DocsController extends Controller
             $classInfo = $classDoc->getMainDoc();
 
             $ref = new \ReflectionClass(new $class);
-            $apiUrl = '/'.strtolower(rtrim(end(explode('\\', $class)), 'Controller'));
+
+            $clsName = end(explode('\\', $class));
+            $apiUrl = '/'.strtolower(explode('Controller', $clsName)[0]);
 
             $this->classMethods[$apiUrl] = array(
                 'doc'       => $apiUrl,

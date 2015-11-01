@@ -4,15 +4,15 @@
     <table>
         <thead class="tb_head_bgcolor">
         <tr>
-            <th>HTTP请求方式</th>
+            <!--<th>HTTP请求方式</th>-->
             <th>响应格式</th>
             <th>说明</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>POST</td>
-            <td>JSON</td>
+            <!--<td>POST</td>-->
+            <td>application/json</td>
             <td>本文档由工具提取代码中的注释自动生成</td>
         </tr>
         </tbody>
@@ -63,12 +63,19 @@
         </table>
 
         <foreach name="docInfo.methods" item="methodInfo">
-            <h3 id="-"> <?php
-                        $methodDesc = $methodInfo['methodDoc']->getShortDescription();
-                echo $methodDesc ? $methodDesc : '未注明接口名';
-                ?></h3>
+            <h3 id="-">
+                <?php
+                    $methodDesc = $methodInfo['methodDoc']->getShortDescription();
+                    echo $methodDesc ? $methodDesc : '未注明接口名';
+                ?>
+            </h3>
             <li>接口地址：{$methodInfo.method}</li>
-            <li>请求方式：POST</li>
+            <li>请求方式：
+            <?php
+                $httpMethod = $methodInfo['methodDoc']->getTag('httpmethod');
+                echo strtoupper($httpMethod);
+            ?>
+            </li>
             <li>请求参数：</li>
             <table>
                 <thead class="tb_head_bgcolor">
@@ -80,30 +87,31 @@
                 </thead>
                 <tbody>
                 <?php
-                                $params = $methodInfo['methodDoc']->getTags('param');
-                $return = $methodInfo['methodDoc']->getTag('return');
-                if( empty($params) || count($params) == 0 ) {
+                    $params = $methodInfo['methodDoc']->getTags('param');
+                    $return = $methodInfo['methodDoc']->getTag('return');
+                    if( empty($params) || count($params) == 0 ) {
                 ?>
                 <tr>
                     <td colspan="4">无</td>
                 </tr>
-                <?php } else {
-                                foreach($params as $param) {
-                                    $paramValue = $param->getValue();
-                preg_match_all('/\$[a-z_\x7f-\xff][\w\x7f-\xff]*/i', $paramValue, $metches);
-                if( $metches[0][0] ) {
-                $paramName = $metches[0][0];
-                $paramAry = explode($paramName,$paramValue);
-                $type = $paramAry[0];
-                $paramDesc = $paramAry[1];
-                } else {
-                $keywords = ereg_replace('/ +/', ' ', $paramValue);
-                $keywords = ereg_replace('/\t+/', "\t",$paramValue);
-                $keywords = preg_split("/ +/", $paramValue);
-                $type = $keywords[0];
-                $paramName = count($keywords) > 1 ? $keywords[1] : '？';
-                $paramDesc = count($keywords) > 2 ? $keywords[2] : '？';
-                }
+                <?php
+                    } else {
+                        foreach($params as $param) {
+                            $paramValue = $param->getValue();
+                            preg_match_all('/\$[a-z_\x7f-\xff][\w\x7f-\xff]*/i', $paramValue, $metches);
+                            if( $metches[0][0] ) {
+                                $paramName = $metches[0][0];
+                                $paramAry = explode($paramName,$paramValue);
+                                $type = $paramAry[0];
+                                $paramDesc = $paramAry[1];
+                            } else {
+                                $keywords = ereg_replace('/ +/', ' ', $paramValue);
+                                $keywords = ereg_replace('/\t+/', "\t",$paramValue);
+                                $keywords = preg_split("/ +/", $paramValue);
+                                $type = $keywords[0];
+                                $paramName = count($keywords) > 1 ? $keywords[1] : '？';
+                                $paramDesc = count($keywords) > 2 ? $keywords[2] : '？';
+                            }
                 ?>
                 <tr>
                     <td><?php echo $paramName;?></td>
@@ -114,7 +122,8 @@
                 </tbody>
             </table>
             <li>响应数据：</li>
-            <pre><code id="json_container" class="lang-json"><?php
+            <pre><code id="json_container" class="lang-json">
+                <?php
                 $returnJson = $return->getValue();
                 preg_match_all("/\{.*\}/s", $returnJson, $matches);
                 $json = $matches[0][0];
