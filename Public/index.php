@@ -28,5 +28,9 @@ define('APP_PATH', '../Application/');
 //composer
 require '../vendor/autoload.php';
 
+//dompdf
+define('DOMPDF_ENABLE_AUTOLOAD', false);
+define('DOMPDF_UNICODE_ENABLED', true);
+
 // 引入ThinkPHP入口文件
 require '../ThinkPHP/ThinkPHP.php';

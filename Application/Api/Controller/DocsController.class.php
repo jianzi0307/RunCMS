@@ -14,10 +14,9 @@ use Anodoc;
 use Think\Controller;
 
 /**
- * Class DocsController
- * 接口文档生成 + HTTP测试工具
- *
+ * 接口文档生成工具
  * @package Api\Controller
+ * @version 0.2
  */
 class DocsController extends Controller
 {
@@ -35,13 +34,48 @@ class DocsController extends Controller
         //print_r($this->classMethods);exit;
     }
 
-    /**
-     * 首页
-     */
     public function index()
     {
+        echo "API文档生成工具 <a href='build'>build</a><hr/>";
+        echo "<li><a href='/apidocs'>API Doc</a></li>";
+    }
+
+    /**
+     * 生成API文档
+     * Html格式和PDF格式
+     */
+    public function build()
+    {
+        set_time_limit(0);
         $this->assign('docData', $this->classMethods);
-        $this->display('index');
+        $this->assign('updateTime', date('Y-m-d l H:i', time()));
+        //$this->display('index');
+        //生成接口网页
+        $this->buildHtml('index.html', APP_PATH.'/../Public/apidocs/', 'index');
+        //创建pdf文档
+        //$this->buildPdf();
+        //打包Html
+        $this->buildZip();
+    }
+
+    private function buildPdf()
+    {
+        require_once(APP_PATH."/../vendor/dompdf/dompdf/dompdf_config.inc.php");
+        $dompdf = new \DOMPDF();
+        $html = file_get_contents(APP_PATH.'/../Public/apidocs/index.html');
+        $dompdf->load_html($html, 'UTF-8');
+        $dompdf->render();
+        $dompdf->stream("index.pdf");
+    }
+
+    private function buildZip()
+    {
+        $zip = new \ZipArchive();
+        if ($zip->open(APP_PATH.'/../Public/apidocs/files/api.zip', \ZipArchive::OVERWRITE) === true) {
+            //调用方法，对要打包的根目录进行操作，并将ZipArchive的对象传递给方法
+            $this->addFileToZip(APP_PATH.'/../Public/apidocs/', $zip);
+            $zip->close(); //关闭处理的zip文件
+        }
     }
 
     /**
@@ -163,45 +197,26 @@ class DocsController extends Controller
     }
 
     /**
-     * 文本入库前的过滤工作
-     *
-     * @param $textString
-     * @param bool $htmlspecialchars
-     * @return string
+     * 打包目录
+     * if($zip->open('images.zip', ZipArchive::OVERWRITE)=== TRUE){
+            addFileToZip('images/', $zip); //调用方法，对要打包的根目录进行操作，并将ZipArchive的对象传递给方法
+            $zip->close(); //关闭处理的zip文件
+        }
+     * @param $path
+     * @param $zip
      */
-    private function getSafeText($textString, $htmlspecialchars = true)
+    private function addFileToZip($path, $zip)
     {
-        return $htmlspecialchars
-            ? htmlspecialchars(trim(strip_tags($this->qj2bj($textString))))
-            : trim(strip_tags($this->qj2bj($textString)))
-            ;
-    }
-
-    /**
-     * 全角 => 半角
-     *
-     * @param string $string
-     * @return string
-     */
-    private function qj2bj($string)
-    {
-        $convert_table = array(
-            '０' => '0','１' => '1','２' => '2','３' => '3','４' => '4',
-            '５' => '5','６' => '6','７' => '7','８' => '8','９' => '9',
-            'Ａ' => 'A','Ｂ' => 'B','Ｃ' => 'C','Ｄ' => 'D','Ｅ' => 'E',
-            'Ｆ' => 'F','Ｇ' => 'G','Ｈ' => 'H','Ｉ' => 'I','Ｊ' => 'J',
-            'Ｋ' => 'K','Ｌ' => 'L','Ｍ' => 'M','Ｎ' => 'N','Ｏ' => 'O',
-            'Ｐ' => 'P','Ｑ' => 'Q','Ｒ' => 'R','Ｓ' => 'S','Ｔ' => 'T',
-            'Ｕ' => 'U','Ｖ' => 'V','Ｗ' => 'W','Ｘ' => 'X','Ｙ' => 'Y',
-            'Ｚ' => 'Z','ａ' => 'a','ｂ' => 'b','ｃ' => 'c','ｄ' => 'd',
-            'ｅ' => 'e','ｆ' => 'f','ｇ' => 'g','ｈ' => 'h','ｉ' => 'i',
-            'ｊ' => 'j','ｋ' => 'k','ｌ' => 'l','ｍ' => 'm','ｎ' => 'n',
-            'ｏ' => 'o','ｐ' => 'p','ｑ' => 'q','ｒ' => 'r','ｓ' => 's',
-            'ｔ' => 't','ｕ' => 'u','ｖ' => 'v','ｗ' => 'w','ｘ' => 'x',
-            'ｙ' => 'y','ｚ' => 'z','　' => ' ','：' => ':','。' => '.',
-            '？' => '?','，' => ',','／' => '/','；' => ';','［' => '[',
-            '］' => ']','｜' => '|','＃' => '#',
-        );
-        return strtr($string, $convert_table);
+        $handler = opendir($path); //打开当前文件夹由$path指定。
+        while (($filename = readdir($handler)) !== false) {
+            if ($filename != "." && $filename != "..") {//文件夹文件名字为'.'和‘..’，不要对他们进行操作
+                if (is_dir($path."/".$filename)) {// 如果读取的某个对象是文件夹，则递归
+                    $this->addFileToZip($path."/".$filename, $zip);
+                } else { //将文件加入zip对象
+                    $zip->addFile($path."/".$filename);
+                }
+            }
+        }
+        @closedir($path);
     }
 }

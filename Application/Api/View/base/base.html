@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimal-ui">
     <title>API 文档</title>
-    <script src="/apidocs/js/docs-all.js"></script>
-    <link rel="stylesheet" type="text/css" href="/apidocs/css/app-docs.css">
-    <script type="text/javascript" src="/apidocs/js/jsonFormatter.min.js"></script>
+    <script src="./js/docs-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/app-docs.css">
+    <script type="text/javascript" src="./js/jsonFormatter.min.js"></script>
     <style>
         .tb_head_bgcolor {background-color:#d1eeee;}
     </style>
@@ -18,15 +18,18 @@
         <div class="navbar-collapse" id="app-options">
             <ul class="nav navbar-nav navbar-app-select">
                 <li>
-                    <a href="#" class="nav-logo font-logo">Server API</a>
+                    <a href="#" class="nav-logo font-logo">API</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="{:U('pdf')}">下载ＰＤＦ</a>
-                </li>
-                <li>
-                    <a href="{:U('html')}">下载ＨＴＭＬ</a>
+            <ul class="nav navbar-nav navbar-user-actions navbar-right" ng-cloak="">
+                <li class="dropdown">
+                    <a role="button" class="dropdown-toggle user-name" data-toggle="dropdown">
+                        <span class="user-name-text">离线文档</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="./files/api.pdf">下载PDF</a></li>-->
+                        <li> <a href="./files/api.zip">下载HTML压缩包</a></li>
+                    </ul>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -74,11 +77,11 @@
         </block>
     </div>
 </footer>
-<script src="/apidocs/js/lib/contents.js"></script>
-<script src="/apidocs/js/md.js"></script>
+<script src="./js/lib/contents.js"></script>
+<script src="./js/md.js"></script>
 <script type="text/javascript">
     ZeroClipboard.setDefaults({
-        moviePath: '/apidocs/js/lib/zeroclipboard.swf'
+        moviePath: './js/lib/zeroclipboard.swf'
     });
 </script>
 </body>
