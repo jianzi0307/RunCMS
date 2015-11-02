@@ -44,7 +44,7 @@ class DemoController extends Controller
      *      "errmsg":"获取数据成功",
      *      "data": {
      *          "goods_id":100,
-     *          "goods_name":"测试",
+     *          "goods_name":测试,
      *          "goods_pic":"http://www.xxx.com/xx.png",
      *      }
      * }

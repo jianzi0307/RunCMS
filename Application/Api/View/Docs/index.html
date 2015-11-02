@@ -133,16 +133,16 @@
     $json = $matches[0][0];
     if($json) {
 ?>
-<pre><code id="json_container" class="lang-json"></code></pre>
+<pre><code id="json_container{$methodInfo.method}" class="lang-json"></code></pre>
 <script>
     var json = <?php echo $json; ?>;
-    document.getElementById('json_container').innerHTML = JSON.stringify(json, null, 4);
+    document.getElementById('json_container{$methodInfo.method}').innerHTML = JSON.stringify(json, null, 4);
 </script>
 <?php
     } else {
         $json = $returnJson ? $returnJson : '无';
 ?>
-<pre><code id="json_container" class="lang-json"><?php echo $json;?></code></pre>
+<pre><code id="json_container{$methodInfo.method}" class="lang-json"><?php echo $json;?></code></pre>
 <?php
     }
 ?>
