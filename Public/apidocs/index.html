@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimal-ui">
+    <title>API 文档</title>
+    <script src="./js/docs-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/app-docs.css">
+    <script type="text/javascript" src="./js/jsonFormatter.min.js"></script>
+    <style>
+        .tb_head_bgcolor {background-color:#d1eeee;}
+    </style>
+<meta name="__hash__" content="984a8c16e060bc6a98f22be73d35c895_6516785eb5da79ed096dd31d1590e0b3" /></head>
+<body  class="dashboard-init" data-spy="scroll" data-target=".sidebar-wrapper" data-offset="30" ng-cloak ng-controller="AppCtrl">
+<nav class="dashboard-subnav navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-collapse" id="app-options">
+            <ul class="nav navbar-nav navbar-app-select">
+                <li>
+                    <a href="#" class="nav-logo font-logo">API</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-user-actions navbar-right" ng-cloak="">
+                <li class="dropdown">
+                    <a role="button" class="dropdown-toggle user-name" data-toggle="dropdown">
+                        <span class="user-name-text">离线文档</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="./files/api.pdf">下载PDF</a></li>-->
+                        <li> <a href="./files/api.zip">下载HTML压缩包</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+    <!-- .container-fluid -->
+</nav>
+<header class="doc-subnav" role="banner">
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 sidebar-gruntfile-trigger" id="left-nav">
+            <div class="sidebar-affix-shadow sidebar-hover-off">
+                <div class="sidebar-wrapper" id="toc-wrapper">
+                </div>
+                <!-- .sidebar-wrapper -->
+            </div>
+            <!-- .sidebar-affix-shadow -->
+        </div>
+        <!-- .col-md-3 -->
+        <div class="col-sm-9 sidebar-gruntfile-trigger">
+            <div class="doc-content"  id="content">
+                
+    <h1 id="rest-api-">API文档</h1>
+
+    <p>该文档由注释提取工具自动生成，Created: 2015-11-02 Monday 02:28</p>
+
+    <table>
+        <thead class="tb_head_bgcolor">
+        <tr>
+            <!--<th>HTTP请求方式</th>-->
+            <th>网关</th>
+            <th>响应格式</th>
+            <!--<th></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--<td>POST</td>-->
+            <td>http://tpfwk.t.com/gateway/api</td>
+            <td>application/json</td>
+            <!--<td></td>-->
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 id="-">主题活动</h2>
+        <table>
+            <thead class="tb_head_bgcolor">
+            <tr>
+                <th width="150px">模块名</th>
+                <th width="100px">模块</th>
+                <th width="160px">创建人</th>
+                <th width="100px">创建时间</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>主题活动</td>
+                <td>/demo</td>
+                <td>
+                    jian0307@icloud.com                                    </td>
+                <td>
+                    2015/4/15                                    </td>
+                <td>
+                    主题活动。。。。。。。。。。                                    </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 id="-">
+                获取数据接口            </h3>
+            <li>接口地址：/demo/getDataDemo</li>
+            <li>请求方式：
+            GET            </li>
+            <li>请求参数：</li>
+            <table>
+                <thead class="tb_head_bgcolor">
+                <tr>
+                    <th width="100px">参数</th>
+                    <th width="100px">类型及范围</th>
+                    <th>说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                                <tr>
+                    <td>$token</td>
+                    <td>string    </td>
+                    <td> 验证票据</td>
+                </tr>
+                                <tr>
+                    <td>$typeid</td>
+                    <td>int </td>
+                    <td>  参数签名，详见下说明。<br/>
+<b>1、签名规则：</b>将以下“签名参数”按照key进行字典升序后，以“key1=value1&key2=value2…”的形式拼接起来，依次进行HMAC-SHA1和BASE64两步加密后得出的密文；<br/>
+<b>2、签名参数：</b>该接口所有请求参数当中，除了“sign”本身和已标明不参与签名的特殊参数（如图片）外，均为参与签名的参数，即签名参数；<br/>
+<b>3、HMAC-SHA1加密密钥：</b>即应用密钥（App Secret），开发者创建应用时，天翼开放平台会为应用自动分配，开发者进入"管理中心"，在"应用详情"中可查看App Secret；<br/>
+<b>4、数据编码：</b>HMAC-SHA1和BASE64加密过程中，均采用utf-8编码方式；<br/>
+<b>5、举例说明：</b>假设应用密钥为“appSecret”，签名参数列表“foo=1,bar=2,baz=3”，拼接排序后为“bar=2&baz=3&foo=1”，那么，sign的值为BASE64(HMAC-SHA1("bar=2&baz=3&foo=1","appSecret"))。<br/></td>
+                </tr>
+                                </tbody>
+            </table>
+            <li>响应数据：</li>
+<pre><code id="json_container" class="lang-json"></code></pre>
+<script>
+    var json = {
+"errno":0,
+"errmsg":"获取数据成功",
+"data": {
+"goods_id":100,
+"goods_name":"测试",
+"goods_pic":"http://www.xxx.com/xx.png",
+}
+};
+    document.getElementById('json_container').innerHTML = JSON.stringify(json, null, 4);
+</script>
+            <!--<button>调试工具</button>--><h3 id="-">
+                获取数据接口2            </h3>
+            <li>接口地址：/demo/getDataDemo2</li>
+            <li>请求方式：
+                        </li>
+            <li>请求参数：</li>
+            <table>
+                <thead class="tb_head_bgcolor">
+                <tr>
+                    <th width="100px">参数</th>
+                    <th width="100px">类型及范围</th>
+                    <th>说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                                <tr>
+                    <td>$token</td>
+                    <td>string </td>
+                    <td> 参数1</td>
+                </tr>
+                                <tr>
+                    <td>$typeid</td>
+                    <td>string </td>
+                    <td> 擦书</td>
+                </tr>
+                                </tbody>
+            </table>
+            <li>响应数据：</li>
+<pre><code id="json_container" class="lang-json">string 测试</code></pre>
+            <!--<button>调试工具</button>-->
+            </div>
+        </div>
+        <!-- .col-md-9 -->
+    </div>
+    <!-- .row -->
+
+</div>
+<!-- .container-fluid -->
+
+<footer class="footer" role="contentinfo">
+    <div class="container-fluid">
+        
+    <a href="#" class="logo font-logo pull-left">
+        API Document
+    </a>
+    <ul class="footer-links pull-right">
+        <li><a href="#">帮助</a></li>
+    </ul>
+
+    </div>
+</footer>
+<script src="./js/lib/contents.js"></script>
+<script src="./js/md.js"></script>
+<script type="text/javascript">
+    ZeroClipboard.setDefaults({
+        moviePath: './js/lib/zeroclipboard.swf'
+    });
+</script>
+</body>
+</html>
