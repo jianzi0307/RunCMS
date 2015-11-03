@@ -93,19 +93,35 @@
                                                                 display: table-cell;
                                                                 max-width: 220px;
                                                             }
+                                                            .thumbnail1{
+                                                                /*display:block;*/
+                                                                padding:14px;
+                                                                line-height:20px;
+                                                                /*border:1px solid #ddd;*/
+                                                                /*-webkit-border-radius:4px;*/
+                                                                /*-moz-border-radius:4px;*/
+                                                                /*border-radius:4px;*/
+                                                                /*-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.055);*/
+                                                                /*-moz-box-shadow:0 1px 3px rgba(0,0,0,0.055);*/
+                                                                /*box-shadow:0 1px 3px rgba(0,0,0,0.055);*/
+                                                                /*-webkit-transition:all .2s ease-in-out;*/
+                                                                /*-moz-transition:all .2s ease-in-out;*/
+                                                                /*-o-transition:all .2s ease-in-out;*/
+                                                                /*transition:all .2s ease-in-out*/
+                                                            }
                                                         </style>
 
-                                                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                                        <div class="fileupload-new thumbnail1">
                                                             <empty name="config.value">
-                                                                <img src="/assets/{$Think.config.DEFAULT_THEME}/image/nopic.png" alt="" style="width:200px;height:150px;" />
+                                                                <img src="/assets/{$Think.config.DEFAULT_THEME}/image/nopic.png" alt="" />
                                                                 <else/>
-                                                                <img src="{$config.value}" alt="" style="width:200px;height:150px;" />
+                                                                <img src="{$config.value}" alt="" />
                                                             </empty>
 
                                                         </div>
                                                         <div id="kv-error-{$config.name}" style="margin-top:10px;display:none"></div>
                                                         <div id="kv-success-{$config.name}" class="alert alert-success fade in" style="margin-top:10px;display:none"></div>
-                                                        <div class="kv-avatar center-block" style="width:200px;">
+                                                        <div class="kv-avatar center-block">
                                                             <input type="file" name="{$config.name}" id="{$config.name}" multiple=true class="file-loading" />
                                                         </div>
                                                         <script type="text/javascript">
