@@ -428,3 +428,8 @@ Landscape phone to portrait tablet
     color: #999999;
   }
 }
+
+a {
+    text-shadow: none !important;
+    color: #333;
+}
