@@ -19,11 +19,7 @@
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-metro.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-        <if condition=" $Think.config.PAGE_COLOR_STYLE eq 0">
-            <link href="/assets/{$Think.config.DEFAULT_THEME}/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-            <else/>
-            <link href="/assets/{$Think.config.DEFAULT_THEME}/css/light.css" rel="stylesheet" type="text/css" id="style_color"/>
-        </if>
+        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/{$Think.config.PAGE_COLOR_STYLE}.css" rel="stylesheet" type="text/css" id="style_color"/>
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/uniform.default.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/bootstrap-toggle-buttons.css" rel="stylesheet" type="text/css" />
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/glyphicons.css" rel="stylesheet" />
@@ -67,7 +63,7 @@
                     <li class="dropdown user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img alt="" width="29" height="29" class="img-circle" src="/assets/{$Think.config.DEFAULT_THEME}/avatar/1.jpg" />
-                            当前用户：<span class="username">{$uname}</span>
+                            <span class="username">{$uname}</span>
                             <i class="icon-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
