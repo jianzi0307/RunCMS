@@ -8,7 +8,7 @@
  * Time: 14:01
  * ----------------------
  */
-namespace Admin\Model;
+namespace Common\Model;
 
 use Think\Model;
 use Lib\ExtMemcache;
@@ -17,7 +17,7 @@ use Lib\ExtMemcache;
  * Class BaseModel
  *
  * 模型基类
- * @package Admin\Model
+ * @package Common\Model
  */
 class BaseModel extends Model
 {

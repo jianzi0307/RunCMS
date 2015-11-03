@@ -6,6 +6,7 @@
  * Time: 上午12:01
  */
 namespace Admin\Model;
+use Common\Model\BaseModel;
 
 /**
  * Class LogsModel

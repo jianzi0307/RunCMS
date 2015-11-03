@@ -11,7 +11,7 @@
     <style>
         .tb_head_bgcolor {background-color:#d1eeee;}
     </style>
-<meta name="__hash__" content="984a8c16e060bc6a98f22be73d35c895_6516785eb5da79ed096dd31d1590e0b3" /></head>
+<meta name="__hash__" content="2d9d22feaef715cb1fa84c7cfd41eeba_3485ee64fd57211257552092363f389a" /></head>
 <body  class="dashboard-init" data-spy="scroll" data-target=".sidebar-wrapper" data-offset="30" ng-cloak ng-controller="AppCtrl">
 <nav class="dashboard-subnav navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
@@ -52,9 +52,9 @@
         <div class="col-sm-9 sidebar-gruntfile-trigger">
             <div class="doc-content"  id="content">
                 
-    <h1 id="rest-api-">API文档</h1>
+    <h1 id="rest-api-">JDY平台API及设计说明</h1>
 
-    <p>该文档由注释提取工具自动生成，Created: 2015-11-02 Monday 02:28</p>
+    <p>该文档由注释提取工具自动生成，Created: 2015-11-03 Tuesday 14:10</p>
 
     <table>
         <thead class="tb_head_bgcolor">
@@ -68,14 +68,14 @@
         <tbody>
         <tr>
             <!--<td>POST</td>-->
-            <td>http://tpfwk.t.com/gateway/api</td>
+            <td>http://jdy.t.com/service/</td>
             <td>application/json</td>
             <!--<td></td>-->
         </tr>
         </tbody>
     </table>
 
-    <h2 id="-">主题活动</h2>
+    <h2 id="-">一、API模块接口</h2>
         <table>
             <thead class="tb_head_bgcolor">
             <tr>
@@ -88,54 +88,54 @@
             </thead>
             <tbody>
             <tr>
-                <td>主题活动</td>
-                <td>/demo</td>
+                <td>一、API模块接口</td>
+                <td>/api</td>
                 <td>
                     jian0307@icloud.com                                    </td>
                 <td>
-                    2015/4/15                                    </td>
+                    2015/11/2                                    </td>
                 <td>
-                    主题活动。。。。。。。。。。                                    </td>
+                    不提供单独的设备注册接口，设备均从属于私有云用户，由私有云推送设备列表更新                                    </td>
             </tr>
             </tbody>
         </table>
 
         <h3 id="-">
-                获取数据接口            </h3>
-            <li>接口地址：/demo/getDataDemo</li>
-            <li>请求方式：
-            GET            </li>
-            <li>请求参数：</li>
-            <table>
-                <thead class="tb_head_bgcolor">
-                <tr>
-                    <th width="100px">参数</th>
-                    <th width="100px">类型及范围</th>
-                    <th>说明</th>
-                </tr>
-                </thead>
-                <tbody>
-                                <tr>
-                    <td>$token</td>
-                    <td>string    </td>
-                    <td> 验证票据</td>
-                </tr>
-                                <tr>
-                    <td>$typeid</td>
-                    <td>int </td>
-                    <td>  参数签名，详见下说明。<br/>
-<b>1、签名规则：</b>将以下“签名参数”按照key进行字典升序后，以“key1=value1&key2=value2…”的形式拼接起来，依次进行HMAC-SHA1和BASE64两步加密后得出的密文；<br/>
-<b>2、签名参数：</b>该接口所有请求参数当中，除了“sign”本身和已标明不参与签名的特殊参数（如图片）外，均为参与签名的参数，即签名参数；<br/>
-<b>3、HMAC-SHA1加密密钥：</b>即应用密钥（App Secret），开发者创建应用时，天翼开放平台会为应用自动分配，开发者进入"管理中心"，在"应用详情"中可查看App Secret；<br/>
-<b>4、数据编码：</b>HMAC-SHA1和BASE64加密过程中，均采用utf-8编码方式；<br/>
-<b>5、举例说明：</b>假设应用密钥为“appSecret”，签名参数列表“foo=1,bar=2,baz=3”，拼接排序后为“bar=2&baz=3&foo=1”，那么，sign的值为BASE64(HMAC-SHA1("bar=2&baz=3&foo=1","appSecret"))。<br/></td>
-                </tr>
-                                </tbody>
-            </table>
-            <li>响应数据：</li>
-<pre><code id="json_container" class="lang-json"></code></pre>
-<script>
-    var json = {
+                1.1、设备登录/离线            </h3>
+                        <p class="api-method-description">私有云设备的上下线状态，由私有云通过此接口通知到JDY云平台。
+API模块获取后，通知到DEV模块，启动/关闭设备的虚拟化。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/api/onoffline</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/api/onoffline" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"company_did":"wmaottaoeeaoeao",
+"onoffline":"online"
+};
+                            document.getElementById('request_/api/onoffline').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/api/onoffline" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
 "errno":0,
 "errmsg":"获取数据成功",
 "data": {
@@ -144,37 +144,783 @@
 "goods_pic":"http://www.xxx.com/xx.png",
 }
 };
-    document.getElementById('json_container').innerHTML = JSON.stringify(json, null, 4);
-</script>
+                            document.getElementById('response_/api/onoffline').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
             <!--<button>调试工具</button>--><h3 id="-">
-                获取数据接口2            </h3>
-            <li>接口地址：/demo/getDataDemo2</li>
-            <li>请求方式：
-                        </li>
-            <li>请求参数：</li>
-            <table>
-                <thead class="tb_head_bgcolor">
-                <tr>
-                    <th width="100px">参数</th>
-                    <th width="100px">类型及范围</th>
-                    <th>说明</th>
-                </tr>
-                </thead>
-                <tbody>
-                                <tr>
-                    <td>$token</td>
-                    <td>string </td>
-                    <td> 参数1</td>
-                </tr>
-                                <tr>
-                    <td>$typeid</td>
-                    <td>string </td>
-                    <td> 擦书</td>
-                </tr>
-                                </tbody>
-            </table>
-            <li>响应数据：</li>
-<pre><code id="json_container" class="lang-json">string 测试</code></pre>
+                1.2、私有云推送设备状态            </h3>
+                        <p class="api-method-description">私有云设备的状态，会先上报到私有云平台。私有云平台将注册到JDY的设备状态数据，通过此接口推送到JDY云平台API模块，由API模块转发到后续模块。
+由于私有云的标准不统一，字段和格式均作为参考。主要包含两部分，设备标识和设备状态数据。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/api/send</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/api/send" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"company_did":"wmaottaoeeaoeao",
+"product_type":"aircondition",
+"dev_status":["binary"]
+};
+                            document.getElementById('request_/api/send').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/api/send" class="lang-json">string 测试</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                1.3、私有云数据转换为JDY国标            </h3>
+                        <p class="api-method-description">用户在APP端的控制，通过JDY云平台的一系列转发，最后交给API模块，推送到对应的私有云。
+同私有云推送设备状态接口一样，字段和格式仅作为参考。
+此接口非开放，提供给DEV模块调用。API模块到私有云的部分，按照私有云的格式推送。
+关于私有云token的描述：包含在数据中，由协议转换模块解出。详见"用户通过JDY云平台登录到私有云"中解释。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/api/devpushcontrol</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/api/devpushcontrol" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"token":"ntmoeunsoeut",
+"company_did":"wmaottaoeeaoeao",
+"product_type":"aircondition",
+"dev_status":["binary"]
+};
+                            document.getElementById('request_/api/devpushcontrol').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/api/devpushcontrol" class="lang-json">string 测试</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                1.4、推送控制指令到私有云            </h3>
+                        <p class="api-method-description">私有云设备所使用的指令格式，和JDY国标不一致，需要进行转换。此过程在私有云推送设备上报的数据到API模块后， 进行转换后，发送到虚拟设备，然后由虚拟设备推送到APP端。
+此接口目前仅作为参考。传入和返回的数据，必须能够满足转换需要。
+另外，在"APP=>设备"的控制链路上，由于token的原因，需要APP将token放入控制指令中，由此模块一并解出。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/api/transfromjdy</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/api/transfromjdy" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"product_type":"aircondition",
+"company_did":"wmaottaoeeaoeao",
+"data":["binary"]
+};
+                            document.getElementById('request_/api/transfromjdy').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/api/transfromjdy" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"platform":"haier",
+"token":"wmaottaoeeaoeao",
+"product_type":"aircondition",
+"company_did":"wmaottaoeeaoeao",
+"data":["binary"]
+};
+                            document.getElementById('response_/api/transfromjdy').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                1.5、JDY国标转换为私有云数据            </h3>
+                        <p class="api-method-description">JDY国标数据格式，和私有云数据不同，需要进行转换。此过程在虚拟设备转发APP控制数据到API模块后， 进行转换后，由API模块发送转换后的结果，到私有云。
+此接口目前仅作为参考。传入和返回的数据，必须能够满足转换需要。
+在"设备=>APP"的控制链路中，私有云不会推送token且token对APP没有影响，故转换后的数据中，token段可以忽略（填充0）。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/api/transtojdy</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/api/transtojdy" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"product_type":"aircondition",
+"company_did":"wmaottaoeeaoeao",
+"data":['binary'],
+};
+                            document.getElementById('request_/api/transtojdy').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/api/transtojdy" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"platform":"haier",
+"product_type":"aircondition",
+"company_did":"wmaottaoeeaoeao",
+"data":["binary"]
+};
+                            document.getElementById('response_/api/transtojdy').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h2 id="-">二、APP模块接口</h2>
+        <table>
+            <thead class="tb_head_bgcolor">
+            <tr>
+                <th width="150px">模块名</th>
+                <th width="100px">模块</th>
+                <th width="160px">创建人</th>
+                <th width="100px">创建时间</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>二、APP模块接口</td>
+                <td>/app</td>
+                <td>
+                    jian0307@icloud.com                                    </td>
+                <td>
+                    2015/11/2                                    </td>
+                <td>
+                                        无                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 id="-">
+                2.1、 注册JDY用户            </h3>
+                        <p class="api-method-description">用户在使用JDY云平台服务之前，必须先进行注册。可以使用手机号，邮箱，自定义用户名。
+在用户注册到JDY用户后，需要提示用户绑定Gizwits/海尔/美的用户。
+返回的token，用在后续和云端的交互中，和登录接口返回的token功能一致。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/reg</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/reg" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"username":"River",
+"password":"123456"
+};
+                            document.getElementById('request_/app/reg').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/reg" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"token":"ntmoeunsoeut",
+"expired-at":1782660536
+};
+                            document.getElementById('response_/app/reg').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.2、 JDY用户修改登录密码            </h3>
+                        <p class="api-method-description">用户使用登录后，可以修改登录的密码。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/resetpassword</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/resetpassword" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"token":"ntmoeunsoeut",
+"old_password":"123456",
+"new_password":"123456"
+};
+                            document.getElementById('request_/app/resetpassword').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/resetpassword" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.3、绑定JDY用户ID和Gizwits/海尔/美的用户ID            </h3>
+                        <p class="api-method-description">用户已有海尔和美的用户的情况下，可以和JDY用户绑定，以通过JDY用户账户来使用海尔/美的的产品。
+海尔/美的的用户注册接口及设备的绑定，均使用海尔/美的的系统。
+需要修改绑定信息时，可重新调用此接口，填入新的信息即可。
+如果要解除绑定，在name和password字段留空。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/binduser</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/binduser" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"token":"ntmoeunsoeut",
+"bind_user":[{
+"platform":"Gizwits",
+"bind_account_name":"Song",
+"bind_account_password":"123456"
+}]
+};
+                            document.getElementById('request_/app/binduser').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/binduser" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.4、登录JDY云平台            </h3>
+                        <p class="api-method-description">从云平台获取后续访问使用的token。
+后续使用此token与服务器交互，等同于使用用户名和密码。
+token存在有效期，在失效后，必须重新从云端获取</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/login</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/login" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"username":"River",
+"password":"123456"
+};
+                            document.getElementById('request_/app/login').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/login" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"token":"ntmoeunsoeut",
+"expired-at":1782660536
+};
+                            document.getElementById('response_/app/login').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.5、 获取JDY用户ID相关联的Gizwits/海尔/美的用户ID            </h3>
+                        <p class="api-method-description">用户登录服务器后，获取JDY用户ID相关联的Gizwits/海尔/美的用户ID。
+返回结果取决于用户是否绑定过其他平台。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/getbindinfo</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/getbindinfo" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"token":"ntmoeunsoeut",
+"username":"River"
+};
+                            document.getElementById('request_/app/getbindinfo').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/getbindinfo" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"bind_user":[{
+"platform":"Gizwits",
+"bind_account_name":"Song",
+"bind_account_password":"123456"}]
+};
+                            document.getElementById('response_/app/getbindinfo').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.6、查询设备列表            </h3>
+                        <p class="api-method-description">app获取JDY用户所关联的设备，包括所绑定的海尔/美的云用户的设备。<br/>
+Gizwits的设备，通过Gizwits的系统获得。<br/>
+海尔/美的云的设备，由于虚拟设备的存在，所有信息均为虚拟设备的，由"platform"字段标明从属的私有云平台。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/devlist</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                                <li>
+                        参数说明:
+                        <table>
+                            <thead class="tb_head_bgcolor">
+                            <tr>
+                                <th width="100px">参数</th>
+                                <th width="100px">类型</th>
+                                <th>说明</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                                        <tr>
+                                <td>productkey</td>
+                                <td>string </td>
+                                <td> 设备类型标识</td>
+                            </tr>
+                                                        <tr>
+                                <td>did</td>
+                                <td>string </td>
+                                <td> 设备标识，用来标识单个设备</td>
+                            </tr>
+                                                        <tr>
+                                <td>mac</td>
+                                <td>string </td>
+                                <td> 设备的mac地址，如果是GPRS模块，则为模块串号。</td>
+                            </tr>
+                                                        <tr>
+                                <td>isonline</td>
+                                <td>string </td>
+                                <td> 设备是否在线。</td>
+                            </tr>
+                                                        <tr>
+                                <td>passcode</td>
+                                <td>string </td>
+                                <td> 设备上电会自己生成访问密码，需使用正确的访问密码，才能对设备进行操作。</td>
+                            </tr>
+                                                        <tr>
+                                <td>host</td>
+                                <td>string </td>
+                                <td> 设备连接的云服务器地址。</td>
+                            </tr>
+                                                        <tr>
+                                <td>port</td>
+                                <td>string </td>
+                                <td> 设备连接的云服务器端口。</td>
+                            </tr>
+                                                        <tr>
+                                <td>remark</td>
+                                <td>string </td>
+                                <td> 用来给设备起一个比较容易记住的名字。</td>
+                            </tr>
+                                                        <tr>
+                                <td>isdisable</td>
+                                <td>string </td>
+                                <td> 设备不再使用时，会通知云端。此类设备不再可以控制，仅保留原有的数据。</td>
+                            </tr>
+                                                        <tr>
+                                <td>type</td>
+                                <td>string </td>
+                                <td> 设备的属性，目前有normal和centercontrol两种。用来区别设备的控制方式。对于JDY的所有设备来说，都为normal。</td>
+                            </tr>
+                                                        </tbody>
+                        </table></li>
+                                        <li>
+                        Body:
+                                                <pre><code id="request_/app/devlist" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"token":"ntmoeunsoeut"
+};
+                            document.getElementById('request_/app/devlist').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/devlist" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"devices":[{
+"platform":"haier",
+"product_key":"soeutaosoen",
+"did":"wmaottaoeeaoeao",
+"mac":"123456789012",
+"is_online":false,
+"passcode":"123456",
+"host":"m2m.gizwits.com",
+"port":3128,
+"remark":"",
+"is_disable":false,
+"type":"normal",
+},{
+"platform":"meidi",
+"product_key":"aoeatsoeut",
+"did":"wmaottaoeeaoeao",
+"mac":"123456789012",
+"is_online":false,
+"passcode":"123456",
+"host":"m2m.gizwits.com",
+"port":3128,
+"remark":"",
+"is_disable":false,
+"type":"normal",
+}]
+};
+                            document.getElementById('response_/app/devlist').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                2.7、用户通过JDY云平台登录到私有云            </h3>
+                        <p class="api-method-description">JDY云平台和私有云交互时，需要提供私有云的token，APP通过此接口来获取。
+在接口中通过platform字段区别需要连接的云平台。用户名和密码字段，由API模块通过按照platform查询用户所绑定的信息获得。
+APP登录JDY云平台后，对每个私有云均需要调用此接口。并且由APP维护超时时间。 后续操作中云平台检测到token失效后，通过返回错误通知APP。APP需要再次获取。
+token不在JDY云平台保存，通过在APP端，将token放入控制数据字段内存储，由协议转换模块进行解析。 私有云上报的设备状态不需要token字段，在协议转换层，此字段可以填充无效内容。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/app/passlogin</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/app/passlogin" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"token":"wmaottaoeeaoeao"
+};
+                            document.getElementById('request_/app/passlogin').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/app/passlogin" class="lang-json"></code></pre>
+                        <script>
+                            var json = {
+"platform":"haier",
+"token":"wmaottaoeeaoeao",
+"expired-at":1782660536
+};
+                            document.getElementById('response_/app/passlogin').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h2 id="-">三、DEV模块接口</h2>
+        <table>
+            <thead class="tb_head_bgcolor">
+            <tr>
+                <th width="150px">模块名</th>
+                <th width="100px">模块</th>
+                <th width="160px">创建人</th>
+                <th width="100px">创建时间</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>三、DEV模块接口</td>
+                <td>/dev</td>
+                <td>
+                    jian0307@icloud.com                                    </td>
+                <td>
+                    2015/11/2                                    </td>
+                <td>
+                                        无                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 id="-">
+                3.1、注册新的JDY设备            </h3>
+                        <p class="api-method-description">此接口用来在获取到用户绑定的新设备后，进行虚拟化的准备工作。
+私有云的设备，需要在服务器端映射为虚拟设备，用来衔接私有云和JDY云平台，使用虚拟设备来代替私有云设备进行操作。
+非开放接口，在以下情况下被API模块调用：
+JDY用户绑定了私有云账号，JDY云平台从私有云获取绑定用户的设备列表，对所有设备进行注册。
+私有云平台用户增加绑定设备后，通知JDY云平台，JDY云平台仅对新设备进行注册。
+如果私有云的设备已经注册过，此接口行为未定义。
+调用后，DEV模块按照JDY平台协议，向JDY云平台注册此设备，保存返回的设备信息到设备信息表，并向调用者返回结果。
+问题：私有云用户删除设备后，是否需要注销？</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/dev/reg</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/dev/reg" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"product_type":"ntmoeunsoeut",
+"company_did":"ntmoeunsoeut",
+"mac":"abcdefabedef"
+};
+                            document.getElementById('request_/dev/reg').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/dev/reg" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                3.2、设备登录/离线            </h3>
+                        <p class="api-method-description">非开放接口，由API模块调用。
+私有云设备的上下线状态，通知到API模块后，由API模块通过此接口通知到DEV模块，DEV模块启动/停止虚拟化设备的运行。关于虚拟节点的启动/停止，加入设备活跃的检测，避免频繁的开启/关闭虚拟设备节点。
+DEV模块根据platform和companydid信息，检索对应的虚拟设备节点信息。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/dev/onoffline</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/dev/onoffline" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"company_did":"wmaottaoeeaoeao",
+"onoffline":"online"
+};
+                            document.getElementById('request_/dev/onoffline').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/dev/onoffline" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                3.3、推送设备状态到虚拟设备            </h3>
+                        <p class="api-method-description">非开放接口，由API模块调用。
+私有云设备的状态，由私有云推送到API模块后，API模块调用此接口，推送到DEV模块，再由虚拟设备推送到APP端。
+此接口仅作为参考，所选用字段包括两方面，设备标识，设备数据。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/dev/pushstatus</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/dev/pushstatus" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"company_did":"wmaottaoeeaoeao",
+"product_type":"aircondition",
+"dev_status":["自定义P0"]
+};
+                            document.getElementById('request_/dev/pushstatus').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/dev/pushstatus" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>--><h3 id="-">
+                3.4、 推送控制指令到设备            </h3>
+                        <p class="api-method-description">非开放接口，由虚拟设备调用。
+用户在APP端的控制指令，实际上会先到达虚拟设备，虚拟设备再将数据通过此接口，转发到API模块。再由API模块推送到私有云平台。
+此接口仅作为参考，包括两部分内容，设备标识，设备数据。</p>
+                        <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：/dev/pushcontrol</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    POST                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                                            <li>
+                        Body:
+                                                <pre><code id="request_/dev/pushcontrol" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = {
+"platform":"haier",
+"product_type":"aircondition",
+"company_did":"wmaottaoeeaoeao",
+"data":["binary"]
+};
+                            document.getElementById('request_/dev/pushcontrol').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                                                <pre><code id="response_/dev/pushcontrol" class="lang-json">无</code></pre>
+                                            </li>
+                </ul>
+            </ul>
             <!--<button>调试工具</button>-->
             </div>
         </div>

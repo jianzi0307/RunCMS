@@ -10,6 +10,7 @@
  */
 namespace Admin\Model;
 
+use Common\Model\BaseModel;
 use Think\Model;
 
 /**

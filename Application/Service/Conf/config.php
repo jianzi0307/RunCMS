@@ -7,6 +7,12 @@
  */
 
 return array(
+    /** API文档标题 */
+    'API_DOCUMENT_TITLE' => 'JDY平台API及设计说明',
+
+    /** API网关地址 */
+    'API_GATEWAY'       => 'http://jdy.t.com/service/',
+
     /** TOKEN过期时间，最长30分钟，最短20分钟无操作过期,单位秒 */
     'TOKEN_TIMEOUT'     => 1800,
 

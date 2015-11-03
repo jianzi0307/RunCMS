@@ -10,6 +10,8 @@
  */
 namespace Admin\Model;
 
+use Common\Model\BaseModel;
+
 class AuthGroupAccessModel extends BaseModel
 {
 

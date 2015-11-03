@@ -8,14 +8,14 @@
  * Time: 16:08
  * ----------------------
  */
-namespace Api\Controller;
+namespace Service\Controller;
 
 use Anodoc;
 use Think\Controller;
 
 /**
  * 接口文档生成工具
- * @package Api\Controller
+ * @package Service\Controller
  * @version 0.2
  */
 class DocsController extends Controller
@@ -36,7 +36,7 @@ class DocsController extends Controller
 
     public function index()
     {
-        echo "API文档生成工具 <a href='build'>build</a><hr/>";
+        echo "API文档生成工具 <a href='".__CONTROLLER__."/build'>build</a><hr/>";
         echo "<li><a href='/apidocs'>API Doc</a></li>";
     }
 

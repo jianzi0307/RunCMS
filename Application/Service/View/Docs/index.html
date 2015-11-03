@@ -1,0 +1,199 @@
+<extend name="base:base" />
+<block name="doc_body">
+    <h1 id="rest-api-">{$Think.config.API_DOCUMENT_TITLE}</h1>
+
+    <p>该文档由注释提取工具自动生成，Created: {$updateTime}</p>
+
+    <table>
+        <thead class="tb_head_bgcolor">
+        <tr>
+            <!--<th>HTTP请求方式</th>-->
+            <th>网关</th>
+            <th>响应格式</th>
+            <!--<th></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--<td>POST</td>-->
+            <td>{$Think.config.API_GATEWAY}</td>
+            <td>application/json</td>
+            <!--<td></td>-->
+        </tr>
+        </tbody>
+    </table>
+
+    <foreach name="docData" item="docInfo" >
+        <h2 id="-">{$docInfo.docName}</h2>
+        <table>
+            <thead class="tb_head_bgcolor">
+            <tr>
+                <th width="150px">模块名</th>
+                <th width="100px">模块</th>
+                <th width="160px">创建人</th>
+                <th width="100px">创建时间</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{$docInfo.docName}</td>
+                <td>{$docInfo.doc}</td>
+                <td>
+                    <notempty name="docInfo.author">{$docInfo.author}</notempty>
+                    <empty name="docInfo.author">无</empty>
+                </td>
+                <td>
+                    <notempty name="docInfo.date">{$docInfo.date}</notempty>
+                    <empty name="docInfo.date">无</empty>
+                </td>
+                <td>
+                    <notempty name="docInfo.docDesc">{$docInfo.docDesc}</notempty>
+                    <empty name="docInfo.docDesc">无</empty>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <foreach name="docInfo.methods" item="methodInfo">
+            <h3 id="-">
+                <?php
+                    $methodDesc = $methodInfo['methodDoc']->getShortDescription();
+                    $methodDescription = $methodInfo['methodDoc']->getLongDescription();
+                    echo $methodDesc ? $methodDesc : '未注明接口名';
+                ?>
+            </h3>
+            <?php
+                $methodDescription = $methodInfo['methodDoc']->getLongDescription();
+                if (trim($methodDescription)) {
+            ?>
+            <p class="api-method-description"><?php echo $methodDescription; ?></p>
+            <?php } ?>
+            <ul class="org-ul">
+                <!--接口地址-->
+                <li>接口地址：{$methodInfo.method}</li>
+
+                <!--请求方式-->
+                <li>请求方式：
+                    <?php
+                        $httpMethod = $methodInfo['methodDoc']->getTag('httpmethod');
+                        echo strtoupper($httpMethod);
+                    ?>
+                </li>
+
+                <!-- 请求数据说明 -->
+                <li>Request (application/json)：</li>
+                <ul class="org-ul">
+                        <?php
+                            $params = $methodInfo['methodDoc']->getTags('param');
+                            $requests = $methodInfo['methodDoc']->getTag('request');
+                            $return = $methodInfo['methodDoc']->getTag('response');
+                            if (count($params) > 0) {
+                        ?>
+                        <li>
+                        参数说明:
+                        <table>
+                            <thead class="tb_head_bgcolor">
+                            <tr>
+                                <th width="100px">参数</th>
+                                <th width="100px">类型</th>
+                                <th>说明</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                if (empty($params) || count($params) == 0) {
+                            ?>
+                            <tr>
+                                <td colspan="4">无</td>
+                            </tr>
+                            <?php
+                                } else {
+                                foreach($params as $param) {
+                                    $paramValue = $param->getValue();
+                                    preg_match_all('/\$[a-z_\x7f-\xff][\w\x7f-\xff]*/i', $paramValue, $metches);
+                                    if ($metches[0][0]) {
+                                        $paramName = $metches[0][0];
+                                        $paramAry = explode($paramName,$paramValue);
+                                        $type = $paramAry[0];
+                                        $paramDesc = $paramAry[1];
+                                    } else {
+                                        $keywords = ereg_replace('/ +/', ' ', $paramValue);
+                                        $keywords = ereg_replace('/\t+/', "\t",$paramValue);
+                                        $keywords = preg_split("/ +/", $paramValue);
+                                        $type = $keywords[0];
+                                        $paramName = count($keywords) > 1 ? $keywords[1] : '？';
+                                        $paramDesc = count($keywords) > 2 ? $keywords[2] : '？';
+                                    }
+                                    $paramName = str_replace("$", "", $paramName);
+                            ?>
+                            <tr>
+                                <td><?php echo $paramName;?></td>
+                                <td><?php echo $type;?></td>
+                                <td><?php echo $paramDesc?></td>
+                            </tr>
+                            <?php }} ?>
+                            </tbody>
+                        </table></li>
+                    <?php } ?>
+                    <li>
+                        Body:
+                        <?php
+                        $requestJson = $requests->getValue();
+                        preg_match_all("/\{.*\}/s", $requestJson, $reqMatches);
+                        $reqJson = $reqMatches[0][0];
+                        if ($reqJson) {
+                        ?>
+                        <pre><code id="request_{$methodInfo.method}" class="lang-json"></code></pre>
+                        <script>
+                            var reqJson = <?php echo $reqJson; ?>;
+                            document.getElementById('request_{$methodInfo.method}').innerHTML = JSON.stringify(reqJson, null, 4);
+                        </script>
+                        <?php } else {
+                        $reqJson = $reqJson ? $reqJson : '无';
+                    ?>
+                        <pre><code id="request_{$methodInfo.method}" class="lang-json"><?php echo $json;?></code></pre>
+                        <?php } ?>
+
+                    </li>
+                </ul>
+                <!-- 响应数据说明 -->
+                <li>Response 200 (application/json)：</li>
+                <ul class="org-ul">
+                    <li>Example:
+                        <?php
+    $returnJson = $return->getValue();
+                        preg_match_all("/\{.*\}/s", $returnJson, $matches);
+                        $json = $matches[0][0];
+                        if($json) {
+                        ?>
+                        <pre><code id="response_{$methodInfo.method}" class="lang-json"></code></pre>
+                        <script>
+                            var json = <?php echo $json; ?>;
+                            document.getElementById('response_{$methodInfo.method}').innerHTML = JSON.stringify(json, null, 4);
+                        </script>
+                        <?php
+    } else {
+        $json = $returnJson ? $returnJson : '无';
+?>
+                        <pre><code id="response_{$methodInfo.method}" class="lang-json"><?php echo $json;?></code></pre>
+                        <?php
+    }
+?>
+                    </li>
+                </ul>
+            </ul>
+            <!--<button>调试工具</button>-->
+        </foreach>
+    </foreach>
+</block>
+
+
+<block name="footer_content">
+    <a href="#" class="logo font-logo pull-left">
+        API Document
+    </a>
+    <ul class="footer-links pull-right">
+        <li><a href="#">帮助</a></li>
+    </ul>
+</block>

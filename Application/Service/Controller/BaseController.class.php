@@ -7,7 +7,7 @@
  * Time: 13:08
  * ----------------------
  */
-namespace Api\Controller;
+namespace Service\Controller;
 
 use Lib\Utils;
 use Think\Controller;
