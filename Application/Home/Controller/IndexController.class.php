@@ -17,6 +17,6 @@ class IndexController extends Controller
     public function index()
     {
         //跳转到后台
-        $this->redirect(U('/Admin/Login'), null, 0);
+        $this->redirect(U('/Admin/System/Login'), null, 0);
     }
 }

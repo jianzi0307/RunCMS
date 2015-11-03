@@ -8,7 +8,7 @@
  * Time: 17:12
  * ----------------------
  */
-namespace Admin\Controller;
+namespace Admin\Controller\System;
 
 use Think\Controller;
 use Think\Model;
@@ -42,12 +42,12 @@ class AdminController extends BaseController
         $this->userId = $user->isLogin();
         if (!$this->userId) {
             //exit($this->error('你还没有登录!', U('/Admin/Login')));
-            $this->redirect(U('/Admin/Login', null, 0, '你还没有登录!'));
+            $this->redirect(U('/Admin/System/Login', null, 0, '你还没有登录!'));
             exit;
         }
         if (!($this->loginUser = $user->getUserById($this->userId))) {
-            exit($this->error('用户信息有误!', U('/Admin/Login')));
-            $this->redirect(U('/Admin/Login', null, 0, '用户信息有误!'));
+            exit($this->error('用户信息有误!', U('/Admin/System/Login')));
+            //$this->redirect(U('/Admin/System/Login', null, 0, '用户信息有误!'));
             exit;
         }
         //是否管理员

@@ -380,7 +380,7 @@ Header and header elements.
 
 .header .btn-navbar {
   margin-bottom: 0px;
-  padding-right: 0px;
+  /*padding-right: 0px;*/
   padding-top:10px;
   padding-bottom: 6px; 
   background-image: none;

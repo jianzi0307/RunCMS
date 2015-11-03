@@ -188,7 +188,7 @@ ul.page-sidebar-menu ul.sub-menu > li > a i {
 }
 
 .header .brand img {
-    width:160px;
+    height:20px;
 }
 
 /***
@@ -418,4 +418,8 @@ Landscape phone to portrait tablet
   .footer .footer-tools .go-top i {
     color: #999999;
   }
+}
+
+.login .content .input-icon {
+    border-left: 2px solid #26a69a !important;
 }

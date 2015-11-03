@@ -25,7 +25,7 @@ var ConfSettingEdit = function () {
                 var res = JSON.parse(dat);
                 if (res.errno == 0) {
                     alert(res.errmsg);
-                    window.location.href='/admin/confsetting';
+                    window.location.href='/Admin/System/Confsetting/Index';
                 } else {
                     alert(res.errmsg);
                 }

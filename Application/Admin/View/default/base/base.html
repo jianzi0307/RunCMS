@@ -37,7 +37,7 @@
         <link href="/assets/{$Think.config.DEFAULT_THEME}/css/DT_bootstrap.css" rel="stylesheet" />
         <!-- END PAGE LEVEL STYLES -->
     </block>
-    <link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.ico" />
+    <link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.png" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -49,8 +49,8 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <!-- BEGIN LOGO -->
-                <a class="brand" href="{:U('/Admin/Index/index')}">
-                    <img src="{$Think.config.SITE_BACKEND_LOGO}" alt="logo"/>
+                <a class="brand" href="{:U('/Admin/System/Index/index')}">
+                    <img src="{$Think.config.SITE_BACKEND_LOGO}" width="89" alt="logo"/>
                     <!--{$Think.config.APP_NAME}-->
                 </a>
                 <!-- END LOGO -->
@@ -67,8 +67,8 @@
                             <i class="icon-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{:U('/Admin/Profile/pwd')}"><i class="icon-key"></i> 修改密码</a></li>
-                            <li><a href="{:U('/Admin/Logout/index')}"><i class="icon-signout"></i> 注销</a></li>
+                            <li><a href="{:U('/Admin/System/Profile/pwd')}"><i class="icon-key"></i> 修改密码</a></li>
+                            <li><a href="{:U('/Admin/System/Logout/index')}"><i class="icon-signout"></i> 注销</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -94,7 +94,7 @@
                 <!--{:extra_menu($_extra_menu,$__MENU__)}-->
                 <!--</notempty>-->
                 <li class="start">
-                    <a href="{:U('/Admin/Index/index')}">
+                    <a href="{:U('/Admin/System/Index/index')}">
                         <i class="icon-home"></i>
                         <span class="title">系统首页</span>
                         <span class="selected"></span>
@@ -284,6 +284,8 @@
         url = window.location.pathname + window.location.search;
         url = url.replace(/(\/(p)\/\d+)|(&p=\d+)|(\/(id)\/\d+)|(&id=\d+)|(\/(group)\/\d+)|(&group=\d+)/i, "");
         var module = '{$Think.MODULE_NAME}';
+        var systemDir = 'system';
+        var appDir = 'app';
         var controller = '{$Think.CONTROLLER_NAME}';
         var action = '{$Think.ACTION_NAME}';//'index';
         var uri = '';
@@ -321,7 +323,7 @@
         }
     }();
 
-    //
+    //布局
     var isFluid = {$Think.config.PAGE_SCREEN_STYLE};
     var headerIsFixed = {$Think.config.PAGE_HEADER_FIXED};
     var footerIsFixed = {$Think.config.PAGE_FOOTER_FIXED};

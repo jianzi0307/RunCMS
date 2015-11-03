@@ -8,7 +8,7 @@
  * Time: 10:12
  * ----------------------
  */
-namespace Admin\Controller;
+namespace Admin\Controller\System;
 
 use Think\Controller;
 

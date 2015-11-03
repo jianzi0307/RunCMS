@@ -28,11 +28,11 @@ var Profile = function () {
                         repwd:rpwd
                     };
 
-                    $.post('/Admin/Profile/pwd',data,function(res){
+                    $.post('/Admin/System/Profile/pwd',data,function(res){
                         res = JSON.parse(res);
                         if (res.errno == 0) {
                             alert(res.errmsg);
-                            location.href='/Admin/Login';
+                            location.href='/Admin/System/Login';
                         } else {
                             alert(res.errmsg);
                         }

@@ -8,7 +8,7 @@
  * Time: 14:01
  * ----------------------
  */
-namespace Admin\Controller;
+namespace Admin\Controller\System;
 
 use Admin\Model\LogsModel;
 use Lib\Util;
@@ -36,6 +36,6 @@ class LogoutController extends BaseController
         Util::setCookie('u', '', -1);
         $this->assign('waitSecond', 0);
         //exit($this->success('退出成功!', U('/Admin/Login')));
-        exit($this->redirect(U('/Admin/Login'), null, 0, '退出成功!'));
+        exit($this->redirect(U('/Admin/System/Login'), null, 0, '退出成功!'));
     }
 }

@@ -8,7 +8,7 @@
  * Time: 14:01
  * ----------------------
  */
-namespace Admin\Controller;
+namespace Admin\Controller\System;
 use Admin\Model\LogsModel;
 use Lib\Util;
 

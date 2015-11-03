@@ -12,6 +12,9 @@ return array(
     //模版主题
     'DEFAULT_THEME' =>  'default',
 
+    //控制器分级
+    'CONTROLLER_LEVEL'      =>  2,
+
     //后台超级管理员ID
     'ADMINISTRATOR' =>  array('1'),
     'BASE_MODEL' => '基本模式',

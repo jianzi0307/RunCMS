@@ -285,3 +285,7 @@ Landscape phone to portrait tablet
     background: #1e1e1e;
   }
 }
+
+.login .content .input-icon {
+    border-left: 2px solid forestgreen !important;
+}

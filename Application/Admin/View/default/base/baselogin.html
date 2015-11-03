@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8" />
-	<title>登录</title>
+	<title>{$Think.config.APP_NAME} - 登录</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -16,17 +16,13 @@
 	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-metro.css" rel="stylesheet" type="text/css"/>
 	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style.css" rel="stylesheet" type="text/css"/>
 	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-    <if condition=" $Think.config.PAGE_COLOR_STYLE eq 0">
-        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-        <else/>
-        <link href="/assets/{$Think.config.DEFAULT_THEME}/css/light.css" rel="stylesheet" type="text/css" id="style_color"/>
-    </if>
+    <link href="/assets/{$Think.config.DEFAULT_THEME}/css/{$Think.config.PAGE_COLOR_STYLE}.css" rel="stylesheet" type="text/css" id="style_color"/>
 	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link href="/assets/{$Think.config.DEFAULT_THEME}/css/login.css" rel="stylesheet" type="text/css"/>
 	<!-- END PAGE LEVEL STYLES -->
-	<link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.ico" />
+    <link rel="shortcut icon" href="/assets/{$Think.config.DEFAULT_THEME}/image/favicon.png" />
 	<block name="page-level-styles">
 	<style>
 		.control-label{

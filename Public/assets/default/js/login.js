@@ -7,14 +7,14 @@ var Login = function () {
     	var username = $('#username').val();
     	var password = $('#password').val();
         var captcha = $('#captcha').val();
-    	$.post('/admin/login/loginAuth',{"username":username,"password":password,"captcha":captcha},function(data){
+    	$.post('/Admin/System/Login/loginAuth',{"username":username,"password":password,"captcha":captcha},function(data){
     		if( data ) {
     			var res = JSON.parse(data)
     			if( !res ) {
     				return;
     			}
     			if( res.errno == 0 ) {
-    				window.location.href = "/admin";
+    				window.location.href = "/Admin/System/Index";
     			} else {
                     showAlert(res.errmsg);
     			}
@@ -32,7 +32,7 @@ var Login = function () {
 
     var flushCaptcha = function() {
         $('.captcha-layer').show();
-        var captcha_url = '/admin/login/showCaptcha/?rand=' + Math.random();
+        var captcha_url = '/Admin/System/Login/showCaptcha/?rand=' + Math.random();
         $.get(captcha_url,function( data ){
             $('.captcha-layer').hide();
             if (data) {

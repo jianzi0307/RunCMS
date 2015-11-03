@@ -49,7 +49,7 @@ CREATE TABLE `app_auth_group` (
   `rules` varchar(500) NOT NULL DEFAULT '' COMMENT '用户组拥有的规则id，多个规则 , 隔开',
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_auth_group` */
 
@@ -75,7 +75,7 @@ CREATE TABLE `app_auth_group_access` (
 
 LOCK TABLES `app_auth_group_access` WRITE;
 
-insert  into `app_auth_group_access`(`uid`,`group_id`) values (1,1),(59,38);
+insert  into `app_auth_group_access`(`uid`,`group_id`) values (1,1),(59,39);
 
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `app_auth_rule` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否有效(0:无效,1:有效)',
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_auth_rule` */
 
@@ -123,13 +123,13 @@ CREATE TABLE `app_config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=337 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=338 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_config` */
 
 LOCK TABLES `app_config` WRITE;
 
-insert  into `app_config`(`id`,`name`,`type`,`title`,`group`,`extra`,`remark`,`create_time`,`update_time`,`status`,`value`,`sort`) values (1,'APP_NAME',1,'站点标题',1,'','网站或应用标题,前台显示',1445922713,1445922713,1,'网站管理系统',0),(2,'CONFIG_TYPE_LIST',3,'配置数据类型',3,'','主要用于数据解析和页面表单的生成',1445920122,1445920122,1,'0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举\r\n5:图片',0),(3,'CONFIG_GROUP_LIST',3,'配置分组',3,'','配置分组',1445920112,1445920112,1,'1:基本设置\r\n2:风格设置\r\n3:系统设置',0),(332,'PAGE_SCREEN_STYLE',4,'页面风格',2,'0:宽屏\n1:窄屏','页面宽窄风格',1445920353,1445920353,1,'0',0),(333,'PAGE_HEADER_FIXED',4,'页面头部',2,'0:默认\n1:固定','页头是否固定悬浮',1445920560,1445920560,1,'0',0),(334,'PAGE_FOOTER_FIXED',4,'页面底部',2,'0:默认\n1:固定','页面底部是否固定悬浮',1445920550,1445920550,1,'0',0),(5,'APP_COPYRIGHT',1,'版权信息',1,'','版权信息，前端显示在页脚',1438219932,1438219932,1,'2015 TpSite',0),(4,'APP_IPC',1,'备案信息',1,'','备案信息，前端显示在页脚',1438666455,1438666455,1,'沪ICP备12007941号-2',0),(335,'SITE_BACKEND_LOGO',5,'后台LOGO',1,'','后台LOGO',1445922919,1445922919,1,'',0),(336,'PAGE_COLOR_STYLE',4,'页面色调',2,'0:暗黑\n1:青淡','后台颜色风格',1445924430,1445924430,1,'1',0);
+insert  into `app_config`(`id`,`name`,`type`,`title`,`group`,`extra`,`remark`,`create_time`,`update_time`,`status`,`value`,`sort`) values (1,'APP_NAME',1,'站点标题',1,'','网站或应用标题,前台显示',1445922713,1445922713,1,'网站管理系统',0),(2,'CONFIG_TYPE_LIST',3,'配置数据类型',3,'','主要用于数据解析和页面表单的生成',1445920122,1445920122,1,'0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举\r\n5:图片',0),(3,'CONFIG_GROUP_LIST',3,'配置分组',3,'','配置分组',1445920112,1445920112,1,'1:基本设置\r\n2:风格设置\r\n3:系统设置\r\n4:应用设置',0),(332,'PAGE_SCREEN_STYLE',4,'页面风格',2,'0:宽屏\n1:窄屏','页面宽窄风格',1445920353,1445920353,1,'0',0),(333,'PAGE_HEADER_FIXED',4,'页面头部',2,'0:默认\n1:固定','页头是否固定悬浮',1445920560,1445920560,1,'0',0),(334,'PAGE_FOOTER_FIXED',4,'页面底部',2,'0:默认\n1:固定','页面底部是否固定悬浮',1445920550,1445920550,1,'0',0),(5,'APP_COPYRIGHT',1,'版权信息',1,'','版权信息，前端显示在页脚',1438219932,1438219932,1,'2015 RunCms',0),(4,'APP_IPC',1,'备案信息',1,'','备案信息，前端显示在页脚',1438666455,1438666455,1,'沪ICP备12007941号',0),(335,'SITE_BACKEND_LOGO',5,'后台LOGO',1,'','后台LOGO',1445922919,1445922919,1,'/assets/default/image/rdlogo.png',0),(336,'PAGE_COLOR_STYLE',4,'页面色调',2,'default:暗黑\nlight:青淡\nyellow:向日葵','后台颜色风格',1446540448,1446540448,1,'yellow',0),(337,'APP_ACCESS_KEY',1,'应用公共密钥',4,'','应用公共密钥',1446455274,1446455274,1,'YDSYjdSADewABC',0);
 
 UNLOCK TABLES;
 
@@ -141,17 +141,21 @@ CREATE TABLE `app_logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增索引',
   `uname` varchar(50) NOT NULL COMMENT '用户名',
   `createtime` int(11) NOT NULL DEFAULT '0' COMMENT '时间',
-  `log` text NOT NULL COMMENT '日志',
+  `class` varchar(100) DEFAULT NULL COMMENT '模块',
+  `ip` char(20) DEFAULT '0.0.0.0' COMMENT 'IP地址',
+  `status` tinyint(1) DEFAULT '0' COMMENT '结果',
+  `action` varchar(32) DEFAULT NULL COMMENT '行为',
+  `sql` text COMMENT 'SQL语句',
   PRIMARY KEY (`id`),
   KEY `uname` (`uname`),
   KEY `createtime` (`createtime`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_logs` */
 
 LOCK TABLES `app_logs` WRITE;
 
-insert  into `app_logs`(`id`,`uname`,`createtime`,`log`) values (1,'jianzi',1428316362,'阿散发送达飞洒反对萨发'),(2,'admin',1428316362,'1428316362asfddsafsafdsafdasdf3423424'),(3,'jianzi',1428316362,'阿随风倒嚼蜡三大件法律;司机阿法律;就,23242欧io');
+insert  into `app_logs`(`id`,`uname`,`createtime`,`class`,`ip`,`status`,`action`,`sql`) values (32,'admin',1446099853,'UsersController::edit','127.0.0.1',1,'update','UPDATE `app_useradmin` SET `uname`=\'jianzi0307\',`avatar`=\'\',`blocked`=0,`createtime`=1446099853,`expirtime`=4556499853 WHERE ( id=59 )'),(31,'admin',1446099837,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(33,'admin',1446309628,'LogoutController::index','127.0.0.1',1,'logout',NULL),(34,'admin',1446309641,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(35,'admin',1446368296,'LogoutController::index','127.0.0.1',1,'logout',NULL),(36,'admin',1446368307,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(37,'admin',1446368324,'SitesettingController::picUploadHandler','127.0.0.1',1,'update','UPDATE `app_config` SET `id`=335,`name`=\'SITE_BACKEND_LOGO\',`type`=5,`title`=\'后台LOGO\',`group`=1,`extra`=\'\',`remark`=\'后台LOGO\',`create_time`=1445922919,`update_time`=1445922919,`status`=1,`value`=\'/uploads/2015-11-01/5635d444f18fc.png\',`sort`=0 WHERE `name` = \'SITE_BACKEND_LOGO\''),(38,'admin',1446368761,'SitesettingController::picUploadHandler','127.0.0.1',1,'update','UPDATE `app_config` SET `id`=335,`name`=\'SITE_BACKEND_LOGO\',`type`=5,`title`=\'后台LOGO\',`group`=1,`extra`=\'\',`remark`=\'后台LOGO\',`create_time`=1445922919,`update_time`=1445922919,`status`=1,`value`=\'/uploads/2015-11-01/5635d5f9358fb.png\',`sort`=0 WHERE `name` = \'SITE_BACKEND_LOGO\''),(39,'admin',1446368767,'LogoutController::index','127.0.0.1',1,'logout',NULL),(40,'admin',1446427649,'LogoutController::index','127.0.0.1',1,'logout',NULL),(41,'admin',1446427661,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(42,'admin',1446428541,'LogoutController::index','127.0.0.1',1,'logout',NULL),(43,'admin',1446428603,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(44,'admin',1446428606,'LogoutController::index','127.0.0.1',1,'logout',NULL),(45,'admin',1446428872,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(46,'admin',1446428891,'SitesettingController::picUploadHandler','127.0.0.1',1,'update','UPDATE `app_config` SET `id`=335,`name`=\'SITE_BACKEND_LOGO\',`type`=5,`title`=\'后台LOGO\',`group`=1,`extra`=\'\',`remark`=\'后台LOGO\',`create_time`=1445922919,`update_time`=1445922919,`status`=1,`value`=\'/uploads/2015-11-02/5636c0db9b0ea.png\',`sort`=0 WHERE `name` = \'SITE_BACKEND_LOGO\''),(47,'admin',1446432125,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(48,'admin',1446432145,'SitesettingController::picUploadHandler','127.0.0.1',1,'update','UPDATE `app_config` SET `id`=335,`name`=\'SITE_BACKEND_LOGO\',`type`=5,`title`=\'后台LOGO\',`group`=1,`extra`=\'\',`remark`=\'后台LOGO\',`create_time`=1445922919,`update_time`=1445922919,`status`=1,`value`=\'/uploads/2015-11-02/5636cd91505ff.png\',`sort`=0 WHERE `name` = \'SITE_BACKEND_LOGO\''),(49,'admin',1446432179,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'1:基本设置\\r\\n2:风格设置\\r\\n3:系统设置\\r\\n4:应用设置\' WHERE `name` = \'CONFIG_GROUP_LIST\''),(50,'admin',1446455274,'fsettingController::add','127.0.0.1',1,'add','INSERT INTO `app_config` (`name`,`type`,`group`,`extra`,`title`,`remark`,`value`,`sort`,`create_time`,`update_time`,`status`) VALUES (\'APP_ACCESS_KEY\',1,4,\'\',\'应用公共密钥\',\'应用公共密钥\',\'ttttt\',0,1446455274,1446455274,1)'),(51,'admin',1446455295,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'YDSYjdSADewABC\' WHERE `name` = \'APP_ACCESS_KEY\''),(52,'admin',1446530280,'LogoutController::index','127.0.0.1',1,'logout',NULL),(53,'admin',1446530291,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(54,'admin',1446530348,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'沪ICP备12007941号\' WHERE `name` = \'APP_IPC\''),(55,'admin',1446531721,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Users/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'后台账号管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-user\' WHERE ( id=8 )'),(56,'admin',1446531760,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Usergroup/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'后台账号组管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-group\' WHERE ( id=7 )'),(57,'admin',1446531843,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Modelsetting/index\',`pid`=2,`groupid`=6,`hide`=1,`title`=\'模型管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-cogs\' WHERE ( id=4 )'),(58,'admin',1446532086,'MenugroupController::add','127.0.0.1',1,'add','INSERT INTO `app_menu_group` (`menuid`,`group`,`sort`,`icon`,`hide`) VALUES (2,\'账户管理\',0,\'\',0)'),(59,'admin',1446532224,'MenugroupController::edit','127.0.0.1',1,'update','UPDATE `app_menu_group` SET `menuid`=2,`group`=\'账户管理\',`sort`=0,`icon`=\'icon-group\',`hide`=0 WHERE ( id=13 )'),(60,'admin',1446532332,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'test\',`pid`=2,`groupid`=13,`hide`=0,`title`=\'注册ID管理\',`is_dev`=0,`tip`=\'注册ID管理\',`sort`=0,`icon`=\'icon-user-md\' WHERE ( id=99 )'),(61,'admin',1446532475,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Usergroup/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'后台账号权限管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-group\' WHERE ( id=7 )'),(62,'admin',1446532492,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Usergroup/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'权限管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-group\' WHERE ( id=7 )'),(63,'admin',1446532510,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Users/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'后台账号\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-user\' WHERE ( id=8 )'),(64,'admin',1446532611,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'Usergroup/index\',`pid`=2,`groupid`=6,`hide`=0,`title`=\'权限管理\',`is_dev`=0,`tip`=\'\',`sort`=0,`icon`=\'icon-magic\' WHERE ( id=7 )'),(65,'admin',1446532679,'MenugroupController::edit','127.0.0.1',1,'update','UPDATE `app_menu_group` SET `menuid`=2,`group`=\'用户管理\',`sort`=0,`icon`=\'icon-group\',`hide`=0 WHERE ( id=13 )'),(66,'admin',1446532872,'MenugroupController::add','127.0.0.1',1,'add','INSERT INTO `app_menu_group` (`menuid`,`group`,`sort`,`icon`,`hide`) VALUES (2,\'设备管理\',2,\'icon-list\',0)'),(67,'admin',1446532981,'MenugroupController::edit','127.0.0.1',1,'update','UPDATE `app_menu_group` SET `menuid`=2,`group`=\'设备管理\',`sort`=1,`icon`=\'icon-list\',`hide`=0 WHERE ( id=14 )'),(68,'admin',1446532990,'MenugroupController::edit','127.0.0.1',1,'update','UPDATE `app_menu_group` SET `menuid`=2,`group`=\'用户管理\',`sort`=2,`icon`=\'icon-group\',`hide`=0 WHERE ( id=13 )'),(69,'admin',1446533008,'MenugroupController::edit','127.0.0.1',1,'update','UPDATE `app_menu_group` SET `menuid`=2,`group`=\'系统设置\',`sort`=9,`icon`=\'icon-cog\',`hide`=0 WHERE ( id=6 )'),(70,'admin',1446533061,'MenusettingController::edit','127.0.0.1',1,'update','UPDATE `app_menu` SET `url`=\'tttt\',`pid`=2,`groupid`=14,`hide`=0,`title`=\'设备查询\',`is_dev`=0,`tip`=\'设备查询\',`sort`=0,`icon`=\'icon-search\' WHERE ( id=101 )'),(71,'admin',1446540448,'fsettingController::edit','127.0.0.1',1,'update','UPDATE `app_config` SET `name`=\'PAGE_COLOR_STYLE\',`type`=4,`group`=2,`extra`=\'default:暗黑\\nlight:青淡\\nyellow:向日葵\',`title`=\'页面色调\',`remark`=\'后台颜色风格\',`value`=\'light\',`sort`=0,`create_time`=1446540448,`update_time`=1446540448,`status`=1 WHERE ( id=336 )'),(72,'admin',1446540495,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'default\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(73,'admin',1446540539,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'yellow\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(74,'admin',1446540661,'SitesettingController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'light\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(75,'admin',1446541527,'SitesettingController::picUploadHandler','127.0.0.1',1,'update','UPDATE `app_config` SET `id`=335,`name`=\'SITE_BACKEND_LOGO\',`type`=5,`title`=\'后台LOGO\',`group`=1,`extra`=\'\',`remark`=\'后台LOGO\',`create_time`=1445922919,`update_time`=1445922919,`status`=1,`value`=\'/uploads/2015-11-03/563878d7cc335.png\',`sort`=0 WHERE `name` = \'SITE_BACKEND_LOGO\''),(76,'admin',1446551673,'MenusettingController::del','127.0.0.1',1,'delete','DELETE FROM `app_menu` WHERE `id` IN (\'102\')'),(77,'admin',1446551675,'MenusettingController::del','127.0.0.1',1,'delete','DELETE FROM `app_menu` WHERE `id` IN (\'101\')'),(78,'admin',1446551678,'MenusettingController::del','127.0.0.1',1,'delete','DELETE FROM `app_menu` WHERE `id` IN (\'100\')'),(79,'admin',1446551682,'MenusettingController::del','127.0.0.1',1,'delete','DELETE FROM `app_menu` WHERE `id` IN (\'99\')'),(80,'admin',1446552111,'LogoutController::index','127.0.0.1',1,'logout',NULL),(81,'admin',1446552217,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(82,'admin',1446552240,'gController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'yellow\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(83,'admin',1446552753,'MenugroupController::del','127.0.0.1',1,'delete','DELETE FROM `app_menu_group` WHERE `id` IN (\'14\')'),(84,'admin',1446552842,'gController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'default\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(85,'admin',1446552846,'LogoutController::index','127.0.0.1',1,'logout',NULL),(86,'admin',1446552867,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  '),(87,'admin',1446552886,'gController::save','127.0.0.1',1,'update','UPDATE `app_config` SET `value`=\'yellow\' WHERE `name` = \'PAGE_COLOR_STYLE\''),(88,'admin',1446552889,'LogoutController::index','127.0.0.1',1,'logout',NULL),(89,'admin',1446552904,'LoginController::loginAuth','127.0.0.1',1,'login','SELECT * FROM `app_useradmin` WHERE `id` = 1 LIMIT 1  ');
 
 UNLOCK TABLES;
 
@@ -172,13 +176,13 @@ CREATE TABLE `app_menu` (
   `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标，文本图标名',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_menu` */
 
 LOCK TABLES `app_menu` WRITE;
 
-insert  into `app_menu`(`id`,`title`,`pid`,`sort`,`url`,`hide`,`tip`,`groupid`,`is_dev`,`icon`) values (3,'网站设置',2,0,'Sitesetting/index',0,'',6,0,'icon-sitemap'),(2,'系统',0,0,'Index/index',0,'',0,0,''),(4,'模型管理',2,0,'Modelsetting/index',1,'',6,0,'icon-cogs'),(5,'配置管理',2,0,'Confsetting/index',0,'',6,0,'icon-wrench'),(6,'菜单管理',2,0,'Menusetting/index',0,'',6,0,'icon-tasks'),(7,'用户组管理',2,0,'Usergroup/index',0,'',6,0,'icon-group'),(8,'用户管理',2,0,'Users/index',0,'',6,0,'icon-user'),(10,'系统日志',2,0,'Logs/index',1,'',6,0,'icon-warning-sign'),(31,'增加菜单',6,0,'Menusetting/add',0,'',0,0,''),(32,'菜单分组',6,0,'Menugroup/index',0,'',0,0,''),(33,'编辑菜单',6,0,'Menusetting/edit',0,'',0,0,''),(34,'删除菜单',6,0,'Menusetting/del',0,'',0,0,''),(35,'增加配置',5,0,'Confsetting/add',0,'',0,0,''),(36,'编辑配置',5,0,'Confsetting/edit',0,'',0,0,''),(37,'删除配置',5,0,'Confsetting/del',0,'',0,0,''),(38,'保存设置',3,0,'Sitesetting/save',0,'',0,0,''),(39,'增加',32,0,'Menugroup/add',0,'',0,0,''),(40,'修改',32,0,'Menugroup/edit',0,'',0,0,''),(41,'删除',32,0,'Menugroup/del',0,'',0,0,''),(42,'增加用户组',7,0,'Usergroup/add',0,'',0,0,''),(43,'编辑用户组',7,0,'Usergroup/edit',0,'',0,0,''),(44,'删除用户组',7,0,'Usergroup/del',0,'',0,0,''),(45,'权限管理',7,0,'Usergroup/priv',0,'',0,0,''),(46,'成员管理',7,0,'Usergroup/user',0,'',0,0,''),(53,'添加用户',8,0,'Users/add',0,'',0,0,''),(50,'修改密码',2,0,'Profile/pwd',0,'修改个人密码',12,0,'icon-key'),(54,'编辑用户',8,0,'Users/edit',0,'',0,0,''),(55,'删除用户',8,0,'Users/del',0,'',0,0,''),(98,'个人资料',2,0,'Profile/userinfo',0,'修改个人资料',12,0,'icon-user');
+insert  into `app_menu`(`id`,`title`,`pid`,`sort`,`url`,`hide`,`tip`,`groupid`,`is_dev`,`icon`) values (3,'网站设置',2,0,'Admin/System/Sitesetting/index',0,'',6,0,'icon-sitemap'),(2,'系统',0,0,'Admin/System/Index/index',0,'',0,0,''),(4,'模型管理',2,0,'Admin/System/Modelsetting/index',1,'',6,0,'icon-cogs'),(5,'配置管理',2,0,'Admin/System/Confsetting/index',0,'',6,0,'icon-wrench'),(6,'菜单管理',2,0,'Admin/System/Menusetting/index',0,'',6,0,'icon-tasks'),(7,'权限管理',2,0,'Admin/System/Usergroup/index',0,'',6,0,'icon-magic'),(8,'后台账号',2,0,'Admin/System/Users/index',0,'',6,0,'icon-user'),(10,'系统日志',2,0,'Admin/System/Logs/index',0,'',6,0,'icon-warning-sign'),(31,'增加菜单',6,0,'Admin/System/Menusetting/add',0,'',0,0,''),(32,'菜单分组',6,0,'Admin/System/Menugroup/index',0,'',0,0,''),(33,'编辑菜单',6,0,'Admin/System/Menusetting/edit',0,'',0,0,''),(34,'删除菜单',6,0,'Admin/System/Menusetting/del',0,'',0,0,''),(35,'增加配置',5,0,'Admin/System/Confsetting/add',0,'',0,0,''),(36,'编辑配置',5,0,'Admin/System/Confsetting/edit',0,'',0,0,''),(37,'删除配置',5,0,'Admin/System/Confsetting/del',0,'',0,0,''),(38,'保存设置',3,0,'Admin/System/Sitesetting/save',0,'',0,0,''),(39,'增加',32,0,'Admin/System/Menugroup/add',0,'',0,0,''),(40,'修改',32,0,'Admin/System/Menugroup/edit',0,'',0,0,''),(41,'删除',32,0,'Admin/System/Admin/System/Menugroup/del',0,'',0,0,''),(42,'增加用户组',7,0,'Admin/System/Usergroup/add',0,'',0,0,''),(43,'编辑用户组',7,0,'Admin/System/Usergroup/edit',0,'',0,0,''),(44,'删除用户组',7,0,'Admin/System/Usergroup/del',0,'',0,0,''),(45,'权限管理',7,0,'Admin/System/Usergroup/priv',0,'',0,0,''),(46,'成员管理',7,0,'Admin/System/Usergroup/user',0,'',0,0,''),(53,'添加用户',8,0,'Admin/System/Users/add',0,'',0,0,''),(50,'修改密码',2,0,'Admin/System/Profile/pwd',0,'修改个人密码',12,0,'icon-key'),(54,'编辑用户',8,0,'Admin/System/Users/edit',0,'',0,0,''),(55,'删除用户',8,0,'Admin/System/Users/del',0,'',0,0,''),(98,'个人资料',2,0,'Admin/System/Profile/userinfo',0,'修改个人资料',12,0,'icon-user'),(103,'测试菜单',2,0,'Admin/App/Demo/Index',0,'测试菜单',13,0,'icon-user');
 
 UNLOCK TABLES;
 
@@ -195,13 +199,13 @@ CREATE TABLE `app_menu_group` (
   `hide` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏',
   PRIMARY KEY (`id`),
   UNIQUE KEY `group` (`group`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_menu_group` */
 
 LOCK TABLES `app_menu_group` WRITE;
 
-insert  into `app_menu_group`(`id`,`menuid`,`group`,`icon`,`sort`,`hide`) values (6,2,'系统设置','icon-cog',0,0),(12,2,'个人资料','icon-edit',0,1);
+insert  into `app_menu_group`(`id`,`menuid`,`group`,`icon`,`sort`,`hide`) values (6,2,'系统设置','icon-cog',9,0),(12,2,'个人资料','icon-edit',0,1),(13,2,'用户管理','icon-group',2,0);
 
 UNLOCK TABLES;
 
@@ -214,16 +218,7 @@ CREATE TABLE `app_useradmin` (
   `uname` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名',
   `nickname` varchar(50) DEFAULT '' COMMENT '昵称',
   `passwd` varchar(50) NOT NULL DEFAULT '' COMMENT '密码',
-  `factoryname` varchar(50) NOT NULL DEFAULT '' COMMENT '厂名',
-  `factoryaddress` varchar(100) NOT NULL DEFAULT '' COMMENT '厂址',
-  `factoryscale` varchar(100) NOT NULL DEFAULT '' COMMENT '工厂规模',
-  `maintechnology` varchar(100) NOT NULL DEFAULT '' COMMENT '主要工艺',
-  `personliable` varchar(100) NOT NULL DEFAULT '' COMMENT '负责人',
-  `dutyname` varchar(100) NOT NULL DEFAULT '' COMMENT '负责人职务',
-  `personphone` bigint(11) unsigned NOT NULL DEFAULT '0' COMMENT '负责人联系方式',
-  `regname` varchar(100) NOT NULL DEFAULT '' COMMENT '注册人姓名',
-  `regdutyname` varchar(100) NOT NULL DEFAULT '' COMMENT '注册人职务',
-  `regpersonphone` bigint(11) unsigned NOT NULL DEFAULT '0' COMMENT '注册人手机',
+  `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
   `createtime` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `expirtime` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '账户截止时间，0表示无限期',
   `blocked` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否禁用',
@@ -235,7 +230,7 @@ CREATE TABLE `app_useradmin` (
 
 LOCK TABLES `app_useradmin` WRITE;
 
-insert  into `app_useradmin`(`id`,`uname`,`nickname`,`passwd`,`factoryname`,`factoryaddress`,`factoryscale`,`maintechnology`,`personliable`,`dutyname`,`personphone`,`regname`,`regdutyname`,`regpersonphone`,`createtime`,`expirtime`,`blocked`) values (1,'admin','','9931a42da138132c04c97a55a6eec855','','','','','','',0,'','',0,0,0,0),(59,'jianzi0307','','5aff92f6169a722b3615e8d641c2a6b7','asdf','asdf','asdf','asdf','sadf','asdf',0,'afsd','asfd',0,1443512786,4553912786,1);
+insert  into `app_useradmin`(`id`,`uname`,`nickname`,`passwd`,`avatar`,`createtime`,`expirtime`,`blocked`) values (1,'admin','','9931a42da138132c04c97a55a6eec855',NULL,0,0,0),(59,'jianzi0307','','5aff92f6169a722b3615e8d641c2a6b7','',1446099853,4556499853,0);
 
 UNLOCK TABLES;
 
@@ -246,7 +241,7 @@ DROP TABLE IF EXISTS `app_userattr`;
 CREATE TABLE `app_userattr` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '索引',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `app_userattr` */
 

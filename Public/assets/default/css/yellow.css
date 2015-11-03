@@ -17,7 +17,7 @@ Page header
   background-color: #293132 !important;
 }
 .header .btn-navbar {
-  background-color: #747F8C !important;
+  /*background-color: #747F8C !important;*/
 }
 .header .nav .dropdown-toggle:hover,
 .header .nav .dropdown.open .dropdown-toggle {
@@ -432,4 +432,8 @@ Landscape phone to portrait tablet
 a {
     text-shadow: none !important;
     color: #333;
+}
+
+.login .content .input-icon {
+    border-left: 2px solid #C6C20A !important;
 }
