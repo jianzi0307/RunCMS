@@ -183,10 +183,16 @@ class MenuModel extends BaseModel
                             $menus['main'][$key]['class'] = 'current';
                             //生成child树
                             //获取分组
-                            $groups = $this
+                            /*$groups = $this
                                 ->where("pid = {$item['id']}")
                                 ->distinct(true)
                                 ->field("`groupid`")
+                                ->select();*/
+
+                            $groups = M('MenuGroup')
+                                ->where("menuid = {$item['id']}")
+                                ->field("`id` as groupid")
+                                ->order('`sort` desc')
                                 ->select();
 
                             if ($groups) {
