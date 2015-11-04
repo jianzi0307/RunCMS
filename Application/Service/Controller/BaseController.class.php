@@ -9,10 +9,10 @@
  */
 namespace Service\Controller;
 
-use Lib\Utils;
-use Think\Controller;
+use Common\Controller\RestfulController;
+use Lib\Util;
 
-class BaseController extends Controller
+class BaseController extends RestfulController
 {
     const __TOKEN_ERROR_0 = -2;//token错误
     const __TOKEN_ERROR_1 = -3;//token过期
@@ -27,6 +27,17 @@ class BaseController extends Controller
     public function _initialize()
     {
         $this->time = time();
+
+        if (IS_POST) {
+            $format = I('get.format');
+            if (isset($format)) {
+                $format = strtolower(Util::getSafeText(trim($format)));
+
+            }
+        } else {
+            $resData = $this->getResponseData(self::__ILLEGAL_ERROR_1, 'Invalid request method.');
+            $this->response(405, $resData);
+        }
     }
 
 

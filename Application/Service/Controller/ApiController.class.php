@@ -20,7 +20,7 @@ use Think\Controller;
  * @author jian0307@icloud.com
  * @date 2015/11/2
  */
-class ApiController extends Controller
+class ApiController extends BaseController
 {
     /**
      * 1.1、设备登录/离线
