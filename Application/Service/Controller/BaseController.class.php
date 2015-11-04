@@ -34,12 +34,12 @@ class BaseController extends RestfulController
     {
         $this->time = time();
         $format = I('get.format');
-        if (isset($format)) {
+        if (isset($format) && !empty($format)) {
             $this->format = strtolower(Util::getSafeText(trim($format)));
         }
 
         if (IS_POST) {
-            echo "xxx";;
+            echo "xxx";
         } else {
             $resData = $this->getResponseData(self::__ILLEGAL_ERROR_1, 'Invalid request method.');
             $this->response(405, $resData, $this->format);

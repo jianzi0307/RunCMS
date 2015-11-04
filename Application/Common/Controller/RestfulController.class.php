@@ -248,8 +248,12 @@ class RestfulController extends Controller
      */
     protected function response($code = 200, $data = null, $type = 'json')
     {
+        $formatType = strtolower($type);
+        if (!array_key_exists($formatType, $this->allowResponseFormat)) {
+            $formatType = $this->defaultResourceType;
+        }
         $this->sendHttpStatus($code);
-        exit($this->dataFormat($data, strtolower($type)));
+        exit($this->dataFormat($data, $formatType));
     }
 
     /**
