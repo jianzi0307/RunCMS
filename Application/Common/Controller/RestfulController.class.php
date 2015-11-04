@@ -268,7 +268,7 @@ class RestfulController extends Controller
             $data = json_encode($data);
         } elseif (self::REQUEST_RESOURCE_XML == $type) {
             //返回xml格式数据
-            $data = xml_encode($data);
+            $data = xml_encode($data, 'root');
         } elseif (self::REQUEST_RESOURCE_PHP == $type) {
             $data = serialize($data);
         }

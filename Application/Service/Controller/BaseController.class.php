@@ -24,19 +24,25 @@ class BaseController extends RestfulController
      */
     protected $time;
 
+    /**
+     * 输出格式
+     * @var string
+     */
+    protected $format = 'json';
+
     public function _initialize()
     {
         $this->time = time();
+        $format = I('get.format');
+        if (isset($format)) {
+            $this->format = strtolower(Util::getSafeText(trim($format)));
+        }
 
         if (IS_POST) {
-            $format = I('get.format');
-            if (isset($format)) {
-                $format = strtolower(Util::getSafeText(trim($format)));
-
-            }
+            echo "xxx";;
         } else {
             $resData = $this->getResponseData(self::__ILLEGAL_ERROR_1, 'Invalid request method.');
-            $this->response(405, $resData);
+            $this->response(405, $resData, $this->format);
         }
     }
 
