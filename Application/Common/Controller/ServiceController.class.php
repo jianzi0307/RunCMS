@@ -19,21 +19,15 @@ use Lib\Util;
  */
 class ServiceController extends RestfulController
 {
+    const __ILLEGAL_ERROR_1 = -1;//非法操作
     const __TOKEN_ERROR_0 = -2;//token错误
     const __TOKEN_ERROR_1 = -3;//token过期
-    const __ILLEGAL_ERROR_1 = -1;//非法操作
 
     /**
      * mc操作句柄
      * @var
      */
     protected $mc;
-
-    /**
-     * 请求数据
-     * @var null
-     */
-    protected $requestBody = null;
 
     /**
      * 响应的数据格式 json、xml、php
@@ -49,10 +43,11 @@ class ServiceController extends RestfulController
 
     public function _initialize()
     {
+        //当前服务器时间
         $this->time = time();
-
+        //缓存句柄
         $this->mc = CacheModel::getMc('mcMain');
-
+        //判断要返回的数据格式 json、xml、php
         $format = I('get.format');
         if (isset($format)) {
             $this->format = strtolower(Util::getSafeText(trim($format)));
@@ -60,10 +55,8 @@ class ServiceController extends RestfulController
                 $this->format = 'json';
             }
         }
-        if (in_array(strtolower(REQUEST_METHOD), $this->allowRequestMethod)) {
-            $this->requestBody = I('post.body');
-
-        } else {
+        //不支持的请求方法
+        if (!in_array(strtolower(REQUEST_METHOD), $this->allowRequestMethod)) {
             $this->invalidRequestMethod();
         }
     }
@@ -76,21 +69,6 @@ class ServiceController extends RestfulController
     {
         $resData = $this->responseData(self::__ILLEGAL_ERROR_1, 'Invalid request method!');
         $this->response(405, $resData, $this->format);
-    }
-
-    /**
-     * 获取当前登录的用户信息
-     * @param string $token
-     * @return array
-     */
-    public function getUserInfo($token)
-    {
-        $token = $this->_checkToken($token);
-        if ($token) {
-            $userModel = M('UserModel');
-            return $userInfo  = $userModel->getUserById($token['userId']);
-        }
-        return null;
     }
 
     /**
@@ -134,7 +112,10 @@ class ServiceController extends RestfulController
             return -1;
         }
         //24小时续期
-        if ($arr[1] < $this->time-C('TOKEN_REFRESH_TIME')) {
+//        println('当前服务器时间：'.$this->time,false);
+//        println('时间差：'$this->time-$arr[1],false);
+//        print_r(C('TOKEN_REFRESH_TIME'));die;
+        if ($this->time-$arr[1] > C('TOKEN_REFRESH_TIME')) {
             return array('userId'=>$arr[0],'mktime' =>$arr[1], 'refresh_token' =>$this->_createToken($arr[0]));
         }
         return array('userId'=>$arr[0],'mktime'=>$arr[1]);
