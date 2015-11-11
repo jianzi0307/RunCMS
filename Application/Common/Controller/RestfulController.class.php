@@ -19,6 +19,7 @@ class RestfulController extends Controller
     const REQUEST_RESOURCE_JSON = 'json';
     const REQUEST_RESOURCE_XML = 'xml';
     const REQUEST_RESOURCE_PHP = 'php';
+    const REQUEST_RESOURCE_JSONP = 'jsonp';
 
     public static $mimeType = array(
         'html'  =>  'text/html,application/xhtml+xml,*/*',
@@ -129,7 +130,8 @@ class RestfulController extends Controller
     protected $allowRequestResourceType = array(
         self::REQUEST_RESOURCE_JSON,
         self::REQUEST_RESOURCE_XML,
-        self::REQUEST_RESOURCE_PHP
+        self::REQUEST_RESOURCE_PHP,
+        self::REQUEST_RESOURCE_JSONP
     );
 
     /**
@@ -139,7 +141,8 @@ class RestfulController extends Controller
     protected $allowResponseFormat = array(
         self::REQUEST_RESOURCE_XML => 'application/xml',
         self::REQUEST_RESOURCE_JSON => 'application/json',
-        self::REQUEST_RESOURCE_PHP => 'text/plain'
+        self::REQUEST_RESOURCE_PHP => 'text/plain',
+        self::REQUEST_RESOURCE_JSONP => 'application/json'
     );
 
     public function __construct()
@@ -271,6 +274,13 @@ class RestfulController extends Controller
             $data = xml_encode($data, 'root');
         } elseif (self::REQUEST_RESOURCE_PHP == $type) {
             $data = serialize($data);
+        } elseif (self::REQUEST_RESOURCE_JSONP == $type) {
+            $callback = trim($_GET['callback']);
+            if (empty($callback)) {
+                $this->sendHttpStatus(400);
+                exit('Empty jsonp callback name.');
+            }
+            $data = $callback.'('.json_encode($data).')';
         }
         //默认直接输出
         $this->setContentType($type);
@@ -289,6 +299,12 @@ class RestfulController extends Controller
             header('HTTP/1.1 ' . $code . ' ' . $status);
             // 确保FastCGI模式下正常
             header('Status:' . $code . ' ' . $status);
+            //JSONP请求不添加Access-Control-Allow-Origin头
+            if (!$_GET['format'] ||
+                ($_GET['format'] && strtolower($_GET['format']) != self::REQUEST_RESOURCE_JSONP)) {
+                //TODO：Access-Control-Allow-Origin为*，这里安全性需要考虑
+                header('Access-Control-Allow-Origin: *');
+            }
         }
     }
 

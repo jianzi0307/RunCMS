@@ -132,6 +132,16 @@ class ServiceController extends RestfulController
     }
 
     /**
+     * 自动判断返回的数据格式
+     * @param int $code
+     * @param null $data
+     */
+    public function response($code = 200, $data = null)
+    {
+        parent::response($code, $data, $this->format);
+    }
+
+    /**
      * 响应的数据
      * {
      *      "errno" => 0,
