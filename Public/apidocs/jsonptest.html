@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            //注册接口测试JSONP
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/reg?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body": {
+                        "username": "13154334566",
+                        "password": "123456",
+                        "mobileType": 1,
+                        "mobileDid": "071527dc32a"
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+
+            //登陆
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/login?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body": {
+                        "username": "13154334566",
+                        "password": "123456",
+                        "mobileType": 1,
+                        "mobileDid": "asdfsadfgg"
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+
+            //修改密码
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/resetpassword?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body":
+                    {
+                        "token": "VuJCVoKCgoIk7/yP/pX+mc4nnWj0ux50eVfX1BPPCuTECWAWRRMtabcFv11fggLOOmSJDCUjWA83q3gHD88o/vzbD97Zc0qBpglw",
+                        "old_password": "123456",
+                        "new_password": "111111"
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+
+            //绑定用户
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/binduser?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body":
+                    {
+                        "token": "VuJCVoKCgoIk7/yP/pX+mc4nnWj0ux50eVfX1BPPCuTECWAWRRMtabcFv11fggLOOmSJDCUjWA83q3gHD88o/vzbD97Zc0qBpglw",
+                        "bind_user": [
+                            {
+                                "platform": 1,
+                                "bind_account_name": "Songg",
+                                "bind_account_password": "123456"
+                            }
+                        ]
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+
+            //解除用户绑定
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/unbinduser?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body":
+                    {
+                        "token": "VuJCVoKCgoIk7/yP/pX+mc4nnWj0ux50eVfX1BPPCuTECWAWRRMtabcFv11fggLOOmSJDCUjWA83q3gHD88o/vzbD97Zc0qBpglw",
+                        "unbind_user": [
+                            {
+                                "platform": 1,
+                                "unbind_account_name": "Songg"
+                            }
+                        ]
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+
+            //绑定用户信息
+            /*$.ajax({
+                type: "GET",
+                async: true,
+                url: "http://192.168.1.135:81/service/app/getbindinfo?format=jsonp",
+                dataType: "jsonp",
+                //contentType: 'application/x-www-form-urlencoded',
+                data:{
+                    "body":
+                    {
+                        "token": "X/RCVuPj4+NjYoEKMTNEVjZLbNx9W6dvrcFVrEr6mjPUaPHk3ailQCA2Xz+K0NuHIkyNK8uxvuXf7ozj0G1hkiH6Qwa60NhiINTQ"
+                    }
+                },
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });*/
+            //AJAX+JSON+POST的跨域方案，需要server开放Access-Control-Allow-Origin为*
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "http://192.168.1.135:81/service/app/reg",
+                crossDomain: true,
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                data:JSON.stringify({
+                    "username": "13688334566",
+                    "password": "123456",
+                    "mobileType": 1,
+                    "mobileDid": "071527dc32a"
+                }),
+                success: function(json){
+                    console.log(json);
+                },
+                error: function(){
+                    alert('fail');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
