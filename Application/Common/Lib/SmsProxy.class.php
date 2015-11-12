@@ -2,14 +2,14 @@
 /**
  * ----------------------
  * SmsProxy.class.php
- * 
+ *
  * User: jian0307@icloud.com
  * Date: 2015/4/17
  * Time: 17:28
  * ----------------------
  */
-
 namespace Lib;
+
 use Lib\SmsLib\ISms;
 use Lib\SmsLib\ResponseData;
 use Lib\SmsLib\Sms189\CustomSms;
@@ -22,7 +22,8 @@ use Think\Exception;
  *
  * @package Lib
  */
-class SmsProxy implements ISms {
+class SmsProxy implements ISms
+{
     //---------------平台类型--------------------
     /**
      * 天翼自定义验证码
@@ -72,7 +73,8 @@ class SmsProxy implements ISms {
     /**
      * 生成实例
      */
-    static public function createInstance() {
+    public static function createInstance()
+    {
         return new SmsProxy();
     }
 
@@ -82,10 +84,11 @@ class SmsProxy implements ISms {
      * @throws Exception
      * @return null
      */
-    public function setConf($config) {
+    public function setConf($config)
+    {
         $this->smsConfig = $config;
         $this->smsType = $this->smsConfig['smsType'];
-        switch($this->smsType) {
+        switch ($this->smsType) {
             case self::_SMS189_CUSTOM_:
                 /*  array(
                         //类型为天翼自定义验证码方式
@@ -146,7 +149,8 @@ class SmsProxy implements ISms {
      * @param int $sceneType 场景ID
      * @return ResponseData 返回ResponseData格式数据
      */
-    public function send($mobile,$message = null,$sceneType = 0) {
+    public function send($mobile, $message = null, $sceneType = 0)
+    {
         $response = new ResponseData();
         //验证手机格式
         if (!preg_match('/^1[\d]{10}$/', $mobile)){
@@ -158,15 +162,15 @@ class SmsProxy implements ISms {
         $cacheId = $this->cacheSmsPrefix.$mobile.'_'.$sceneType;
         //短信频繁度验证避免浪费短信包同一号码30秒只能发1次
         $verifySms = json_decode(S($cacheId));
-        if( $verifySms && $verifySms->ctime > time() - 30) {
+        if ($verifySms && $verifySms->ctime > time() - 30) {
             $response->code = ResponseData::__REQUEST_ERROR__;
             $response->message = "请求太频繁";
             $response->data = null;
             return $response;
         }
         //dump($mobile.$message.$sceneType);exit;
-        $response = $this->smsEntity->send($mobile,$message,$sceneType);
-        if( $response && $response->code == 0 ) {
+        $response = $this->smsEntity->send($mobile, $message, $sceneType);
+        if ($response && $response->code == 0) {
             $jsonAry = array(
                 'mobile' => $mobile,
                 'message' => $this->getSmsCode(),
@@ -175,7 +179,7 @@ class SmsProxy implements ISms {
                 'ip' => get_client_ip()
             );
             //发送成功缓存验证码信息，只缓存5分钟
-            S($cacheId,json_encode($jsonAry),300);
+            S($cacheId, json_encode($jsonAry), 300);
         }
         return $response;
     }
@@ -185,7 +189,8 @@ class SmsProxy implements ISms {
      * @param int $len
      * @return null
      */
-    public function createSmsCode( $len = 6 ) {
+    public function createSmsCode($len = 6)
+    {
         return $this->smsEntity->createSmsCode( $len );
     }
 
@@ -193,7 +198,8 @@ class SmsProxy implements ISms {
      * 获取验证码
      * @return string
      */
-    public function getSmsCode() {
+    public function getSmsCode()
+    {
         return $this->smsEntity->getSmsCode();
     }
 
@@ -201,7 +207,8 @@ class SmsProxy implements ISms {
      * 获取生成时间戳
      * @return int
      */
-    public function getSendTimestamp() {
+    public function getSendTimestamp()
+    {
         return $this->smsEntity->getSendTimestamp();
     }
 
@@ -209,7 +216,8 @@ class SmsProxy implements ISms {
      * 获取场景ID
      * @return int
      */
-    public function getSceneType() {
+    public function getSceneType()
+    {
         return $this->smsEntity->getSceneType();
     }
 
@@ -221,7 +229,8 @@ class SmsProxy implements ISms {
      * @param int $timeout 超时时间，单位秒，默认120秒（2分钟）
      * @return bool
      */
-    public function chkSmsVerify($mobile,$message,$sceneType,$timeout = 120) {
+    public function chkSmsVerify($mobile,$message,$sceneType,$timeout = 120)
+    {
         $cacheId = $this->cacheSmsPrefix.$mobile.'_'.$sceneType;
         $verifySms = json_decode(S($cacheId));
         if( $verifySms ) {

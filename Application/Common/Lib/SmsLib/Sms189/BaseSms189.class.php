@@ -8,9 +8,7 @@
  * Time: 23:32
  * ----------------------
  */
-
 namespace Lib\SmsLib\Sms189;
-
 
 use Lib\SmsLib\BaseSms;
 
@@ -19,7 +17,8 @@ use Lib\SmsLib\BaseSms;
  *
  * @package Lib\SmsLib\Sms189
  */
-class BaseSms189 extends BaseSms {
+class BaseSms189 extends BaseSms
+{
 
     /**
      * 应用ID
@@ -61,7 +60,8 @@ class BaseSms189 extends BaseSms {
      * 配置
      * @param $config
      */
-    public function setConf($config) {
+    public function setConf($config)
+    {
         parent::setConf($config);
 
         $this->app_id = $config['app_id'];
@@ -75,8 +75,9 @@ class BaseSms189 extends BaseSms {
      * @param int $sceneType
      * @return string
      */
-    public function send( $mobile,$message = null,$sceneType = 1) {
-        parent::send($mobile,$message,$sceneType);
+    public function send($mobile, $message = null, $sceneType = 1)
+    {
+        parent::send($mobile, $message, $sceneType);
     }
 
     /**
@@ -85,12 +86,13 @@ class BaseSms189 extends BaseSms {
      * @see http://open.189.cn/index.php?m=content&c=index&a=lists&catid=62
      * @return string
      */
-    protected function getAccessKey() {
+    protected function getAccessKey()
+    {
         $param['grant_type']= "grant_type=".$this->grant_type;
         $param['app_id'] = "app_id=".$this->app_id;
         $param['app_secret'] = "app_secret=".$this->app_secret;
-        $plaintext = implode("&",$param);
-        $result = $this->curl_post($this->access_token_url,$plaintext);
+        $plaintext = implode("&", $param);
+        $result = $this->curl_post($this->access_token_url, $plaintext);
         $res = json_decode($result);
         /*{
             //获取到的访问令牌（AT或UIAT）
@@ -110,7 +112,8 @@ class BaseSms189 extends BaseSms {
      * @param string $url
      * @return mixed
      */
-    protected function curl_get($url=''){
+    protected function curl_get($url='')
+    {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -125,7 +128,8 @@ class BaseSms189 extends BaseSms {
      * @param string $postdata
      * @return mixed
      */
-    protected function curl_post($url='', $postdata=''){
+    protected function curl_post($url = '', $postdata = '')
+    {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
