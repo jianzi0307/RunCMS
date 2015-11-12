@@ -8,7 +8,6 @@
  * Time: 17:52
  * ----------------------
  */
-
 namespace Lib\SmsLib\Sms189;
 
 /**
@@ -19,8 +18,8 @@ namespace Lib\SmsLib\Sms189;
  * @see http://open.189.cn/index.php?m=api&c=index&a=show&id=873
  * @package Lib\SmsLib\Sms189
  */
-class TemplateSms extends BaseSms189 {
-
+class TemplateSms extends BaseSms189
+{
     /**
      * 短信模板ID，到短信模板申请页面查看
      * @var
@@ -33,7 +32,8 @@ class TemplateSms extends BaseSms189 {
      */
     private $template_param_tpl;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->grant_type = GrantType::CLIENT_CREDENTIALS;
@@ -58,7 +58,8 @@ class TemplateSms extends BaseSms189 {
      *       'template_param_tpl' => {"code":"%s","timeout":"%s"}
      *   )
      */
-    public function setConf($config) {
+    public function setConf($config)
+    {
         parent::setConf($config);
 
         $this->template_id = $config['template_id'];
@@ -72,12 +73,13 @@ class TemplateSms extends BaseSms189 {
      * @param int $sceneType
      * @return string
      */
-    public function send($mobile,$message = null,$sceneType = 1) {
-        parent::send($mobile,$message,$sceneType);
+    public function send($mobile, $message = null, $sceneType = 1)
+    {
+        parent::send($mobile, $message, $sceneType);
 
-        $time = date('Y-m-d H:i:s',$this->timestamp);
+        $time = date('Y-m-d H:i:s', $this->timestamp);
         $access_token = $this->getAccessKey();
-        $template_param = sprintf($this->template_param_tpl,$this->message,'2');
+        $template_param = sprintf($this->template_param_tpl, $this->message, '2');
         $post_data = array(
             'app_id'            => $this->app_id,
             'access_token'      => $access_token,
@@ -87,11 +89,13 @@ class TemplateSms extends BaseSms189 {
             'timestamp'         => $time
         );
         $require_str = urldecode(http_build_query($post_data));
-        $response_str = $this->curl_post($this->send_url,$require_str);
+        $response_str = $this->curl_post($this->send_url, $require_str);
         $res = json_decode($response_str);
         //{"res_code": "0","res_message": "Success","identifier": "000000001"}
         $this->response->code = $res->res_code;
-        $this->response->message = in_array($res->res_code,ErrorCode::$_ERROR_NO_) ? ErrorCode::$_ERROR_NO_[$res->res_code] : '未知错误';
+        $this->response->message = in_array($res->res_code, ErrorCode::$_ERROR_NO_)
+            ? ErrorCode::$_ERROR_NO_[$res->res_code]
+            : '未知错误';
         $this->response->data = $res;
         return $this->response;
     }
