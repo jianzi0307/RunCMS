@@ -1,6 +1,6 @@
 # RunCMS
 
-轻量级的php开发框架，采用分层体系架构，适合大中型网站架构。
+An open source content management system, allows for faster and easier management of website content.
 
 TODO list:
 ---
