@@ -27,7 +27,8 @@
     "PHPOffice/PHPExcel": "1.8.*",
     "gigablah/sphinxphp": "2.1.x-dev",
     "asar/anodoc" : "0.1.1",
-    "dompdf/dompdf" : "0.6.*"
+    "dompdf/dompdf" : "0.6.*",
+    "katzgrau/klogger": "dev-master"
   },
   "minimum-stability": "dev"
 }
