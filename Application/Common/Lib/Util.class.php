@@ -9,7 +9,6 @@
  * ----------------------
  */
 namespace Lib;
-
 use Lib\EncryptLib\Aes;
 
 /**
@@ -19,7 +18,7 @@ class Util
 {
     /**
      * AES加密
-     * @param $str 待加密的串
+     * @param string $str 待加密的串
      * @return string
      */
     public static function aesEncode($str)
@@ -56,8 +55,11 @@ class Util
             case 'xml':
                 echo xml_encode($data, 'root');
                 break;
-            default:
+            case 'json':
                 echo json_encode($data);
+                break;
+            default:
+                exit("Invalid format type.");
                 break;
         }
         return $errno;
@@ -224,6 +226,7 @@ class Util
     }
 
     /**
+     * 生成hash目录
      * @param $basedir
      * @param int $num
      * @return int
@@ -589,6 +592,7 @@ class Util
     }
 
     /**
+     * 转为更可读的时间格式
      * @param $loginLast
      * @return string
      */
@@ -608,6 +612,10 @@ class Util
         }
     }
 
+    /**
+     * 输出过期头部
+     * @param int $lifetime
+     */
     public static function outputExpireHeader($lifetime = 300)
     {
         header("Expires: ".gmdate("D, d M Y H:i:s", time()+$lifetime)." GMT");
@@ -739,7 +747,8 @@ class Util
     }
 
     /**
-     * @param $string
+     * 判断字符串是否utf8
+     * param $string
      * @return int
      */
     public static function isUtf8($string)
@@ -893,5 +902,67 @@ class Util
             return $result;
         }
         return false;
+    }
+
+    /**
+     * 模拟GET
+     * @param $url
+     * @param array $params
+     * @return bool|mixed
+     */
+    public static function get($url, $params = array())
+    {
+        if (empty($url) || !is_array($params)) {
+            return false;
+        }
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        $paramStr = '';
+        if (count($params)) {
+            foreach ($params as $k => $v) {
+                $paramStr.=(empty($paramStr) ? '' : '&') . $k . '=' . $v;
+            }
+        }
+        $url.=empty($paramStr) ? '' : '?' . $paramStr;
+        curl_setopt($curl, CURLOPT_URL, $url);
+        $result = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        if ($info['http_code'] == 200) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 模拟POST
+     * @param $url
+     * @param $params
+     * @return bool|mixed
+     */
+    public static function post($url, $params = null)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        if ($params) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        }
+        $result = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        if ($info['http_code'] == 200) {
+            return $result;
+        } else {
+            return false;
+        }
     }
 }

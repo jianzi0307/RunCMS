@@ -8,9 +8,7 @@
  * Time: 10:02
  * ----------------------
  */
-
 namespace Lib\SmsLib\SmsEdmcn;
-
 
 use Lib\SmsLib\BaseSms;
 
@@ -18,7 +16,8 @@ use Lib\SmsLib\BaseSms;
  * 美橙短信平台
  * @package Lib\SmsLib\SmsEdmcn
  */
-class EdmSms extends BaseSms {
+class EdmSms extends BaseSms
+{
 
     /**
      * 短信系统平台用户名即管理名称
@@ -77,7 +76,8 @@ class EdmSms extends BaseSms {
      *  'suffix' => '华友汇'
      * );
      */
-    public function setConf($config) {
+    public function setConf($config)
+    {
         parent::setConf($config);
 
         $this->username = $config['username'];
@@ -94,10 +94,11 @@ class EdmSms extends BaseSms {
      * @param int $sceneType 场景ID
      * @return string
      */
-    public function send($mobile,$message = null,$sceneType = 1) {
-        parent::send($mobile,$message,$sceneType);
+    public function send($mobile, $message = null, $sceneType = 1)
+    {
+        parent::send($mobile, $message, $sceneType);
 
-        $content = sprintf($this->content_tpl,$message,$this->suffix);
+        $content = sprintf($this->content_tpl, $message, $this->suffix);
         $content = urlencode($content);
         //当前格林尼治时间戳
         $time = $this->timestamp - 8 * 3600;
@@ -112,7 +113,7 @@ class EdmSms extends BaseSms {
         );
         $code = $this->triggerSms($options);
         $this->response->code = $code == 1 ? 0 : $code;
-        $this->response->message = in_array($code,$this->msg_arr) ?$this->msg_arr[$code] : '未知错误';
+        $this->response->message = in_array($code, $this->msg_arr) ? $this->msg_arr[$code] : '未知错误';
         $this->response->data = null;
         return $this->response;
     }
@@ -122,7 +123,8 @@ class EdmSms extends BaseSms {
      * @param array $data
      * @return string
      */
-    private function triggerSms(Array $data = array()) {
+    private function triggerSms(array $data = array())
+    {
         /*反馈信息
 		$msg_arr = array(1 => '发送成功',2 => '参数不正确',3 => '验证失败',4 => '用户名或密码错误',
 						 5 => '数据库操作失败',6 => '余额不足',7 => '内容不符合格式',8 => '频率超限',
@@ -133,11 +135,15 @@ class EdmSms extends BaseSms {
         $port = isset($row['port']) ? $row['port']:80;
         $file = $row['path'];
         $post = '';
-        while (list($k,$v) = each($data)) $post .= $k."=".$v."&";
-        $post = substr( $post , 0 , -1 );
+        while (list($k,$v) = each($data)) {
+            $post .= $k."=".$v."&";
+        }
+        $post = substr($post, 0, -1);
         $len = strlen($post);
-        $fp = @fsockopen($host ,$port, $errno, $errstr, 10);
-        if(!$fp) return "connect error";
+        $fp = @fsockopen($host, $port, $errno, $errstr, 10);
+        if (!$fp) {
+            return "connect error";
+        }
         $receive = '';
         $out = "POST $file HTTP/1.0\r\n";
         $out .= "Host: $host\r\n";
@@ -150,8 +156,8 @@ class EdmSms extends BaseSms {
             $receive .= fgets($fp, 128);
         }
         fclose($fp);
-        $receive = explode("\r\n\r\n",$receive);
+        $receive = explode("\r\n\r\n", $receive);
         unset($receive[0]);
-        return implode("",$receive);
+        return implode("", $receive);
     }
 }

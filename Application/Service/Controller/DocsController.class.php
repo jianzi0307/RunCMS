@@ -23,13 +23,20 @@ class DocsController extends Controller
     //过滤掉相关类文件
     private $fileFilter = array('BaseController','Docs');
     //过滤掉的方法
-    private $methodFilter = array();
+    private $methodFilter = array(
+        '_initialize',
+        '__call',
+        'setContentType',
+        '__set',
+        'get',
+        '__get',
+        '__isset'
+    );
     //缓存接口信息
     private $classMethods = array();
 
     public function _initialize()
     {
-        //parent::_initialize();
         $this->initData();
         //print_r($this->classMethods);exit;
     }
@@ -90,7 +97,6 @@ class DocsController extends Controller
             $anodoc = Anodoc::getNew();
             $classDoc = $anodoc->getDoc($class);
             $classInfo = $classDoc->getMainDoc();
-
             $ref = new \ReflectionClass(new $class);
 
             $clsName = end(explode('\\', $class));
@@ -106,7 +112,13 @@ class DocsController extends Controller
             );
 
             foreach ($ref->getMethods() as $method) {
+                if ($method->isConstructor() || $method->isDestructor()) {
+                    continue;
+                }
                 if ($method->isUserDefined() && $method->isPublic()) {
+                    if (in_array($method->name, $this->methodFilter)) {
+                        continue;
+                    }
                     $apiFullUrl = $apiUrl.'/'.$method->name;
                     //排除掉两级父类的类属性
                     $pcls = $ref->getParentClass();

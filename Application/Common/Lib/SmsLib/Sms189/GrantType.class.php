@@ -8,7 +8,6 @@
  * Time: 0:00
  * ----------------------
  */
-
 namespace Lib\SmsLib\Sms189;
 
 /**
@@ -17,7 +16,8 @@ namespace Lib\SmsLib\Sms189;
  * @see http://open.189.cn/index.php?m=content&c=index&a=lists&catid=62
  * @package Lib\SmsLib\Sms189
  */
-class GrantType {
+class GrantType
+{
     /**
      * AC授权模式
      */

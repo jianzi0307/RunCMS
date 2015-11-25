@@ -2,23 +2,23 @@
 /**
  * ----------------------
  * Qrcode.class.php
- * 
+ *
  * User: jian0307@icloud.com
  * Date: 2015/4/25
  * Time: 15:52
  * ----------------------
  */
-
 namespace Lib\WechatLib;
-use Lib\HttpClient;
 
+use Lib\Util;
 
 /**
  * 获取带参数的二维码类
  *
  * @package Lib\WechatLib
  */
-class Qrcode {
+class Qrcode
+{
 
     /**
      * 生成二维码票据（ticket）的接口
@@ -50,11 +50,12 @@ class Qrcode {
      * @return bool|mixed
      * @see http://mp.weixin.qq.com/wiki/18/28fc21e7ed87bec960651f0ce873ef8a.html
      */
-    static public function createQrcodeTicket($sceneId,$expire_seconds = 604800) {
+    public static function createQrcodeTicket($sceneId, $expire_seconds = 604800)
+    {
         $cache_id = 'temp_qrcode_ticket_%s';
-        $query_url = sprintf(self::$qrcode_ticket_url,AccessToken::getAccessToken());
+        $query_url = sprintf(self::$qrcode_ticket_url, AccessToken::getAccessToken());
         $data = self::_checkQrcodeTicket($sceneId);
-        if( $data === false ) {
+        if ($data === false) {
             $post_ary = array(
                 'expire_seconds' => $expire_seconds,
                 'action_name' => 'QR_SCENE',
@@ -65,11 +66,11 @@ class Qrcode {
                 )
             );
             $post_data = json_encode($post_ary);
-            $data = HttpClient::post($query_url,$post_data);
-            $data = json_decode($data,true);
+            $data = Util::post($query_url, $post_data);
+            $data = json_decode($data, true);
             $data['atime'] = time();
             $dataJson = json_encode($data);
-            S(sprintf($cache_id,$sceneId),$dataJson);
+            S(sprintf($cache_id, $sceneId), $dataJson);
         }
         return $data;
     }
@@ -79,13 +80,14 @@ class Qrcode {
      * @param $sceneId
      * @return bool|mixed
      */
-    static private function _checkQrcodeTicket($sceneId) {
+    private static function _checkQrcodeTicket($sceneId)
+    {
         $cache_id = 'temp_qrcode_ticket_%s';
         //获取access_token
-        $data = S(sprintf($cache_id,$sceneId));
-        if(!empty($data)){
+        $data = S(sprintf($cache_id, $sceneId));
+        if (!empty($data)) {
             $ticket = json_decode($data, true);
-            if(time() - $ticket['atime'] < $ticket['expire_seconds']-10){
+            if (time() - $ticket['atime'] < $ticket['expire_seconds']-10) {
                 return $ticket;
             }
         }
@@ -108,19 +110,20 @@ class Qrcode {
      * )
      * @see http://mp.weixin.qq.com/wiki/18/28fc21e7ed87bec960651f0ce873ef8a.html
      */
-    static public function createQrcodeLimitTicket($sceneValue,$sceneType ) {
-        $query_url = sprintf(self::$qrcode_ticket_url,AccessToken::getAccessToken());
+    public static function createQrcodeLimitTicket($sceneValue, $sceneType)
+    {
+        $query_url = sprintf(self::$qrcode_ticket_url, AccessToken::getAccessToken());
         $post_ary = array();
-        if( $sceneType == 1 ) {
+        if ($sceneType == 1) {
             $post_ary['action_name'] = 'QR_LIMIT_SCENE';
             $post_ary['action_info']['scene']['scene_id'] = $sceneValue;
-        } else if( $sceneType == 2 ) {
+        } elseif ($sceneType == 2) {
             $post_ary['action_name'] = 'QR_LIMIT_STR_SCENE';
             $post_ary['action_info']['scene']['scene_str'] = $sceneValue;
         }
         $post_data = json_encode($post_ary);
-        $res_data = HttpClient::post($query_url,$post_data);
-        $res_data = json_decode($res_data,true);
+        $res_data = Util::post($query_url, $post_data);
+        $res_data = json_decode($res_data, true);
         return $res_data;
     }
 
@@ -132,11 +135,12 @@ class Qrcode {
      * @return bool|mixed
      * @see http://mp.weixin.qq.com/wiki/18/28fc21e7ed87bec960651f0ce873ef8a.html
      */
-    static public function getQrcodeByTicket( $ticket ,$filepath = '' ) {
-        $query_url = sprintf(self::$show_qrcode_url,urlencode($ticket));
-        $qrcode = HttpClient::get($query_url);
-        if( !empty($filepath) ) {
-            file_put_contents($filepath,$qrcode);
+    public static function getQrcodeByTicket($ticket, $filepath = '')
+    {
+        $query_url = sprintf(self::$show_qrcode_url, urlencode($ticket));
+        $qrcode = Util::get($query_url);
+        if (!empty($filepath)) {
+            file_put_contents($filepath, $qrcode);
         }
         return $qrcode;
     }
@@ -148,8 +152,9 @@ class Qrcode {
      * @return string
      * @see http://mp.weixin.qq.com/wiki/18/28fc21e7ed87bec960651f0ce873ef8a.html
      */
-    static public function getQrcodeUrlByTicket( $ticket ) {
-        $query_url = sprintf(self::$show_qrcode_url,urlencode($ticket));
+    public static function getQrcodeUrlByTicket($ticket)
+    {
+        $query_url = sprintf(self::$show_qrcode_url, urlencode($ticket));
         return $query_url;
     }
 
@@ -165,13 +170,14 @@ class Qrcode {
      * {"errcode":0,"errmsg":"ok","short_url":"http:\/\/w.url.cn\/s\/AvCo6Ih"}
      * @see http://mp.weixin.qq.com/wiki/10/165c9b15eddcfbd8699ac12b0bd89ae6.html
      */
-    static public function toShortUrl( $url ) {
-        $query_url = sprintf(self::$long_to_short_url,AccessToken::getAccessToken());
+    public static function toShortUrl($url)
+    {
+        $query_url = sprintf(self::$long_to_short_url, AccessToken::getAccessToken());
         $post_ary = array(
             'long_url' => $url,
             'action' => 'long2short'
         );
         $post_data = json_encode($post_ary);
-        return HttpClient::post($query_url,$post_data);
+        return Util::post($query_url, $post_data);
     }
 }

@@ -13,15 +13,15 @@ return array(
     /** API网关地址 */
     'API_GATEWAY'       => 'http://jdy.t.com/service/',
 
-    /** TOKEN过期时间，最长30分钟，最短20分钟无操作过期,单位秒 */
-    'TOKEN_TIMEOUT'     => 1800,
+    /** TOKEN过期时间,一周失效,单位秒 */
+    'TOKEN_EXPIRES_IN'     => 604800,
 
-    /** TOKEN 10分钟续期一次 */
-    'TOKEN_RENEW_TIME'  => 600,
+    /** TOKEN 24小时续期一次, 单位秒 */
+    'TOKEN_REFRESH_TIME'  => 86400,
 
-    /* TOKEN干扰码 */
-    'TOKEN_DISTURB_KEY' => "Hello, I am verification code",
+    /** TOKEN干扰码 */
+    'TOKEN_DISTURB_CODE' => "YKL*&2^KLJ12G%KPi&$",
 
-    /* AES加密设置 */
+    /** AES加密设置 */
     'AES_KEY'           =>  '57256ec1110fed1a20a9e9a8663d3752'//AES密钥
 );
