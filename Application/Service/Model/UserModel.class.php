@@ -1,7 +1,7 @@
 <?php
 /**
  * ----------------------
- * UsersModel.class.php
+ * UserModel.class.php
  *
  * User: jian0307@icloud.com
  * Date: 2015/4/15
