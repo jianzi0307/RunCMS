@@ -15,6 +15,12 @@ use Common\Controller\ServiceController;
 class BaseController extends ServiceController
 {
     /**
+     * 日志
+     * @var \Katzgrau\KLogger\Logger
+     */
+    protected $logger;
+
+    /**
      * 请求的JSON数据
      * @var string
      */
@@ -98,5 +104,25 @@ class BaseController extends ServiceController
             $this->response(403, $resData);
         }
         return $tokenCache;
+    }
+
+    /**
+     * 普通日志
+     * @param $api
+     * @param $msg
+     */
+    protected function infoLogs($api, $msg)
+    {
+        $this->logger->info($api. ":: ".$msg);
+    }
+
+    /**
+     * 错误日志
+     * @param string $api 方法名
+     * @param string $msg 信息
+     */
+    protected function errorLogs($api, $msg)
+    {
+        $this->logger->error($api. ":: ". $msg);
     }
 }
