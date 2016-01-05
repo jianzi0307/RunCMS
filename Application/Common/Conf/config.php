@@ -14,7 +14,7 @@
 // 
 return array(
     //主域名
-    'SITE_DOMAIN'   => 'hyh.cc',
+    'SITE_DOMAIN'   => 'idoulai.com',
 
     //是否开启登录验证码
     'OPEN_CAPTCHA' => false,
@@ -46,6 +46,11 @@ return array(
 
     // 禁止访问的模块列表
     'MODULE_DENY_LIST'  =>  array('Common','Runtime'),
+
+    // 模块映射
+    'URL_MODULE_MAP' => array(
+        'uc' => 'Service'
+    ),
 
     //公共数据库配置
     'DB_TYPE'               =>  'mysqli',     // 数据库类型
