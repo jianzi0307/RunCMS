@@ -16,6 +16,9 @@ return array(
     //主域名
     'SITE_DOMAIN'   => 'hyh.cc',
 
+    //是否开启登录验证码
+    'OPEN_CAPTCHA' => false,
+
     //是否开启令牌验证 默认关闭
     'TOKEN_ON'      => true,
     //令牌验证的表单隐藏字段名称，默认为__hash__
