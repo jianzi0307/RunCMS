@@ -61,6 +61,7 @@ class LoginController extends BaseController
         if ($user->isLogin()) {
             exit($this->success('已经登录!', '/Admin/System/Index'));
         }
+        $this->assign('isShowCaptcha', C('OPEN_CAPTCHA'));
         $this->display();
     }
 
@@ -80,15 +81,19 @@ class LoginController extends BaseController
     {
         $uname = Util::getSafeText(trim(I('post.username')));
         $upasswd = I('post.password');
-        $captcha = Util::getSafeText(trim(I('post.captcha')));
-        if (empty($captcha)) {
-            exit(Util::response(self::__ERROR__5, "验证码不能为空"));
+
+        if (C('OPEN_CAPTCHA')) {
+            $captcha = Util::getSafeText(trim(I('post.captcha')));
+            if (empty($captcha)) {
+                exit(Util::response(self::__ERROR__5, "验证码不能为空"));
+            }
+            $this->captcha->setPhrase($_SESSION['_phrase']);
+            $chkCaptcha = $this->captcha->testPhrase($captcha);
+            if (!$chkCaptcha) {
+                exit(Util::response(self::__ERROR__6, "验证码错误"));
+            }
         }
-        $this->captcha->setPhrase($_SESSION['_phrase']);
-        $chkCaptcha = $this->captcha->testPhrase($captcha);
-        if (!$chkCaptcha) {
-            exit(Util::response(self::__ERROR__6, "验证码错误"));
-        }
+
         if ($uname && $upasswd) {
             $uname = Util::getSafeText($uname);
             $upasswd = Util::getSafeText($upasswd);
