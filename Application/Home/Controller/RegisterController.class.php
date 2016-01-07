@@ -6,7 +6,7 @@
  * Time: 22:58
  */
 
-namespace Service\Controller;
+namespace Home\Controller;
 
 use Common\Controller\ServiceController;
 
@@ -14,6 +14,8 @@ class RegisterController extends ServiceController
 {
     public function index()
     {
+        $this->assign("siteAppName", "爱都来");
+        $this->assign("pageTitle", "用户注册");
         $this->display();
     }
 }

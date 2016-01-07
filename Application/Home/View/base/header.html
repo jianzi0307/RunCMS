@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>爱都来－用户中心</title>
+    <title>{$siteAppName}－{$pageTitle}</title>
     <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
     <!-- Loading Bootstrap -->
@@ -19,33 +19,12 @@
     <link href="/static/passport/plat-ui/css/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <!--<div class="container top">-->
-    <div class="container">
-        <a href="http://www.idoulai.com/">
-            <img src="/static/passport/plat-ui/img/logo.png" alt="爱都来">
-        </a></div>
-</div>
-<div class="row m-box">
-    <div class="container">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#">用户注册</a></li>
-        </ul>
+<block name="header">
+    <div class="header">
+        <div class="container">
+            <a href="{$siteDomain}">
+                <img src="/static/passport/plat-ui/img/logo.png" alt="{$siteAppName}">
+            </a>
+        </div>
     </div>
-</div>
-<div class="footer">
-    <div class="container">
-        <p class="products"><a href="">都来学</a> | <a href="">都来买</a> | <a href="">都来贷</a></p>
-        <hr/>
-        <p class="links">
-            <a href="">关于我们</a>
-            <a href="">联系我们</a>
-            <a href="" >人才招聘</a>
-            <a href="">广告服务</a>
-            <a href="">友情链接</a>
-        </p>
-        <p>Copyright©2015-2016 爱都来idoulai.com 版权所有</p>
-    </div>
-</div>
-</body>
-</html>
+</block>

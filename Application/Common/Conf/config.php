@@ -49,7 +49,7 @@ return array(
 
     // 模块映射
     'URL_MODULE_MAP' => array(
-        'uc' => 'Service'
+        'uc' => 'Home'
     ),
 
     //公共数据库配置
