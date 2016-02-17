@@ -28,28 +28,29 @@
                 </div>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label visible-ie8 visible-ie9">验证码：</label>
-            <div class="controls">
-                <div class="input-icon" style="float:left;">
-                    <input class="m-wrap small" type="text" placeholder="验证码" id="captcha" name="captcha"/>
-                </div>
-                <div class="captcha-box">
-                    <img id="captcha-pic" src="/assets/{$Think.config.DEFAULT_THEME}/image/blank.gif" />
-                    <div class="captcha-layer text-center hide">
-                        <img src="/assets/{$Think.config.DEFAULT_THEME}/image/loading.gif"/>
+        <if condition="$isShowCaptcha">
+            <div class="control-group">
+                <label class="control-label visible-ie8 visible-ie9">验证码：</label>
+                <div class="controls">
+                    <div class="input-icon" style="float:left;">
+                        <input class="m-wrap small" type="text" placeholder="验证码" id="captcha" name="captcha"/>
                     </div>
+                    <div class="captcha-box">
+                        <img id="captcha-pic" src="/assets/{$Think.config.DEFAULT_THEME}/image/blank.gif" />
+                        <div class="captcha-layer text-center hide">
+                            <img src="/assets/{$Think.config.DEFAULT_THEME}/image/loading.gif"/>
+                        </div>
+                    </div>
+                    <!--<a id="change-captcha" href="javascript:void(0);"><i class="icon-refresh big" style="cursor: hand;"></i> </a>-->
+                    <a id="change-captcha" href="javascript:void(0);">换一下 </a>
+                    <div class="clearfix"></div>
                 </div>
-                <!--<a id="change-captcha" href="javascript:void(0);"><i class="icon-refresh big" style="cursor: hand;"></i> </a>-->
-                <a id="change-captcha" href="javascript:void(0);">换一下 </a>
-
-                <div class="clearfix"></div>
             </div>
-        </div>
+        </if>
         <div class="form-actions">
             <button type="submit" class="btn green btn-block">登录 <i class="m-icon-swapright m-icon-white"></i></button>
         </div>
     </form>
-            <a href="{:U('regedit')}" id="register-btn">注册账号</a>
+    <a href="{:U('regedit')}" id="register-btn">注册账号</a>
     <!-- END LOGIN FORM -->
 </block>

@@ -1,0 +1,32 @@
+<extend name="base:layout" />
+<block name="content">
+    <div class="row m-box">
+        <div class="login-box">
+            <div class="container">
+                <div class="login-form">
+                    <h5>用户登录</h5>
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" value="" placeholder="邮箱／用户名／已验证手机" id="login-name" />
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control login-field" value="" placeholder="密码" id="login-pass" />
+                        <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" value="" placeholder="验证码" id="login-captcha" />
+                        <img id="captcha" src="data:image/jpeg;base64,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"/>
+                        <div style="margin:5px 0;">
+                            <div class="pull-left"><a class="login-link" href="/uc/findpwd">忘记登录密码?</a></div>
+                            <div class="pull-right"><a class="login-link" href="/uc/register?return={$returnUrl}">免费注册</a></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary btn-lg btn-block" href="#">登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

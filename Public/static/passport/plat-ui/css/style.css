@@ -1,0 +1,117 @@
+.header {
+    margin-top:40px;
+}
+.header-register {
+    padding-top:20px;
+    padding-bottom: 20px;
+    background-color: #f0f0f0;
+}
+.header-register .container a img{
+    height:35px;
+}
+.header-links a{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.m-box {
+    margin-top:20px;
+}
+.login-box {
+    background: url("../img/login/newyear.jpg") #87C6D6 no-repeat 20% 50%;
+    padding:40px;
+}
+.login-form {
+    width:400px;
+    float:right;
+}
+.login-form h5, .register-form h5 {
+    font-size: 22px;
+}
+.footer {
+    margin-top:20px;
+    text-align:center;
+    color:#999;
+}
+.footer p {
+    font-size:12px;
+}
+#captcha {
+    border-radius:5px;
+    cursor:pointer;
+    position: absolute;
+    z-index: 3;
+    left:0;
+    top:0;
+    height:40px;
+    width:150px;
+    margin-left:205px;
+}
+#login-captcha {
+    width:195px;
+}
+.footer p.products a {
+    font-size:14px;
+    margin:0 8px;
+}
+.footer p.links a {
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.register-form {
+    width: 500px;
+    margin: 10px auto;
+    /*background-color: #edeff1;*/
+    padding: 24px 23px 20px;
+    position: relative;
+    border-radius: 6px;
+}
+.register-form .control-group {
+    margin-bottom: 6px;
+    position: relative;
+}
+.register-form .form-field {
+    /*border-color: transparent;*/
+    border-left-style: none;
+    border-right-style: none;
+    border-top-style: none;
+    background-color: #fdfdfd;
+    font-size: 17px;
+    text-indent: 3px;
+}
+.register-form .form-field:focus {
+    border-color: #1abc9c;
+}
+.register-form .form-field:focus + .form-field-icon {
+    color: #1abc9c;
+}
+.register-form .form-field-icon {
+    color: #bfc9ca;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+}
+
+#findpwd-smscode-input {
+    width: 290px;
+    float: left;
+}
+
+#register-captcha-input, #findpwd-captcha-input {
+    width: 290px;
+    float: left;
+}
+
+#register-captcha-img, #findpwd-captcha-img {
+    border-radius: 8px;
+    width: 105px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+#findpwd-smscode-button {
+    margin-left: 10px;
+}
