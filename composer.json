@@ -15,7 +15,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "http://composer-proxy.jp/proxy/packagist"
+      "url": "https://packagist.phpcomposer.com"
     },
     {
       "packagist": false
